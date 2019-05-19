@@ -1,37 +1,26 @@
-## Welcome to GitHub Pages
+## Welcome to A to Z programming
 
-You can use the [editor on GitHub](https://github.com/atozprogramming/atozprogramming.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+Here you can find fun games such as [Snake Battle Royale](https://atozprogramming.github.io/CompactStandardSnake.html), a 3-player free-for-all competition to kill other snakes while targeting apples, all the while the board shrinks. As of now, no games or projects on this website utalize the cloud to provide online multiplayer games, so playing face-to-face will be common.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Game List
 
-### Markdown
+Instructions are included for each game, along with the page link. Have fun!
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+#### Snake Battle Royale
+The most popular game, [Snake Battle Royale](https://atozprogramming.github.io/CompactStandardSnake.html) pits you and 2 other players against each other as you all race for apples. It should also be kept in mind that a computer snake also competes.
+###### Scoring
+The objective of the game is to score the most pointsby the time all the snakes die. Every apple you eat is worth one point, and there is a bonus 2-point reward for the player who survives the longest. Keep in mind that the snake that survives the longest may not win, as s/he may have not eaten enough apples to surpass the other players.
+###### Controls
+Player1 (Blue) controls with the arrow keys
+Player2 (Red) controls with the WASD keys
+Player3 (Green) controls with the IJKL keys
+Player4 (Yellow) is a computer, and thus has no keyboard controls.
 
-```markdown
-Syntax highlighted code block
+Before the game begins, there is a 3-ish second countdown. If you press any of your control keys (other than right) before the game begins, you can toggle your skin. The skins are different for each player, and do not alter gameplay.
 
-# Header 1
-## Header 2
-### Header 3
+To restart the game, please refresh the page.
 
-- Bulleted
-- List
+#### More Games coming soon!
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Snake Game](https://atozprogramming.github.io/CompactStandardSnake.html).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/atozprogramming/atozprogramming.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### Related Projects
+No related projects for now...
