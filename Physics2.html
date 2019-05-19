@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Physics sim</title>
+    <style>
+        * {
+            PADDING: 0;
+            MARGIN: 0;
+        }
+
+        canvas {
+            background: #eee;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+        <link rel="stylesheet" href="./bootstrap.min.css">
+
+<script src='./MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+</head>
+
+<body>
+    <h1 style="text-align:center">Solar System</h1>
+    <h4>This solar system simulation is not fabricated, it uses real values. All number values used for the planets including 
+        their distances from the sun are scientifically accurate, just that they are divided by large 
+        numbers to fit them onto the canvas. </h4>
+    <canvas id="myCanvas" width="1200" height="600"></canvas>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        const ImgPlanRad = 3;
+        var earth = {
+            Radius: ImgPlanRad,
+            Mass: 5.973e24,
+            x: 1.496e11,
+            y: 0,
+            vX: 0,
+            vY: 3.0e4,
+            force: 0,
+            forceX: 0,
+            forceY: 0
+        };
+        var venus = {
+            Radius: ImgPlanRad,
+            Mass: 4.867e24,
+            x: 1.0820893e11,
+            y: 0,
+            vX: 0,
+            vY: 3.5e4
+        };
+        var mars = {
+            Radius: ImgPlanRad,
+            Mass: 6.39e23,
+            x: 2.279e11,
+            y: 0,
+            vX: 0,
+            vY: 2.4e4
+        };
+        var mercury = {
+            Radius: ImgPlanRad,
+            Mass: 3.3022e23,
+            x: 5.7e10,
+            y: 0,
+            vX: 0,
+            vY: 4.7872e4
+        };
+        //Mass measured in km, x in m, and velocity is m/s
+        var ballRadius = 2;
+        var x = 0;
+        var y = 0;
+        var vX = 0;
+        var vY = 0;
+        let day = 0; // for debug
+
+        //"Planet" = THE SUN
+        const PlanetRadius = 10;
+        const Gravity = 6.67408e-11 /*meters cubed, divided by KgS^-2*/;
+        const PlanetMass = 1.989e30;
+        //const BallMass = 5.973e24;
+        var BallMass = 1;
+        const TimeInt = 3600 * 6;
+        //86400 = 1 earth day
+        const PlanetX = 0;
+        const PlanetY = 0;
+        //y and x are ball Positions
+        //Planet Position is (600, 300)!
+
+        function distance(x, y, SunX, SunY) {
+            return Math.sqrt(Math.pow(SunY - y, 2) + Math.pow(SunX - x, 2));
+        }
+
+        function forceX(ballX, ballY, SunX, SunY) {
+            let d = distance(ballX, ballY, SunX, SunY);
+            let f = force(BallMass, PlanetMass, Gravity, x, y, SunX, SunY);
+            if(PlanetNum == 3){
+                earth.forceX = f * ((SunX - ballX) / d);
+            }
+            return f * ((SunX - ballX) / d);
+        }
+
+
+        function forceY(ballX, ballY, SunX, SunY) {
+            let d = distance(ballX, ballY, SunX, SunY);
+            let f = force(BallMass, PlanetMass, Gravity, x, y, SunX, SunY);
+            if(PlanetNum == 3){
+                earth.forceY = f * ((SunY - ballY) / d);
+            }
+            return f * ((SunY - ballY) / d);
+        }
+
+        function force(BallMass, PlanetMass, Gravity, x, y, SunX, SunY) {
+            let d = distance(x, y, SunX, SunY);
+            if(PlanetNum == 3){
+                earth.force = (BallMass * PlanetMass * Gravity) / Math.pow(d, 2);
+            }
+            return (BallMass * PlanetMass * Gravity) / Math.pow(d, 2);
+        }
+
+        var xPos;
+        var yPos;
+        var accelerationX;
+        var accelerationY;
+        function gravity() {
+            accelerationX = forceX(x, y, PlanetX, PlanetY) / BallMass;
+            accelerationY = forceY(x, y, PlanetX, PlanetY) / BallMass;
+            if(PlanetNum == 3){
+                EarthV();
+            } else if(PlanetNum == 2){
+                VenusV();
+            } else if(PlanetNum == 1){
+                MercuryV();
+            } else if(PlanetNum == 4){
+                MarsV();
+            } else if(PlanetNum == 5){
+                
+            }
+            day = day + 1;
+        }
+
+        function EarthV(){
+            earth.vX = earth.vX + accelerationX * TimeInt;
+            earth.vY = earth.vY + accelerationY * TimeInt;
+        }
+
+        function VenusV(){
+            venus.vX = venus.vX + accelerationX * TimeInt;
+            venus.vY = venus.vY + accelerationY * TimeInt;
+        }
+
+        function MarsV(){
+            mars.vX = mars.vX + accelerationX * TimeInt;
+            mars.vY = mars.vY + accelerationY * TimeInt;
+        }
+        function MercuryV(){
+            mercury.vX = mercury.vX + accelerationX * TimeInt;
+            mercury.vY = mercury.vY + accelerationY * TimeInt;
+        }
+
+        function solarToCanvasX(px){
+            px = px / 0.8e9;
+            return px = px + 600;
+        }
+        function solarToCanvasY(py){
+            py = py / 0.8e9;
+            return py = py + 300;
+        }
+        function drawBalls() {
+            //Earth
+            xPos = solarToCanvasX(earth.x);
+            yPos = solarToCanvasY(earth.y);
+            ctx.beginPath();
+            ctx.arc(xPos, yPos, earth.Radius, 0, Math.PI * 2);
+            ctx.fillStyle = "DarkBlue";
+            ctx.fill();
+            ctx.closePath();
+            //Venus
+            xPos = solarToCanvasX(venus.x);
+            yPos = solarToCanvasY(venus.y);
+            ctx.beginPath();
+            ctx.arc(xPos, yPos, venus.Radius, 0, Math.PI * 2);
+            ctx.fillStyle = "Coral";
+            ctx.fill();
+            ctx.closePath();
+            //Mars
+            xPos = solarToCanvasX(mars.x);
+            yPos = solarToCanvasY(mars.y);
+            ctx.beginPath();
+            ctx.arc(xPos, yPos, mars.Radius, 0, Math.PI * 2);
+            ctx.fillStyle = "Maroon";
+            ctx.fill();
+            ctx.closePath();
+            //Mercury
+            xPos = solarToCanvasX(mercury.x);
+            yPos = solarToCanvasY(mercury.y);
+            ctx.beginPath();
+            ctx.arc(xPos, yPos, mars.Radius, 0, Math.PI * 2);
+            ctx.fillStyle = "LightSlateGrey";
+            ctx.fill();
+            ctx.closePath();
+            //Sun
+            ctx.beginPath();
+            ctx.arc(600, 300, 10, 0, Math.PI * 2);
+            ctx.fillStyle = "Yellow";
+            ctx.fill();
+            ctx.closePath();
+        }
+        var PlanetNum = 0;
+        function draw() {
+            ctx.clearRect(0, 0, 1200, 600);
+            drawBalls();
+            ctx.textBaseline = "top";
+            ctx.font = "30px Consolas";
+            ctx.fillStyle = "SeaGreen";
+            ctx.fillText("Force on Earth", 0, 500);
+            ctx.font = "20px Consolas";
+            ctx.fillText("Total Force: " + earth.force.toPrecision(3) + "N", 0, 530);
+            //ctx.fillText("Earth Day: " + day, 1000, 530);
+            ctx.fillText("Force on X: " + earth.forceX.toPrecision(3) + "N", 0, 550);
+            ctx.fillText("Force on Y: " + earth.forceY.toPrecision(3) + "N", 0, 570);
+            ctx.font = "10px Consolas";
+            //ctx.fillText("All calculations are in Newtons", 0, 590);
+            //Earth's Gravity
+            PlanetNum = 3;
+            BallMass = earth.Mass;
+            x = earth.x;
+            y = earth.y;
+            gravity();
+            //Earth's Position Change
+            earth.x = earth.x + earth.vX * TimeInt;
+            earth.y = earth.y + earth.vY * TimeInt;
+
+
+            //Venus's Gravity
+            PlanetNum = 2;
+            BallMass = venus.Mass;
+            x = venus.x;
+            y = venus.y;
+            gravity();
+            //Venus's Position Change
+            venus.x = venus.x + venus.vX * TimeInt;
+            venus.y = venus.y + venus.vY * TimeInt;
+
+            //Mercury's Gravity
+            PlanetNum = 1;
+            BallMass = mercury.Mass;
+            x = mercury.x;
+            y = mercury.y;
+            gravity();
+            //Mercury's Position Change
+            mercury.x = mercury.x + mercury.vX * TimeInt;
+            mercury.y = mercury.y + mercury.vY * TimeInt;
+
+            //Mars's Gravity
+            PlanetNum = 4;
+            BallMass = mars.Mass;
+            x = mars.x;
+            y = mars.y;
+            gravity();
+            //Mars's Position Change
+            mars.x = mars.x + mars.vX * TimeInt;
+            mars.y = mars.y + mars.vY * TimeInt;
+        }
+        changed = true;
+        var interval = setInterval(draw, 10);
+        
+    </script>
+    <h2 style="text-align:center">How it Works</h2>
+    <h4>Firstly, to keep track of all of the changing values in the solar system, we need to simplify it into as few variables as possible. To keep this explanation simple, we will just focus on Earth, and ignore the other planets for now. With that in mind, we come out with a variable list that looks like this:</h4>
+    <ul>
+        <li>earthMass</li>
+        <li>earthX</li>
+        <li>earthY</li>
+        <li>earthVX</li>
+        <li>earthVY</li>
+        <li>earthForce</li>
+        <li>earthForceX</li>
+        <li>earthForceY</li>
+        <li>earthAccelerationX</li>
+        <li>earthAccelerationY</li>
+        <li>SunRadius</li>
+        <li>SunMass</li>
+        <li>Gravitational Constant</li>
+        <li>SunX</li>
+        <li>SunY</li>
+    </ul>
+    <h4>That's a rather large number of variables to deal with, but we're in luck: some of the variables are constant. 
+        The Earth's mass isn't going to change much during the simulation, so we can afford to give it a set value at
+         the beginning of the program, and ignore changing it in the future. The same goes for the Gravitational constant, the Sun's radius, 
+         and the Sun's mass. Because the sun is in the center of the solar system, its position won't change much, so SunX and SunY 
+         can both have a constant value of 0, putting the sun in the center. With this in mind, we can narrow our list down to this:</h4>
+    <p>
+    <ul>
+        <li>earthX</li>
+        <li>earthY</li>
+        <li>earthVX</li>
+        <li>earthVY</li>
+        <li>earthForce</li>
+        <li>earthForceX</li>
+        <li>earthForceY</li>
+        <li>earthAccelerationX</li>
+        <li>earthAccelerationY</li>
+    </ul>
+</p>
+    <h6>It should be noted that VX and VY stand for Velocity X and Velocity Y.</h6>
+    <h4>Now that our list is shortened, we can set the values in the simulation to average values for 
+        the Earth to begin the simulation. Keep in mind that all of these variables will change during 
+        the simulation.</h4>
+    
+    <h3>\(Earth_{x} = 1.496 \times 10^{11} \mathrm{m}\)</h3>
+    <h3>\(Earth_{y} = 0 \mathrm{m}\)</h3>
+    <h3>\(EarthV_{x} = 0 \mathrm{m/s^2}\)</h3>
+    <h3>\(EarthV_{y} = 3.0 \times 10^{4}\left.\mathrm{m}\middle/\mathrm{s}^2\right.\)</h3>
+    <h4>Now that we have the positions of both the Earth and the Sun, we can calculate the 
+        gravitational force that the Sun has on Earth in Newtons.
+         We are able to calculate Distance using the Pythagorean Theorem, so the only unknown
+          variable would be the total force on the Earth. The equation for force is the following:</h4>
+
+
+    <h3>\(TotalEarthForce = GravitationalConstant \times \frac{SunMass \times EarthMass}{distance^2}\)</h3>
+    
+    
+    <h4>We now know the total force of the sun on Earth, but we need to calculate the 
+        horizontal and vertical force on the Earth, as the total force is not helpful.
+        As an example of calculating this, a planet at the position (3, 4) 
+         would have 80% of the total force be applied to the vertical force, because the vertical 
+         distance from the sun (at point(0, 0)) is 80% of the total distance. Basically, we 
+         are making the Earth move directly toward the Sun, because that's how gravity acts. 
+         We can now apply this proportional reasoning to the total force 
+         on Earth in order to devise these formulas:</h4>
+    
+    
+         <h3>\(EarthForce_{y} = TotalEarthForce \times \frac{SunY - Earth_{y}}{distance}\)</h3>
+    <h3>\(EarthForce_{x} = TotalEarthForce \times \frac{SunX - Earth_{x}}{distance}\)</h3>
+    
+    
+    <h4>Alright, we are now making significant progress. Now that we have the Earth's 
+        directional forces (conveniently, this formula also works for negative y and x 
+        values for Earth in addition to positive values!), we will set the Earth's 
+        acceleration by them like so:</h4>
+    <h3>\(EarthAcceleration_{x} = \frac{EarthForce_{x}}{EarthMass}\)</h3>
+    <h3>\(EarthAcceleration_{y} = \frac{EarthForce_{y}}{EarthMass}\)</h3>
+    
+    
+    <h4>The above conclusions are based on Newton's second law of motion: F = MA. That is,</h4>
+    
+    
+    <h3>\(Force = Mass \times Acceleration\)</h3>
+    
+    
+    <h4>Knowing the force and Mass on the Earth, we can find out the Earth's 
+        acceleration algebraically. We just have to state that A = F / M, as it 
+        is the same statement as F = M * A. The force on Earth is the same as the force on the Sun.
+        Because of this, we can conclude that the Earth's Mass * Earth's Acceleration is 
+        equal to the Sun's Mass * the Sun's acceleration. Because the Sun's mass 
+        is about 330,000 times that of the Earth, it's acceleration is extremely 
+        small, meaning it barely moves. As a result of this, we do not need to calculate
+         the Sun's motion, as it is extremely slow, and would be unnoticeable in the simulation.</h4>
+    <h4>Of course, we need to change the velocity of Earth, otherwise it will fly out of orbit. 
+        In order to do that, we just add the acceleration to the velocity, but the acceleration is 
+        first multiplied by the time interval that passed (a constant variable). With that, we produce:</h4>
+    
+    <h3>\(EarthV_{x} = EarthV_{x} + EarthAcceleration_{x} \times TimeInt\)</h3>
+    <h3>\(EarthV_{y} = EarthV_{y} + EarthAcceleration_{y} \times TimeInt\)</h3>
+    
+    
+    <h4>And here's the final part: we update the Earth's position. To do that, 
+        we add the velocities to Earth's current x and y position to complete the
+         entire orbit. We simply have to state:</h4>
+    <h3>\(Earth_{x} = Earth_{x} + EarthV_{x}\)</h3>
+    <h3>\(Earth_{y} = Earth_{y} + EarthV_{y}\)</h3>
+    
+    
+    <h4>...and we're done! We have successfully moved the Earth from one point in 
+        time to the next point in time in the simulation. Of course, moving the 
+        Earth once isn't impressive. More work has been done, mainly placing all 
+        of the above formulas into a loop that repeatedly updates the Earth's 
+        position based on the updated Force, which is based on the previous 
+        updated position, and so on. Other than that, drawing the planets 
+        and the Sun, and translating the formulas into Javascript, the 
+        entire simulation is complete, and works great! Hope you found 
+        this walk-through useful!</h4>
+    <h2 style="text-align: center">Related</h2>
+    <h4>Knowing how this works, check out a set of <a href="file:///C:/Users/az/Documents/Physics/Physics2rand.html">random</a> orbits, and you'll learn
+    why velocity is so important. Click on the link to find out more.</h4>
+    <h4>Click <a href="file:///C:/Users/az/Documents/Physics/PhysicsBay.html">here</a> to return
+    to the main page, where you can view other simulations.</h4>
+    <h3>See the code: <a href="file:///C:/Users/az/Documents/Physics/Physics2.html.txt">code link</a>.</h3>
+</body>
+
+</html>

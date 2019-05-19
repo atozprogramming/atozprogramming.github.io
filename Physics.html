@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Physics sim</title>
+    <style>
+        * {
+            PADDING: 0;
+            MARGIN: 0;
+        }
+
+        canvas {
+            background: #eee;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+<link rel="stylesheet" href="./bootstrap.min.css">
+</head>
+<script src='./MathJax-master/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+<body>
+    <h1 style="text-align:center">Earth Cannon</h1>
+    <h4>Use "w" and "s" keys to change the angle of the cannon, and "a" and "d" to change the 
+        initial speed, or velocity, of the ball. Try out different expiriments, and have fun!
+    To fire the cannon, press the "enter" key!</h4>
+    <canvas id="myCanvas" width="1200" height="600"></canvas>
+    <script src="./jquery-2.1.0.js"></script>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var ballRadius = 2;
+        var x = 100;
+        var y = 511;
+        var dx = 0;
+        var dy = -9;
+        var accelerationPerSec = 9.8;
+        var angle = 85;
+        var initialSpeed = 6;
+        var accelerationPerInterval = accelerationPerSec * 0.01;
+        var counts = 0;
+        var showNum = 50;
+        //Key input
+        var shiftCaps = false;
+        function keyNames(i) {
+            if (i == 32) {
+                return "space";
+            } else if (i == 17) {
+                return "control";
+            } else if (i == 18) {
+                return "alt";
+            } else if (i == 9) {
+                return "tab";
+            } else if (i == 20) {
+                return "cap";
+            } else if (i == 16) {
+                return "shift";
+            } else if (i == 37) {
+                return "left";
+            } else if (i == 13) {
+                return "enter";
+            } else if (i == 38) {
+                return "up";
+            } else if (i == 40) {
+                return "down";
+            } else if (i == 39) {
+                return "right";
+            } else if (i == 8) {
+                return "back";
+            } else {
+                if (shiftCaps == 0) {
+                    //lowercase letters and numbers
+                    if (i == 190) {
+                        return ".";
+                    } else if (i == 191) {
+                        return "/";
+                    } else if (i == 188) {
+                        return ",";
+                    } else if (i == 222) {
+                        return "'";
+                    } else if (i == 186) {
+                        return ";";
+                    } else if (i == 187) {
+                        return "=";
+                    } else if (i == 189) {
+                        return "-";
+                    } else if (i == 219) {
+                        return "[";
+                    } else if (i == 221) {
+                        return "]";
+                    } else if (i == 65) {
+                        //Letters!
+                        return "a";
+                    } else if (i == 66) {
+                        return "b";
+                    } else if (i == 67) {
+                        return "c";
+                    } else if (i == 68) {
+                        return "d";
+                    } else if (i == 69) {
+                        return "e";
+                    } else if (i == 70) {
+                        return "f";
+                    } else if (i == 71) {
+                        return "g";
+                    } else if (i == 72) {
+                        return "h";
+                    } else if (i == 73) {
+                        return "i";
+                    } else if (i == 74) {
+                        return "j";
+                    } else if (i == 75) {
+                        return "k";
+                    } else if (i == 76) {
+                        return "l";
+                    } else if (i == 77) {
+                        return "m";
+                    } else if (i == 78) {
+                        return "n";
+                    } else if (i == 79) {
+                        return "o";
+                    } else if (i == 80) {
+                        return "p";
+                    } else if (i == 81) {
+                        return "q";
+                    } else if (i == 82) {
+                        return "r";
+                    } else if (i == 83) {
+                        return "s";
+                    } else if (i == 84) {
+                        return "t";
+                    } else if (i == 85) {
+                        return "u";
+                    } else if (i == 86) {
+                        return "v";
+                    } else if (i == 87) {
+                        return "w";
+                    } else if (i == 88) {
+                        return "x";
+                    } else if (i == 89) {
+                        return "y";
+                    } else if (i == 90) {
+                        return "z";
+                    } else if (i == 48) {
+                        return "0";
+                    } else if (i == 49) {
+                        return "1";
+                    } else if (i == 50) {
+                        return "2";
+                    } else if (i == 51) {
+                        return "3";
+                    } else if (i == 52) {
+                        return "4";
+                    } else if (i == 53) {
+                        return "5";
+                    } else if (i == 54) {
+                        return "6";
+                    } else if (i == 55) {
+                        return "7";
+                    } else if (i == 56) {
+                        return "8";
+                    } else if (i == 57) {
+                        return "9";
+                    } else {
+                        return ""
+                    }
+                } else {
+                    if (shiftCaps == 1) {
+                        shiftCaps = false;
+                    }
+                    //Capital letters and symbols
+                    if (i == 190) {
+                        return ">";
+                    } else if (i == 191) {
+                        return "?";
+                    } else if (i == 188) {
+                        return "<";
+                    } else if (i == 222) {
+                        return `"`;
+                    } else if (i == 186) {
+                        return ":";
+                    } else if (i == 187) {
+                        return "+";
+                    } else if (i == 189) {
+                        return "_";
+                    } else if (i == 219) {
+                        return "{";
+                    } else if (i == 221) {
+                        return "}";
+                    } else if (i == 65) {
+                        //Letters!
+                        return "A";
+                    } else if (i == 66) {
+                        return "B";
+                    } else if (i == 67) {
+                        return "C";
+                    } else if (i == 68) {
+                        return "D";
+                    } else if (i == 69) {
+                        return "E";
+                    } else if (i == 70) {
+                        return "F";
+                    } else if (i == 71) {
+                        return "G";
+                    } else if (i == 72) {
+                        return "H";
+                    } else if (i == 73) {
+                        return "I";
+                    } else if (i == 74) {
+                        return "J";
+                    } else if (i == 75) {
+                        return "K";
+                    } else if (i == 76) {
+                        return "L";
+                    } else if (i == 77) {
+                        return "M";
+                    } else if (i == 78) {
+                        return "N";
+                    } else if (i == 79) {
+                        return "O";
+                    } else if (i == 80) {
+                        return "P";
+                    } else if (i == 81) {
+                        return "Q";
+                    } else if (i == 82) {
+                        return "R";
+                    } else if (i == 83) {
+                        return "S";
+                    } else if (i == 84) {
+                        return "T";
+                    } else if (i == 85) {
+                        return "U";
+                    } else if (i == 86) {
+                        return "V";
+                    } else if (i == 87) {
+                        return "W";
+                    } else if (i == 88) {
+                        return "X";
+                    } else if (i == 89) {
+                        return "Y";
+                    } else if (i == 90) {
+                        return "Z";
+                    } else if (i == 48) {
+                        return ")";
+                    } else if (i == 49) {
+                        return "!";
+                    } else if (i == 50) {
+                        return "@";
+                    } else if (i == 51) {
+                        return "#";
+                    } else if (i == 52) {
+                        return "$";
+                    } else if (i == 53) {
+                        return "%";
+                    } else if (i == 54) {
+                        return "^";
+                    } else if (i == 55) {
+                        return "&";
+                    } else if (i == 56) {
+                        return "*";
+                    } else if (i == 57) {
+                        return "(";
+                    } else {
+                        return ""
+                    }
+                }
+            }
+            if (shiftCaps == 1) {
+                shiftCaps = 0;
+            }
+        }
+        var lastKey = "";
+        $("body").keydown(function (event) {
+            //console.log(event.keyCode);
+            lastKey = keyNames(event.keyCode);
+            //SetTheme();
+        });
+        var stimulationNum = 1;
+        //1: Cannon on planet, 2: Cannon in space with planet orbit
+        //DON'T do 2!
+        var changed = true;
+        var excecuted = false;
+        function Input() {
+            if (lastKey == "w" || lastKey == "W") {
+                changed = true;
+                excecuted = false;
+                initialSpeed = initialSpeed + 1;
+            } else if (lastKey == "s" || lastKey == "S") {
+                changed = true;
+                excecuted = false;
+                initialSpeed = initialSpeed - 1;
+            } else if (lastKey == "left" || lastKey == "a" || lastKey == "A") {
+                changed = true;
+                excecuted = false;
+                angle = angle + 1;
+                if (angle > 360) {
+                    angle = 1;
+                }
+            } else if (lastKey == "right" || lastKey == "d" || lastKey == "D") {
+                changed = true;
+                excecuted = false;
+                angle = angle - 1;
+                if (angle < 1) {
+                    angle = 360;
+                }
+            } else if (lastKey == "enter") {
+                excecuted = true;
+                ctx.clearRect(0, 0, 1200, 600);
+                lastKey = "";
+            } else if (lastKey == "space"){
+                
+            }
+        }
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+            if (terms == 0) {
+                ctx.fillStyle = "#0095DD";
+            } else {
+                ctx.fillStyle = "LightSlateGrey";
+            }
+            ctx.fill();
+            ctx.closePath();
+        }
+        function setVelocities() {
+            //SohCahToa     Angle = O/H, A/H, and O/A!
+            let radians = (angle * (2 * Math.PI)) / 360;
+            dx = initialSpeed * Math.cos(radians);
+            dy = -(initialSpeed * Math.sin(radians));
+        }
+        function GroundBounce() {
+            dy = -(dy * 0.75);
+            //dx = dx * 0.75;
+        }
+        function RightWallBounce() {
+            if (dx > 0) {
+                dx = -(dx * 0.75);
+            }
+        }
+        function LeftWallBounce() {
+            if (dx < 0) {
+                dx = -(dx * 0.75);
+            }
+        }
+        function CeilingBounce() {
+            dy = -dy;
+        }
+        function BounceLogic() {
+            if (y > 510) {
+                GroundBounce();
+            } else if (y < 0) {
+                CeilingBounce();
+            }
+            if (x > 1199) {
+                RightWallBounce();
+            } else if (x < 0) {
+                LeftWallBounce();
+            }
+        }
+        function AirFriction(){
+            
+        }
+        var PlanetRadius = 30;
+        var PlanetsGravity = 100000;
+        var PlanetMass = 5000;
+        var BallMass = 10;
+        var timeInt = 10;
+        //y and x are ball Positions
+        //Planet Position is (600, 300)!
+        
+        var terms = 1;
+        function draw() {
+            //ctx.clearRect(0, 0, canvas.width, canvas.height);
+            Input();
+            if (changed == true) {
+                ctx.clearRect(0, 0, 1200, 600);
+                terms = 1;
+                lastKey = "";
+                x = 100;
+                y = 500;
+                setVelocities();
+                if (initialSpeed < 5) {
+                    showNum = 50;
+                } else if (initialSpeed < 15) {
+                    showNum = 40;
+                } else if (initialSpeed < 25) {
+                    showNum = 25;
+                } else if (initialSpeed < 35) {
+                    showNum = 13;
+                } else {
+                    showNum = 5;
+                }
+                for (let i = 0; i < showNum; i++) {
+                    drawBall();
+                    if (stimulationNum == 1) {
+                        dy = dy + accelerationPerInterval;
+                    } else {
+                        PlanetGravity();
+                    }
+                    x = x + dx;
+                    y = y + dy;
+                    if (stimulationNum == 1) {
+                        if (y > 510) {
+                            y = 511;
+                        }
+                        BounceLogic();
+                    }
+                }
+                x = 100;
+                y = 500;
+                setVelocities();
+                changed = false;
+            } else {
+                terms = 0;
+            }
+            drawBall();
+            if (excecuted == true) {
+                //Velocity Change
+                if (stimulationNum == 1) {
+                    dy = dy + accelerationPerInterval;
+                } else {
+                    PlanetGravity();
+                }
+                //Position Change
+                x = x + dx;
+                y = y + dy;
+                //console.log("dx:" + dx);
+                //console.log("dy:" + dy);
+                if (stimulationNum == 1) {
+                    if (y > 510) {
+                        y = 511;
+                    }
+                    BounceLogic();
+                }
+            }
+            ctx.textBaseline = "top";
+            ctx.font = "28px Consolas";
+            ctx.fillStyle = "OrangeRed";
+            ctx.fillText("Angle: " + angle, 0, 0);
+            ctx.fillText("InitialSpeed: " + initialSpeed, 0, 30);
+            ctx.fillStyle = "Orchid";
+            
+        }
+        setVelocities();
+        changed = true;
+        var interval = setInterval(draw, 10);
+    </script>
+    <h2 style="text-align:center">How it Works</h2>
+    <h4>Firstly, to keep track of all of the changing values in the cannon simulation, we need to simplify it into as few variables as possible. We come out with a variable list that looks like this:</h4>
+    <ul>
+        <li>ballX</li>
+        <li>ballY</li>
+        <li>ballVX</li>
+        <li>ballVY</li>
+        <li>Acceleration Per Interval</li>
+        <li>ballAngle</li>
+        <li>ballSpeed</li>
+    </ul>
+    <h4>This variable list is relatively short for a simulation at this size, making it easy to navigate and work with the variables. The fewer variables there are, the less confusion one can have.</h4>
+    <h4>To begin, we need to find out what the initial velocities are. The user inputs an angle and
+        an initial velocity speed, and expects it to come out at that angle at the desired speed. We
+        know the angle (theta), and we can make up the adjacent side for the imaginary right-triangle.
+        What I'm getting at is that we know the triangle angles, and one of the triangle's sides. With this
+        information, we can determine the remaining sides of our invented triangle using sine and cosine.
+        If this confuses you, or you forgot about how sine and cosine work, visit <a href="https://www.mathsisfun.com/sine-cosine-tangent.html">this</a> 
+        webpage. However, before we can start working on defining the sides, we must overcome a great hassle:
+        Javascript can only take radians as a parameter for sine and cosine functions, not degrees.
+        Becuse of this, we must convert the ballAngle into a new variable, ballRadians:
+    </h4>
+    <h3>\(Radians = \frac{Angle \times (2 * PI)}{360}\)</h3>
+    <h4>Now that we have the radians of theta, we can determine the initial Velocitites.</h4>
+    <h3>\(ballV_{x} = ballSpeed \times cos(ballRadians)\)</h3>
+    <h3>\(ballV_{y} = ballSpeed \times sin(ballRadians)\)</h3>
+    <h4>If the above part was confusing, go online and review sine and cosine! This is a demonstration
+        of an Earth cannon, not a math lesson. With our starting values, and our starting ball position
+        (always the same), we can now work on the main loop of the ball's motion.
+    </h4>
+    <h4>The main loop is suprisingly simple. All we need to do in the main loop is change the velocities,
+        and then change the balls position values based on the horizontal and vertical velocities. Because
+        the Earth has gravity, the y velocity decreases by the ball's acceleration per interval, a constant
+        value variable, due to the ball never getting far away from the surface of the Earth.
+         When the y velocity becomes negative, the ball begins to move downward.
+    </h4>
+    <h3>\(ballV_{y} = ballV_{y} + BallAccelerationPerInterval\)</h3>
+    <h3>\(ball_{x} = ball_{x} + ballV_{x}\)</h3>
+    <h3>\(ball_{y} = ball_{y} + ballV_{y}\)</h3>
+    <h4>This works quite well, but what is the Ball Acceleration Per Interval? It actually has a constant value: 
+        9.8 meters per second squared. This means that (ignoring air friction) no matter how much mass an object has, it will accelerate as quickly
+    as other falling objects with different masses. Here are two Force equations that show us the force on the ball:</h4>
+    <h3>\(Force = Gravitational Constant \times \frac{EarthMass \times BallMass}{distance^2}\)</h3> 
+    <h3>\(Force = Mass \times Acceleration\)</h3>
+    <h4>The second equation is not only simpler, but it contains the value we want to define: Acceleration. We change the equation a little...</h4>
+    <h3>\(BallAcceleration = \frac{Force}{BallMass}\)</h3>
+    <h4>Now, we substitute the first equation into the second equation for the value of force:</h4>
+    <h3>\(BallAcceleration = \frac{Gravitational Constant \times \frac{EarthMass \times BallMass}{distance^2}}{BallMass}\)</h3>
+    <h4>Because fractions within fractions are confusing, we will further simlify the equation:</h4>
+    <h3>\(BallAcceleration = \frac{Gravitational Constant \times EarthMass \times BallMass}{BallMass \times distance^2}\)</h3>
+    <h4>This is where we notice that the Ball's mass
+        appears twice in the equation: Once on top, once on the bottom. They cancel each other out, and we are left with:
+    </h4>
+    <h3>\(BallAcceleration = \frac{Gravitational Constant \times EarthMass}{distance^2}\)</h3>
+    <h4>Now that we have successfully removed BallMass from the equation, we can confirm that the Ball's mass does not affect
+        its acceleration. Another key part of this equation to note is that two of the variables in the equation (GravitationalConstant and EarthMass)
+        remain consistant throughout the simulation. The third variable, distance(squared), hardly changes. Distance is measured from the center of the ball to the Earth's
+        center, meaning that little noticable difference occurs in the distance. As a result of these two constant variables and one variable that hardly changes, we
+        can assign a constant value for the ball's acceleration in meters per second. To explain how we got 9.8, here are our (accurate) values:
+    </h4>
+    <ul>
+        <li>EarthMass = 5.9722×10^24 kg</li>
+        <li>Gravitational Constant = 6.674 * 10^-11 meters cubed * kilograms^-1 * seconds^-2</li>
+        <li>Distance = 6,371,000 (Earth Radius) meters</li>
+    </ul>
+    <h4>Now we substitute these values into our equation:</h4>
+    <h3>\(BallAcceleration = \frac{6.674 \times 10^{-11} m^{3}kg^{-1}s^{-2} \times 5.9722 \times 10^{24} kg}{6,371,000^2 m^{2}}\)</h3>
+    <h3>\(BallAcceleration = \frac{398571280000000 m^{3}s^{-2}}{40589641000000 m^{2}}\)</h3>
+    <h3>\(9.8195 \frac{m}{s^2}\)</h3>
+    <h4>With proper substitution, you will always get an acceleration rate 9.8 meters per second squared. Now that this discussion is over, we can return to the main project.</h4>
+
+    <h4>This is working, but to polish up this project, we need to make the ball bounce. To do that,
+        we make conditional statements to see if a ball is hitting a wall, and take action. For example,
+        here is the floor conditional statement:
+    </h4>
+    <h3>\(if(20 > ball_{y}): ballV_{y} = -ballV_{y} * 0.8\)</h3>
+    <h4>As you can see, we simply reverse course of the ball's velocity direction and absorb some
+        energy due to a ball energy loss. Just like that, we're done!
+    </h4>
+    <h7>Side Note: the code has one major flaw: the ball does not stop rolling on the ground. This is because
+        I left friction out of the simulation; I just wanted the concept of a cannon, but the physics did
+        not have to be perfect. Rather than worrying about the error, I decided to make an additional simulation:
+        the solar system model. Check it out if you haven't already!
+    </h7>
+    <h2 style="text-align: center">Related</h2>
+    <h4>No related simulations for now. Click <a href="file:///C:/Users/az/Documents/Physics/PhysicsBay.html">here</a> to return
+    to the main page, where you can view other simulations.</h4>
+    <h3>See the code: <a href="file:///C:/Users/az/Documents/Physics/Physics.html.txt">code link</a>.</h3>
+</body>
+
+</html>
