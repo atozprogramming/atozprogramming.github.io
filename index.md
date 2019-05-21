@@ -35,4 +35,4 @@ Each side-project will have description text on the page.
 
 #### [Earth Cannon](./Physics.html)
 #### [Planental Orbit](./Physics2.html)
-#### [Planental Orbit](./Physics2.html)
+#### [Random Planental Orbit](./Physics2rand.html)
