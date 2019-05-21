@@ -33,7 +33,7 @@ To restart the game, simply refresh the page.
 
 #### More Games coming soon!
 
-    Don't forget that all Yellow text are links to the different subpages, and remember to always check back for more games!
+Don't forget that all Yellow text are links to the different subpages, and remember to always check back for more games!
       
 
 ## Related Projects
