@@ -41,5 +41,23 @@ Don't forget that all Yellow text are links to the different subpages, and remem
 Each side-project will have description text on the page.
 
 #### [Earth Cannon](./Physics.html)
+Topics covered include, but are not limited to:
+  - Circle Radians
+  - Velocity
+  - Force and Acceleration
+  - Earth's Gravitational Constant
 #### [Planental Orbit](./Physics2.html)
+Topics covered include, but are not limited to:
+  - Velocity
+  - Distribution of the total force on the x and y planet velocities
+  - Force and Acceleration
+  - Newton's Second Law
 #### [Random Planental Orbit](./Physics2rand.html)
+This simulation covers the same topics as the [Planental Orbit](./Physics2.html) simulation, it just has random velocities for the planets.
+
+## Update Log
+
+Ever wonder when a game or simulation was released? The Update Log is always available for quick reference.
+  - **5/20/2019:** Planental Orbit and Earth Cannon simulations added
+  - **5/19/2019:** Snake Battle Royale released
+  - **5/18/2019:** Website created
