@@ -6,6 +6,7 @@ Quick links:
   - **Top game:** [Snake Battle Royale](./CompactStandardSnake.html)
   - **Honorable game:** N/A
   - **Best simulation:** [Planental Orbit](./Physics2.html)
+      - Simmilar project: [Random Planental Orbit](./Physics2rand.html)
   - **Honorable simulation:** [Earth Cannon](./Physics.html)
 
 ## Game List
