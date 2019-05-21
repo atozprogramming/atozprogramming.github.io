@@ -46,12 +46,14 @@ Topics covered include, but are not limited to:
   - Velocity
   - Force and Acceleration
   - Earth's Gravitational Constant
+
 #### [Planental Orbit](./Physics2.html)
 Topics covered include, but are not limited to:
   - Velocity
   - Distribution of the total force on the x and y planet velocities
   - Force and Acceleration
   - Newton's Second Law
+
 #### [Random Planental Orbit](./Physics2rand.html)
 This simulation covers the same topics as the [Planental Orbit](./Physics2.html) simulation, it just has random velocities for the planets.
 
