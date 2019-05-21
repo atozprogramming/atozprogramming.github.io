@@ -2,7 +2,9 @@
 
 Your go-to javascript programming outlet
 > This website is a long continuous project that is aiming on featuring`extrodinary games`that cannot be found elsewhere. This website has currently`1 game`, and will be increasing its game count periodically. In addition to games, we feature side-projects for`academic`and entertainment purposes, feel free to check them out!
-
+Quick links: 
+  - **Top game:** [Snake Battle Royale](./CompactStandardSnake.html)
+  - **Best Simulation:** [Planental Orbit](./Physics2.html)
 
 ## Game List
 
@@ -32,3 +34,5 @@ To restart the game, simply refresh the page.
 Each side-project will have description text on the page.
 
 #### [Earth Cannon](./Physics.html)
+#### [Planental Orbit](./Physics2.html)
+#### [Planental Orbit](./Physics2.html)
