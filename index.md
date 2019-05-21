@@ -47,6 +47,7 @@ Topics covered include, but are not limited to:
   - Force and Acceleration
   - Earth's Gravitational Constant
 
+The Earth Cannon demonstrates bouncing ball physics on the Earth.
 #### [Planental Orbit](./Physics2.html)
 Topics covered include, but are not limited to:
   - Velocity
@@ -54,6 +55,7 @@ Topics covered include, but are not limited to:
   - Force and Acceleration
   - Newton's Second Law
   
+The Planental Orbit demonstrates the orits of the planet in relation to the Sun.
 #### [Random Planental Orbit](./Physics2rand.html)
 This simulation covers the same topics as the [Planental Orbit](./Physics2.html) simulation, it just has random velocities for the planets.
 
