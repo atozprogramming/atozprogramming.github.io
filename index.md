@@ -55,7 +55,7 @@ Topics covered include, but are not limited to:
   - Force and Acceleration
   - Newton's Second Law
   
-The Planental Orbit demonstrates the orits of the planet in relation to the Sun.
+The Planental Orbit demonstrates the orbits of the planet in relation to the Sun.
 #### [Random Planental Orbit](./Physics2rand.html)
 This simulation covers the same topics as the [Planental Orbit](./Physics2.html) simulation, it just has random velocities for the planets.
 
