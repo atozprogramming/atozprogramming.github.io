@@ -1,7 +1,7 @@
 # Welcome to A to Z programming
 
 Your go-to javascript programming outlet
-> This website is a long continuous project that is aiming on featuring`extrodinary games`that cannot be found elsewhere. This website has currently`1 game`, and will be increasing its game count periodically. In addition to games, we feature side-projects for`academic`and entertainment purposes, feel free to check them out!
+> This website is a long continuous project that is aiming on featuring extrodinary games that cannot be found elsewhere. This website has currently 1 game, and will be increasing its game count periodically. In addition to games, we feature side-projects for academic and entertainment purposes, feel free to check them out!
 
 Quick links: 
   - **Top game:** [Snake Battle Royale](./CompactStandardSnake.html)
