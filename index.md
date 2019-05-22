@@ -5,7 +5,7 @@ Your go-to javascript programming outlet
 
 Quick links: 
   - **Top game:** [Snake Battle Royale](./CompactStandardSnake.html)
-  - **Honorable game:** N/A
+  - **Honorable game:** [3 kings](./3kingsBoardGame.html)
   - **Best simulation:** [Planental Orbit](./Physics2.html)
   - **Simmilar simulation:** [Random Planental Orbit](./Physics2rand.html)
   - **Honorable simulation:** [Earth Cannon](./Physics.html)
@@ -30,6 +30,9 @@ The objective of the game is to score the most pointsby the time all the snakes 
 Before the game begins, there is a 3-ish second countdown. If you press any of your control keys (other than right) before the game begins, you can toggle your skin. The skins are different for each player, and do not alter gameplay.
 
 To restart the game, simply refresh the page.
+
+#### [3 kings](./3kingsBoardGame.html)
+Although Snake Battle Royale was released first on the website, this game was the first game on the entire website that I uploaded. The instructions are provided in-game. 3 kings is a board game that plays the computer against you in a strategy game, with only 3 pieces per side, making piece sacrifices game-turning events. Can you stand your ground as the computer closes in on your home base?
 
 #### More Games coming soon!
 
@@ -62,6 +65,7 @@ This simulation covers the same topics as the [Planental Orbit](./Physics2.html)
 ## Update Log
 
 Ever wonder when a game or simulation was released? The Update Log is always available for quick reference.
-  - **5/20/2019:** Planental Orbit and Earth Cannon simulations added
+  - **5/22/2019:** 3 Kings game released
+  - **5/20/2019:** Planental Orbit(s) and Earth Cannon simulations released
   - **5/19/2019:** Snake Battle Royale released
   - **5/18/2019:** Website created
