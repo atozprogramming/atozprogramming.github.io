@@ -5,7 +5,7 @@ Your go-to javascript programming outlet
 
 Quick links: 
   - **Top game:** [Snake Battle Royale](./CompactStandardSnake.html)
-  - **Honorable game:** [3 kings](./3kingsBoardGame.html)
+  - **Honorable game:** [3 kings](./3kingsBoardGame.html) NEW!
   - **Best simulation:** [Planental Orbit](./Physics2.html)
   - **Simmilar simulation:** [Random Planental Orbit](./Physics2rand.html)
   - **Honorable simulation:** [Earth Cannon](./Physics.html)
