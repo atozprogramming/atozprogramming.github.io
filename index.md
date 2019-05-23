@@ -1,4 +1,4 @@
-# Welcome to A to Z programming
+# ![alt text](WebsiteLogo2.png "Logo") Welcome to A to Z programming
 
 Your go-to javascript programming outlet
 > This website is a long continuous project that is aiming on featuring extrodinary games that cannot be found elsewhere. This website has currently 1 game, and will be increasing its game count periodically. In addition to games, we feature side-projects for academic and entertainment purposes, feel free to check them out!
@@ -15,6 +15,8 @@ Quick links:
 Instructions are included for each game, along with the game link. Enjoy the great games!
 
 #### [Snake Battle Royale](./CompactStandardSnake.html)
+![alt text](SnakeScreenshot.png "Snake") ![alt text](SnakeScreenshot3.png "Snake")
+
 The most popular game, Snake Battle Royale pits you and 2 other players against each other as you all race for apples. It should also be kept in mind that a computer snake also competes.
   * ##### Scoring
 The objective of the game is to score the most pointsby the time all the snakes die. Every apple you eat is worth one point, and there is a bonus 2-point reward for the player who survives the longest. Keep in mind that the snake that survives the longest may not win, as s/he may have not eaten enough apples to surpass the other players.
@@ -68,7 +70,7 @@ This simulation covers the same topics as the [Planental Orbit](./Physics2.html)
 ## Update Log
 
 Ever wonder when a game or simulation was released? The Update Log is always available for quick reference.
-  - **5/22/2019:** 3 Kings game released
+  - **5/22/2019:** 3 Kings game released, uploaded screenshots of games
   - **5/20/2019:** Planental Orbit(s) and Earth Cannon simulations released
   - **5/19/2019:** Snake Battle Royale released
   - **5/18/2019:** Website created
