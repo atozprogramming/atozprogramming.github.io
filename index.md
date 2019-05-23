@@ -34,6 +34,8 @@ One of the best features this game has to offer is that you can enable skins for
 To restart the game, simply refresh the page.
 
 #### [3 kings](./3kingsBoardGame.html)
+![alt text](3Kings.png "3kings")
+
 Although Snake Battle Royale was released first on the website, this game was the first game on the entire website that I uploaded. The instructions are provided in-game. 3 kings is a board game that plays the computer against you in a strategy game, with only 3 pieces per side, making piece sacrifices game-turning events. Can you stand your ground as the computer closes in on your home base?
   * ##### Tips
     * Pressing "0" at the start menu will have your turn be second
