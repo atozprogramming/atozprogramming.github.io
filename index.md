@@ -15,7 +15,7 @@ Quick links:
 Instructions are included for each game, along with the game link. Enjoy the great games!
 
 #### [Snake Battle Royale](./CompactStandardSnake.html)
-![alt text](SnakeScreenshot.png "Snake") ![alt text](SnakeScreenshot3.png "Snake")
+![alt text](SnakeScreenshot.png "Snake")
 
 The most popular game, Snake Battle Royale pits you and 2 other players against each other as you all race for apples. It should also be kept in mind that a computer snake also competes.
   * ##### Scoring
