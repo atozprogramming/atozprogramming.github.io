@@ -16,9 +16,9 @@ Instructions are included for each game, along with the game link. Enjoy the gre
 
 #### [Snake Battle Royale](./CompactStandardSnake.html)
 The most popular game, Snake Battle Royale pits you and 2 other players against each other as you all race for apples. It should also be kept in mind that a computer snake also competes.
-  * ###### Scoring
+  * ##### Scoring
 The objective of the game is to score the most pointsby the time all the snakes die. Every apple you eat is worth one point, and there is a bonus 2-point reward for the player who survives the longest. Keep in mind that the snake that survives the longest may not win, as s/he may have not eaten enough apples to surpass the other players.
-  * ###### Controls
+  * ##### Controls
        * _**Player1**_ (Blue) controls with the arrow keys
 
        * _**Player2**_ (Red) controls with the WASD keys
@@ -26,8 +26,8 @@ The objective of the game is to score the most pointsby the time all the snakes 
        * _**Player3**_ (Green) controls with the IJKL keys
 
        * _**Player4**_ (Yellow) is a computer, and thus has no keyboard controls.
-
-Before the game begins, there is a 3-ish second countdown. If you press any of your control keys (other than right) before the game begins, you can toggle your skin. The skins are different for each player, and do not alter gameplay.
+  * ##### Skins
+One of the best features this game has to offer is that you can enable skins for your characters. Each Snake(Blue, Red, and Green) has their own unique skin that is exclusive only to them, encouraging play with different snakes between game rounds. in order to activate your skin, you must note that before the game begins, there is a 3-ish second countdown. If you press any of your control keys (other than your right key, be it the right arrow, "d", or "l") before the game begins, you can toggle your skin. The skins are different for each player, and do not alter gameplay.
 
 To restart the game, simply refresh the page.
 
