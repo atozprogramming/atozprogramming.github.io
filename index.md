@@ -1,7 +1,7 @@
 # ![alt text](WebsiteLogo2.png "Logo") Welcome to A to Z programming
 
 Your go-to javascript programming outlet
-> This website is a long continuous project that is aiming on featuring extrodinary games that cannot be found elsewhere. This website has currently 1 game, and will be increasing its game count periodically. In addition to games, we feature side-projects for academic and entertainment purposes, feel free to check them out!
+> This website is a long continuous project that is aiming on featuring extrodinary games that cannot be found elsewhere. This website has currently 2 games, and will be increasing its game count periodically. In addition to games, we feature side-projects for academic and entertainment purposes - feel free to check them out!
 
 Quick links: 
   - **Top game:** [Snake Battle Royale](./CompactStandardSnake.html)
@@ -19,7 +19,7 @@ Instructions are included for each game, along with the game link. Enjoy the gre
 
 The most popular game, Snake Battle Royale pits you and 2 other players against each other as you all race for apples. It should also be kept in mind that a computer snake also competes.
   * ##### Scoring
-The objective of the game is to score the most pointsby the time all the snakes die. Every apple you eat is worth one point, and there is a bonus 2-point reward for the player who survives the longest. Keep in mind that the snake that survives the longest may not win, as s/he may have not eaten enough apples to surpass the other players.
+The objective of the game is to score the most points by the time all the snakes die. Every apple you eat is worth one point, and there is a bonus 2-point reward for the player who survives the longest. Keep in mind that the snake that survives the longest may not win, as s/he may have not eaten enough apples to surpass the other players.
   * ##### Controls
        * _**Player1**_ (Blue) controls with the arrow keys
 
@@ -36,15 +36,14 @@ To restart the game, simply refresh the page.
 #### [3 kings](./3kingsBoardGame.html)
 ![alt text](3Kings.png "3kings")
 
-Although Snake Battle Royale was released first on the website, this game was the first game on the entire website that I uploaded. The instructions are provided in-game. 3 kings is a board game that plays the computer against you in a strategy game, with only 3 pieces per side, making piece sacrifices game-turning events. Can you stand your ground as the computer closes in on your home base?
+Although Snake Battle Royale was released first on the website, this game was the first game on the entire website that was programmed. The instructions are provided in-game. 3 kings is a board game that plays the computer against you in a strategy game, with only 3 pieces per side, making piece sacrifices game-turning events. Can you stand your ground as the computer closes in on your home base?
   * ##### Tips
     * Pressing "0" at the start menu will have your turn be second
     * Pressing "T" will toggle the territory-viewing mode, which helps aid player strategies, showing the squared controlled by the player, the squares controlled by the computer, and contested squares.
 
 #### More Games coming soon!
 
-Don't forget that all Yellow text are links to the different subpages, and remember to always check back for more games!
-      
+Always check back for updates!
 
 ## Related Projects
 
