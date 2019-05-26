@@ -41,6 +41,15 @@ Although Snake Battle Royale was released first on the website, this game was th
     * Pressing "0" at the start menu will have your turn be second
     * Pressing "T" will toggle the territory-viewing mode, which helps aid player strategies, showing the squared controlled by the player, the squares controlled by the computer, and contested squares.
 
+#### [Snake Unlimited](./SnakeUnlimited.html)
+
+For those who are bad at Snake Battle Royale and constantly die, this is the solution. Whenever a player dies, the are randomly teleported to the edge of the board, and continue playing normally. The board no longer shrinks, in order to produce large snakes that dominate the board. This timeless game does not end, but can still become competitive!
+  * ##### Rules and Controls
+    * See the rules for regular Snake Battle Royale.
+  * ##### Changes
+    * Players constantly respawn
+    * The board does not shrink
+    * Players that run into another snake increase the winning snake's length and score (though length boost is not as large as score boost)
 #### More Games coming soon!
 
 Always check back for updates!
