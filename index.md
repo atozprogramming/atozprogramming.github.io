@@ -1,7 +1,7 @@
 # ![alt text](WebsiteLogo2.png "Logo") Welcome to A to Z programming
 
 Your go-to javascript programming outlet
-> This website is a long continuous project that is aiming on featuring extrodinary games that cannot be found elsewhere. This website has currently 2 games, and will be increasing its game count periodically. In addition to games, we feature side-projects for academic and entertainment purposes - feel free to check them out!
+> This website is a long continuous project that is aiming on featuring extrodinary games that cannot be found elsewhere. This website has currently 3 games, and will be increasing its game count periodically. In addition to games, we feature side-projects for academic and entertainment purposes - feel free to check them out!
 
 Quick links: 
   - **Top game:** [Snake Battle Royale](./CompactStandardSnake.html)
@@ -44,14 +44,14 @@ Although Snake Battle Royale was released first on the website, this game was th
 #### [Snake Unlimited](./SnakeUnlimited.html)
 ![alt text](SU-Screenshot.png "Snake unlimited")
 
-For those who are bad at Snake Battle Royale and constantly die, this is the solution. Whenever a player dies, the are randomly teleported to the edge of the board, and continue playing normally. The board no longer shrinks, in order to produce large snakes that dominate the board. This timeless game does not end, but can still become competitive!
+For those who are bad at Snake Battle Royale and constantly die, this is the solution. Whenever a player dies, they are randomly teleported to the edge of the board, and continue playing normally. The board no longer shrinks, in order to produce large snakes that dominate the board. This timeless game does not end, but can still become competitive!
   * ##### Rules and Controls
     * See the rules for regular Snake Battle Royale.
   * ##### Changes
     * Players constantly respawn
     * The board does not shrink
     * Players that run into another snake increase the winning snake's length and score (though length boost is not as large as score boost)
-    
+
 #### More Games coming soon!
 
 Always check back for updates!
