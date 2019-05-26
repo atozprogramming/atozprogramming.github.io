@@ -51,6 +51,7 @@ For those who are bad at Snake Battle Royale and constantly die, this is the sol
     * Players constantly respawn
     * The board does not shrink
     * Players that run into another snake increase the winning snake's length and score (though length boost is not as large as score boost)
+    
 #### More Games coming soon!
 
 Always check back for updates!
