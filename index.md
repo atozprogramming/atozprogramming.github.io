@@ -42,6 +42,7 @@ Although Snake Battle Royale was released first on the website, this game was th
     * Pressing "T" will toggle the territory-viewing mode, which helps aid player strategies, showing the squared controlled by the player, the squares controlled by the computer, and contested squares.
 
 #### [Snake Unlimited](./SnakeUnlimited.html)
+![alt text](SU-Screenshot.png "Snake unlimited")
 
 For those who are bad at Snake Battle Royale and constantly die, this is the solution. Whenever a player dies, the are randomly teleported to the edge of the board, and continue playing normally. The board no longer shrinks, in order to produce large snakes that dominate the board. This timeless game does not end, but can still become competitive!
   * ##### Rules and Controls
@@ -80,7 +81,8 @@ This simulation covers the same topics as the [Planental Orbit](./Physics2.html)
 ## Update Log
 
 Ever wonder when a game or simulation was released? The Update Log is always available for quick reference.
-  - **5/22/2019:** 3 Kings game released, uploaded screenshots of games
+  - **5/25/2019:** Snake Unlimited released
+  - **5/22/2019:** 3 Kings game released, began uploading screenshots of games
   - **5/20/2019:** Planental Orbit(s) and Earth Cannon simulations released
   - **5/19/2019:** Snake Battle Royale released
   - **5/18/2019:** Website created
