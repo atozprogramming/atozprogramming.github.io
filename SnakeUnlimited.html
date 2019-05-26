@@ -645,6 +645,7 @@
                 this.segments = [
                     new Block(x, y)
                 ];
+                won = 3;
                 score = 0;
                 SnakeSeg = this.segments;
                 return;
@@ -723,6 +724,7 @@
                 this.segments = [
                     new Block(x, y)
                 ];
+                won2 = 3;
                 score2 = 0;
                 SnakeSeg2 = this.segments;
                 return;
@@ -803,6 +805,7 @@
                 this.segments = [
                     new Block(x, y)
                 ];
+                won3 = 3;
                 score3 = 0;
                 SnakeSeg3 = this.segments;
                 return;
@@ -882,6 +885,7 @@
                 this.segments = [
                     new Block(x, y)
                 ];
+                won4 = 3;
                 score4 = 0;
                 SnakeSeg4 = this.segments;
                 return;
@@ -940,8 +944,11 @@
             for (var i = 0; i < SnakeSeg4.length; i++) {
                 if (head.equal(SnakeSeg4[i])) {
                     selfCollision = true;
+                    console.log("Won4 before: " + won4);
                     won4 = score + won4;
+                    console.log("Won4 after: " + won4)
                     score4 = score4 + score;
+                    console.log("Victim score: " + score)
                 }
             }
             if (wallCollision || selfCollision) {
