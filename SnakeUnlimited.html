@@ -930,14 +930,14 @@
             for (var i = 0; i < SnakeSeg2.length; i++) {
                 if (head.equal(SnakeSeg2[i])) {
                     selfCollision = true;
-                    won2 = score;
+                    won2 = score + won2;
                     score2 = score2 + score;
                 }
             }
             for (var i = 0; i < SnakeSeg3.length; i++) {
                 if (head.equal(SnakeSeg3[i])) {
                     selfCollision = true;
-                    won3 = score;
+                    won3 = score + won3;
                     score3 = score3 + score;
                 }
             }
@@ -973,14 +973,14 @@
             for (var i = 0; i < SnakeSeg.length; i++) {
                 if (head.equal(SnakeSeg[i])) {
                     selfCollision = true;
-                    won = score2;
+                    won = score2 + won;
                     score = score + score2;
                 }
             }
             for (var i = 0; i < SnakeSeg3.length; i++) {
                 if (head.equal(SnakeSeg3[i])) {
                     selfCollision = true;
-                    won3 = score2;
+                    won3 = score2 + won3;
                     score3 = score3 + score2;
                 }
             }
@@ -1051,21 +1051,21 @@
             for (var i = 0; i < SnakeSeg.length; i++) {
                 if (head4.equal(SnakeSeg[i])) {
                     selfCollision = true;
-                    won = score4;
+                    won = score4 + won;
                     score = score + score4;
                 }
             }
             for (var i = 0; i < SnakeSeg2.length; i++) {
                 if (head4.equal(SnakeSeg2[i])) {
                     selfCollision = true;
-                    won2 = score4;
+                    won2 = score4 + won2;
                     score2 = score2 + score4;
                 }
             }
             for (var i = 0; i < SnakeSeg3.length; i++) {
                 if (head4.equal(SnakeSeg3[i])) {
                     selfCollision = true;
-                    won3 = score4;
+                    won3 = score4 + won3;
                     score3 = score3 + score4;
                 }
             }
