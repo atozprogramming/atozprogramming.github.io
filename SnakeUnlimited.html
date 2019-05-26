@@ -932,6 +932,10 @@
                     selfCollision = true;
                     won2 = score + won2;
                     score2 = score2 + score;
+                    if(score == 0){
+                        won2++;
+                        score2++;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg3.length; i++) {
@@ -939,6 +943,10 @@
                     selfCollision = true;
                     won3 = score + won3;
                     score3 = score3 + score;
+                    if(score == 0){
+                        won3++;
+                        score3++;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg4.length; i++) {
@@ -949,6 +957,10 @@
                     console.log("Won4 after: " + won4)
                     score4 = score4 + score;
                     console.log("Victim score: " + score)
+                    if(score == 0){
+                        won4++;
+                        score4++;
+                    }
                 }
             }
             if (wallCollision || selfCollision) {
@@ -975,6 +987,10 @@
                     selfCollision = true;
                     won = score2 + won;
                     score = score + score2;
+                    if(score2 == 0){
+                        won++;
+                        score++;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg3.length; i++) {
@@ -982,6 +998,10 @@
                     selfCollision = true;
                     won3 = score2 + won3;
                     score3 = score3 + score2;
+                    if(score2 == 0){
+                        won3++;
+                        score3++;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg4.length; i++) {
@@ -989,6 +1009,10 @@
                     selfCollision = true;
                     won4 = score2 + won4;
                     score4 = score4 + score2;
+                    if(score2 == 0){
+                        won4++;
+                        score4++;
+                    }
                 }
             }
             if (wallCollision || selfCollision) {
@@ -1014,6 +1038,10 @@
                     selfCollision = true;
                     won = score3;
                     score = score + score3;
+                    if(score3 == 0){
+                        won++;
+                        score++;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg2.length; i++) {
@@ -1021,6 +1049,10 @@
                     selfCollision = true;
                     won2 = score3;
                     score2 = score2 + score3;
+                    if(score3 == 0){
+                        won2++;
+                        score2++;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg4.length; i++) {
@@ -1028,6 +1060,10 @@
                     selfCollision = true;
                     won4 = score3 + won4;
                     score4 = score4 + score3;
+                    if(score3 == 0){
+                        won4++;
+                        score4++;
+                    }
                 }
             }
             if (wallCollision || selfCollision) {
@@ -1053,6 +1089,10 @@
                     selfCollision = true;
                     won = score4 + won;
                     score = score + score4;
+                    if(score4 == 0){
+                        won++;
+                        score++;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg2.length; i++) {
@@ -1060,6 +1100,10 @@
                     selfCollision = true;
                     won2 = score4 + won2;
                     score2 = score2 + score4;
+                    if(score4 == 0){
+                        won2++;
+                        score2++;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg3.length; i++) {
@@ -1067,6 +1111,10 @@
                     selfCollision = true;
                     won3 = score4 + won3;
                     score3 = score3 + score4;
+                    if(score4 == 0){
+                        won3++;
+                        score3++;
+                    }
                 }
             }
             if (wallCollision || selfCollision) {
