@@ -645,8 +645,9 @@
                 this.segments = [
                     new Block(x, y)
                 ];
-                won = 3;
-                score = 0;
+                let z = Math.floor(score / 10);
+                won = 3 + z;
+                score = z;
                 SnakeSeg = this.segments;
                 return;
             }
@@ -724,8 +725,9 @@
                 this.segments = [
                     new Block(x, y)
                 ];
-                won2 = 3;
-                score2 = 0;
+                let z = Math.floor(score2 / 10);
+                won2 = 3 + z;
+                score2 = z;
                 SnakeSeg2 = this.segments;
                 return;
             }
@@ -805,8 +807,9 @@
                 this.segments = [
                     new Block(x, y)
                 ];
-                won3 = 3;
-                score3 = 0;
+                let z = Math.floor(score3 / 10);
+                won3 = 3 + z;
+                score3 = z;
                 SnakeSeg3 = this.segments;
                 return;
             }
@@ -885,8 +888,9 @@
                 this.segments = [
                     new Block(x, y)
                 ];
-                won4 = 3;
-                score4 = 0;
+                let z = Math.floor(score4 / 10);
+                won4 = 3 + z;
+                score4 = 0 + z;
                 SnakeSeg4 = this.segments;
                 return;
             }
