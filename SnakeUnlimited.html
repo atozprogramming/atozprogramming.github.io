@@ -940,7 +940,7 @@
             for (var i = 0; i < SnakeSeg4.length; i++) {
                 if (head.equal(SnakeSeg4[i])) {
                     selfCollision = true;
-                    won4 = score;
+                    won4 = score + won4;
                     score4 = score4 + score;
                 }
             }
@@ -980,7 +980,7 @@
             for (var i = 0; i < SnakeSeg4.length; i++) {
                 if (head.equal(SnakeSeg4[i])) {
                     selfCollision = true;
-                    won4 = score2;
+                    won4 = score2 + won4;
                     score4 = score4 + score2;
                 }
             }
@@ -1019,7 +1019,7 @@
             for (var i = 0; i < SnakeSeg4.length; i++) {
                 if (head.equal(SnakeSeg4[i])) {
                     selfCollision = true;
-                    won4 = score3;
+                    won4 = score3 + won4;
                     score4 = score4 + score3;
                 }
             }
