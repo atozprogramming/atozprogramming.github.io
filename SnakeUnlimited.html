@@ -9,6 +9,10 @@
     <canvas id="canvas" width="1300" height="720"></canvas>
     <script src="./jquery-2.1.0.js"></script>
     <script>
+        var speed1 = 1;
+        var speed2 = 1;
+        var speed3 = 1;
+        var speed4 = 1;
         var skin1 = false;
         var skin2 = false;
         var skin3 = false;
@@ -936,7 +940,7 @@
                     selfCollision = true;
                     won2 = score + won2;
                     score2 = score2 + score;
-                    if(score == 0){
+                    if (score == 0) {
                         won2++;
                         score2++;
                     }
@@ -947,7 +951,7 @@
                     selfCollision = true;
                     won3 = score + won3;
                     score3 = score3 + score;
-                    if(score == 0){
+                    if (score == 0) {
                         won3++;
                         score3++;
                     }
@@ -961,7 +965,7 @@
                     console.log("Won4 after: " + won4)
                     score4 = score4 + score;
                     console.log("Victim score: " + score)
-                    if(score == 0){
+                    if (score == 0) {
                         won4++;
                         score4++;
                     }
@@ -991,7 +995,7 @@
                     selfCollision = true;
                     won = score2 + won;
                     score = score + score2;
-                    if(score2 == 0){
+                    if (score2 == 0) {
                         won++;
                         score++;
                     }
@@ -1002,7 +1006,7 @@
                     selfCollision = true;
                     won3 = score2 + won3;
                     score3 = score3 + score2;
-                    if(score2 == 0){
+                    if (score2 == 0) {
                         won3++;
                         score3++;
                     }
@@ -1013,7 +1017,7 @@
                     selfCollision = true;
                     won4 = score2 + won4;
                     score4 = score4 + score2;
-                    if(score2 == 0){
+                    if (score2 == 0) {
                         won4++;
                         score4++;
                     }
@@ -1042,7 +1046,7 @@
                     selfCollision = true;
                     won = score3;
                     score = score + score3;
-                    if(score3 == 0){
+                    if (score3 == 0) {
                         won++;
                         score++;
                     }
@@ -1053,7 +1057,7 @@
                     selfCollision = true;
                     won2 = score3;
                     score2 = score2 + score3;
-                    if(score3 == 0){
+                    if (score3 == 0) {
                         won2++;
                         score2++;
                     }
@@ -1064,7 +1068,7 @@
                     selfCollision = true;
                     won4 = score3 + won4;
                     score4 = score4 + score3;
-                    if(score3 == 0){
+                    if (score3 == 0) {
                         won4++;
                         score4++;
                     }
@@ -1093,7 +1097,7 @@
                     selfCollision = true;
                     won = score4 + won;
                     score = score + score4;
-                    if(score4 == 0){
+                    if (score4 == 0) {
                         won++;
                         score++;
                     }
@@ -1104,7 +1108,7 @@
                     selfCollision = true;
                     won2 = score4 + won2;
                     score2 = score2 + score4;
-                    if(score4 == 0){
+                    if (score4 == 0) {
                         won2++;
                         score2++;
                     }
@@ -1115,7 +1119,7 @@
                     selfCollision = true;
                     won3 = score4 + won3;
                     score3 = score3 + score4;
-                    if(score4 == 0){
+                    if (score4 == 0) {
                         won3++;
                         score3++;
                     }
@@ -1779,6 +1783,44 @@
         var timerC = 0;
         var rewarded = false;
         //TimerC has nothing to do with timers A and B.
+        function setSpeed() {
+            if(score > 150){
+                speed1 = 4;
+            } else if(score > 100){
+                speed1 = 3;
+            } else if(score > 50){
+                speed1 = 2;
+            } else {
+                speed1 = 4;
+            }
+            if(score2 > 150){
+                speed2 = 4;
+            } else if(score2 > 100){
+                speed2 = 3;
+            } else if(score2 > 50){
+                speed2 = 2;
+            } else {
+                speed2 = 4;
+            }
+            if(score3 > 150){
+                speed3 = 4;
+            } else if(score3 > 100){
+                speed3 = 3;
+            } else if(score3 > 50){
+                speed3 = 2;
+            } else {
+                speed3 = 4;
+            }
+            if(score3 > 150){
+                speed3 = 4;
+            } else if(score3 > 100){
+                speed3 = 3;
+            } else if(score3 > 50){
+                speed3 = 2;
+            } else {
+                speed3 = 4;
+            }
+        }
         function drawTime() {
             ctx.font = "60px Courtier";
             ctx.fillStyle = "Black";
@@ -1793,24 +1835,35 @@
             //ctx.fillText("Game Starts in:", width / 2, height / 2 + 50);
         }
         //lvlspeed: often 50!
+        var intTime = 1;
         var intervalId = setInterval(function () {
             ctx.clearRect(0, 0, 1300, 800);
             drawDanger();
             drawScore();
             if (timerA < 0) {
+                intTime++;
                 drawBorder();
+                setSpeed();
                 apple.draw();
                 if (snake4live == true) {
-                    snake4.move();
+                    if (speed4 % intTime == 0) {
+                        snake4.move();
+                    }
                 }
                 if (snake1live == true) {
-                    snake.move();
+                    if (speed1 % intTime == 0) {
+                        snake.move();
+                    }
                 }
                 if (snake2live == true) {
-                    snake2.move();
+                    if (speed2 % intTime == 0) {
+                        snake2.move();
+                    }
                 }
                 if (snake3live == true) {
-                    snake3.move();
+                    if (speed3 % intTime == 0) {
+                        snake3.move();
+                    }
                 }
                 drawBorder();
                 snake.draw();
