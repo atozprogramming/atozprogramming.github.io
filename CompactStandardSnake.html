@@ -111,6 +111,8 @@
                 }
             } else if (score4 < score && score4 < score2 && score4 < score3) {
                 //Yellow in last place
+                ctx.fillStyle = "Gold";
+                ctx.fillText("Score: " + score4, 1200, 60);
                 if (score >= score2 && score >= score3) {
                     //Blue 1st
                     ctx.fillStyle = "Blue";

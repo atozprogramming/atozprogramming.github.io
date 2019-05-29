@@ -1,7 +1,7 @@
 # ![alt text](WebsiteLogo2.png "Logo") Welcome to A to Z programming
 
 Your go-to javascript programming outlet
-> This website is a long continuous project that is aiming on featuring extrodinary games that cannot be found elsewhere. This website has currently 3 games, and will be increasing its game count periodically. In addition to games, we feature side-projects for academic and entertainment purposes - feel free to check them out!
+> This website is a long continuous project that is aiming on featuring extrodinary games that cannot be found elsewhere. This website has currently 3.5 games, and will be increasing its game count periodically. In addition to games, we feature side-projects for academic and entertainment purposes - feel free to check them out!
 
 Quick links: 
   - **Top game:** [Snake Battle Royale](./CompactStandardSnake.html)
@@ -31,6 +31,11 @@ The objective of the game is to score the most points by the time all the snakes
   * ##### Skins
 One of the best features this game has to offer is that you can enable skins for your characters. Each Snake(Blue, Red, and Green) has their own unique skin that is exclusive only to them, encouraging play with different snakes between game rounds. in order to activate your skin, you must note that before the game begins, there is a 3-ish second countdown. If you press any of your control keys (other than your right key, be it the right arrow, "d", or "l") before the game begins, you can toggle your skin. The skins are different for each player, and do not alter gameplay.
 
+Similar games include:
+  * #### [Snake Unlimited](./SnakeUnlimited.html)
+  * #### [1-player Snake Unlimited](./SnakeUnlimited.html)
+  * For more information, see the description for the game [Snake Unlimited](./SnakeUnlimited.html).
+
 To restart the game, simply refresh the page.
 
 #### [3 kings](./3kingsBoardGame.html)
@@ -44,13 +49,15 @@ Although Snake Battle Royale was released first on the website, this game was th
 #### [Snake Unlimited](./SnakeUnlimited.html)
 ![alt text](SU-Screenshot.png "Snake unlimited")
 
-For those who are bad at Snake Battle Royale and constantly die, this is the solution. Whenever a player dies, they are randomly teleported to the edge of the board, and continue playing normally. The board no longer shrinks, in order to produce large snakes that dominate the board. This timeless game does not end, but can still become competitive!
+For those who are bad at Snake Battle Royale and constantly die, this is the solution. Whenever a player dies, they are randomly teleported to the edge of the board, and continue playing normally. The board no longer shrinks, in order to produce large snakes that dominate the board. This timeless game does not end, but can still become competitive! If you are alone, play the [1 player version](./SnakeUnlimitedAI.html)!
   * ##### Rules and Controls
     * See the rules for regular Snake Battle Royale.
   * ##### Changes
     * Players constantly respawn
     * The board does not shrink
     * Players that run into another snake increase the winning snake's length and score (though length boost is not as large as score boost)
+  * ##### Other version
+    * [1 player version](./SnakeUnlimitedAI.html): same rules, but there are now 3 computer players instead of 2!
 
 #### More Games coming soon!
 
@@ -82,9 +89,9 @@ This simulation covers the same topics as the [Planental Orbit](./Physics2.html)
 ## Update Log
 
 Ever wonder when a game or simulation was released? The Update Log is always available for quick reference.
+  - **5/28/2019:** 1-player Snake Unlimited released
   - **5/25/2019:** Snake Unlimited released
   - **5/22/2019:** 3 Kings game released, began uploading screenshots of games
   - **5/20/2019:** Planental Orbit(s) and Earth Cannon simulations released
   - **5/19/2019:** Snake Battle Royale released
   - **5/18/2019:** Website created
-  

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>SnakeUnlimited</title>
+    <title>SnakeUnlimitedAIpro</title>
 </head>
 
 <body>
@@ -122,7 +122,6 @@
                 }
             } else if (score4 < score && score4 < score2 && score4 < score3) {
                 //Yellow in last place
-                
                 ctx.fillStyle = "Gold";
                 ctx.fillText("Score: " + score4, 1200, 60);
                 if (score >= score2 && score >= score3) {
@@ -1029,6 +1028,7 @@
             if (wallCollision || selfCollision) {
                 //console.log("Collision!");
             }
+            snake2.setDirection(head);
             return wallCollision || selfCollision;
         };
         Snake3.prototype.checkCollision = function (head) {
@@ -1080,6 +1080,7 @@
             if (wallCollision || selfCollision) {
                 //console.log("Collision!");
             }
+            snake3.setDirection(head);
             return wallCollision || selfCollision;
         };
         Snake4.prototype.checkCollision = function (head4) {
@@ -1155,36 +1156,6 @@
             if (newDirection !== undefined) {
                 if (newDirection == "left" || newDirection == "up" || newDirection == "right" || newDirection == "down") {
                     snake.setDirection(newDirection);
-                } else if (newDirection == "left2" || newDirection == "up2" || newDirection == "right2" || newDirection == "down2") {
-                    if (newDirection == "left2") {
-                        newDirection = "left";
-                    }
-                    if (newDirection == "right2") {
-                        newDirection = "right";
-                    }
-                    if (newDirection == "up2") {
-                        newDirection = "up";
-                    }
-                    if (newDirection == "down2") {
-                        newDirection = "down";
-                    }
-                    snake2.setDirection(newDirection);
-                } else if (newDirection !== "space") {
-                    if (newDirection == "left3") {
-                        newDirection = "left";
-                    }
-                    if (newDirection == "right3") {
-                        newDirection = "right";
-                    }
-                    if (newDirection == "up3") {
-                        newDirection = "up";
-                    }
-                    if (newDirection == "down3") {
-                        newDirection = "down";
-                    }
-                    snake3.setDirection(newDirection);
-                } else {
-                    spacePressed = true;
                 }
             }
         });
@@ -1201,29 +1172,921 @@
             }
             this.nextDirection = newDirection;
         };
-        Snake2.prototype.setDirection = function (newDirection) {
-            if (this.direction === "up" && newDirection === "down") {
-                return;
-            } else if (this.direction === "right" && newDirection === "left") {
-                return;
-            } else if (this.direction === "down" && newDirection === "up") {
-                return;
-            } else if (this.direction === "left" && newDirection === "right") {
-                return;
+        Snake2.prototype.setDirection = function (head) {
+            let padding = 5;
+            let paddingChange = 5;
+            let paddingPlayer = 1;
+            let rand = 0;
+            let Chance = 20;
+            //The trial variable will help cut down errors
+            let trial;
+            trial = SnakeSeg.length;
+            if (SnakeSeg2.length > trial) {
+                trial = SnakeSeg2.length;
             }
-            this.nextDirection = newDirection;
+            if (SnakeSeg3.length > trial) {
+                trial = SnakeSeg3.length;
+            }
+            if (SnakeSeg4.length > trial) {
+                trial = SnakeSeg4.length;
+            }
+            //Begin in your direction...
+            this.nextDirection = this.direction;
+            if (head.col <= padding) {
+                //Left edge
+                if (head.row <= padding) {
+                    //Top-left corner
+                    if (this.direction === "left") {
+                        this.nextDirection = "down";
+                    } else if (this.direction === "up") {
+                        this.nextDirection = "right";
+                    }
+                } else {
+                    if (head.row >= heightInBlocks - paddingChange) {
+                        //Bottom-left corner
+                        if (this.direction === "down") {
+                            this.nextDirection = "right";
+                        } else if (this.direction === "left") {
+                            this.nextDirection = "up";
+                        }
+                    } else {
+                        //Left Edge
+                        if (this.direction === "left") {
+                            rand = Math.floor(Math.random() * Math.floor(2));
+                            if (rand == 1) {
+                                this.nextDirection = "up";
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                                        this.nextDirection = "down";
+                                        //FORCED
+                                    }
+                                }
+                            } else {
+                                this.nextDirection = "down";
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                                        this.nextDirection = "up";
+                                        //FORCED
+                                    }
+                                }
+                            }
+                        } else {
+                            rand = Math.floor(Math.random() * Math.floor(Chance));
+                            if (rand == 1 || head.row == Snapple.row) {
+                                this.nextDirection = "right";
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                        //stay in-line
+                                        this.nextDirection = this.direction;
+                                    }
+                                }
+                            } else {
+                                if (this.direction == "up") {
+                                    for (var i = 0; i < trial; i++) {
+                                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                                            this.nextDirection = "right";
+                                            //FORCED
+                                        }
+                                    }
+                                } else if (this.direction == "down") {
+                                    for (var i = 0; i < trial; i++) {
+                                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                                            this.nextDirection = "right";
+                                            //FORCED
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (head.row <= padding) {
+                //Top Edge
+                //We know it can't be in the Top-Left Corner (due to head.col not equalling one).
+                if (head.col >= widthInBlocks - paddingChange) {
+                    //Top-right corner
+                    if (this.direction === "right") {
+                        this.nextDirection = "down";
+                    } else if (this.direction === "up") {
+                        this.nextDirection = "left";
+                    }
+                } else {
+                    //Top Edge
+                    if (this.direction == "up") {
+                        rand = Math.floor(Math.random() * Math.floor(2));
+                        if (rand == 1) {
+                            this.nextDirection = "right";
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                    //Going to colide if going right
+                                    this.nextDirection = "left";
+                                }
+                            }
+                        } else {
+                            this.nextDirection = "left";
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                    this.nextDirection = "right";
+                                }
+                            }
+                        }
+                    } else {
+                        rand = Math.floor(Math.random() * Math.floor(Chance));
+                        if (rand == 1 || head.col == Snapple.col) {
+                            this.nextDirection = "down";
+                            //Possibly stay in-line
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                                    //stay in-line
+                                    this.nextDirection = this.direction;
+                                }
+                            }
+                        } else {
+                            //Possible force-move, or staying straight
+                            if (this.direction == "right") {
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                        //Going to colide if going right
+                                        this.nextDirection = "down";
+                                    }
+                                }
+                            } else if (this.direction == "left") {
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                        this.nextDirection = "down";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (head.col >= widthInBlocks - paddingChange) {
+                //Right Edge
+                //We know it can't be in the top-right corner(due to head.row not equalling one).
+                if (head.row >= heightInBlocks - paddingChange) {
+                    //Bottom-right corner
+                    if (this.direction === "down") {
+                        this.nextDirection = "left";
+                    } else if (this.direction === "right") {
+                        this.nextDirection = "up";
+                    }
+                } else {
+                    //Right Edge
+                    if (this.direction == "right") {
+                        rand = Math.floor(Math.random() * Math.floor(2));
+                        if (rand == 1) {
+                            this.nextDirection = "up";
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                                    this.nextDirection = "down";
+                                    //FORCED
+                                }
+                            }
+                        } else {
+                            this.nextDirection = "down";
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                                    this.nextDirection = "up";
+                                    //FORCED
+                                }
+                            }
+                        }
+                    } else {
+                        rand = Math.floor(Math.random() * Math.floor(Chance));
+                        if (rand == 1 || head.row == Snapple.row) {
+                            this.nextDirection = "left";
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                    //stay in-line
+                                    this.nextDirection = this.direction;
+                                }
+                            }
+                        } else {
+                            if (this.direction == "up") {
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                                        this.nextDirection = "left";
+                                        //FORCED
+                                    }
+                                }
+                            } else if (this.direction == "down") {
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                                        this.nextDirection = "left";
+                                        //FORCED
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (head.row >= heightInBlocks - paddingChange) {
+                //Bottom Edge
+                //Not on a corner, all corners have been checked!
+                if (this.direction == "down") {
+                    rand = Math.floor(Math.random() * Math.floor(2));
+                    if (rand == 1) {
+                        this.nextDirection = "right";
+                        for (var i = 0; i < trial; i++) {
+                            if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                                SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                //Going to colide if going right
+                                this.nextDirection = "left";
+                            }
+                        }
+                    } else {
+                        this.nextDirection = "left";
+                        for (var i = 0; i < trial; i++) {
+                            if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                                SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                this.nextDirection = "right";
+                            }
+                        }
+                    }
+                } else {
+                    rand = Math.floor(Math.random() * Math.floor(Chance));
+                    if (rand == 1 || head.col == Snapple.col) {
+                        this.nextDirection = "up";
+                        //Possibly stay in-line
+                        for (var i = 0; i < trial; i++) {
+                            if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                                SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                                SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                                SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                                //stay in-line
+                                this.nextDirection = this.direction;
+                            }
+                        }
+                    } else {
+                        //Possible force-move, or staying straight
+                        if (this.direction == "right") {
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                    //FORCED
+                                    this.nextDirection = "up";
+                                }
+                            }
+                        } else if (this.direction == "left") {
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                    //FORCED
+                                    this.nextDirection = "up";
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                //Middle of board
+                //Check to see if an opponent is in front of you
+                //col is x-axis
+                //row is y-axis
+                //(0, 0) is top-lef corner
+                if (this.direction == "left" || this.direction == "right") {
+                    if (head.col == Snapple.col) {
+                        if (Snapple.row >= head.row) {
+                            this.nextDirection = "down";
+                            console.log("A");
+                        } else {
+                            this.nextDirection = "up";
+                            console.log("B");
+                        }
+                    }
+                }
+                if (this.direction == "up" || this.direction == "down") {
+                    if (head.row == Snapple.row) {
+                        if (Snapple.col >= head.col) {
+                            this.nextDirection = "right";
+                            console.log("C");
+                        } else {
+                            this.nextDirection = "left";
+                            console.log("D");
+                        }
+                    }
+                }
+                if (this.direction == "up") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                            //Going to colide if going up
+                            rand = Math.floor(Math.random() * Math.floor(2));
+                            if (rand == 1) {
+                                this.nextDirection = "right";
+                            } else {
+                                this.nextDirection = "left";
+                            }
+                        }
+                    }
+                } else if (this.direction == "down") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                            //Going to colide if going down
+                            rand = Math.floor(Math.random() * Math.floor(2));
+                            if (rand == 1) {
+                                this.nextDirection = "right";
+                            } else {
+                                this.nextDirection = "left";
+                            }
+                        }
+                    }
+                } else if (this.direction == "right") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                            //Going to colide if going right
+                            rand = Math.floor(Math.random() * Math.floor(2));
+                            if (rand == 1) {
+                                this.nextDirection = "up";
+                            } else {
+                                this.nextDirection = "down";
+                            }
+                        }
+                    }
+                } else if (this.direction == "left") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                            //Going to colide if going left
+                            rand = Math.floor(Math.random() * Math.floor(2));
+                            if (rand == 1) {
+                                this.nextDirection = "up";
+                            } else {
+                                this.nextDirection = "down";
+                            }
+                        }
+                    }
+                }
+                //Double-check, making sure you are not going to crash with your new move...
+                if (this.nextDirection == "up") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                            if (this.direction == "left" || this.direction == "right") {
+                                this.nextDirection = "down";
+                            }
+                        }
+                    }
+                } else if (this.nextDirection == "down") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                            if (this.direction == "left" || this.direction == "right") {
+                                this.nextDirection = "up";
+                            }
+                        }
+                    }
+                } else if (this.nextDirection == "right") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                            if (this.direction == "up" || this.direction == "down") {
+                                this.nextDirection = "left";
+                            }
+                        }
+                    }
+                } else if (this.nextDirection == "left") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                            if (this.direction == "up" || this.direction == "down") {
+                                this.nextDirection = "right";
+                            }
+                        }
+                    }
+                }
+                //Continue in your direction!
+                //this.nextDirection = this.direction;
+            }
         };
-        Snake3.prototype.setDirection = function (newDirection) {
-            if (this.direction === "up" && newDirection === "down") {
-                return;
-            } else if (this.direction === "right" && newDirection === "left") {
-                return;
-            } else if (this.direction === "down" && newDirection === "up") {
-                return;
-            } else if (this.direction === "left" && newDirection === "right") {
-                return;
+        Snake3.prototype.setDirection = function (head) {
+            let padding = 5;
+            let paddingChange = 5;
+            let paddingPlayer = 1;
+            let rand = 0;
+            let Chance = 20;
+            //The trial variable will help cut down errors
+            let trial;
+            trial = SnakeSeg.length;
+            if (SnakeSeg2.length > trial) {
+                trial = SnakeSeg2.length;
             }
-            this.nextDirection = newDirection;
+            if (SnakeSeg3.length > trial) {
+                trial = SnakeSeg3.length;
+            }
+            if (SnakeSeg4.length > trial) {
+                trial = SnakeSeg4.length;
+            }
+            //Begin in your direction...
+            this.nextDirection = this.direction;
+            if (head.col <= padding) {
+                //Left edge
+                if (head.row <= padding) {
+                    //Top-left corner
+                    if (this.direction === "left") {
+                        this.nextDirection = "down";
+                    } else if (this.direction === "up") {
+                        this.nextDirection = "right";
+                    }
+                } else {
+                    if (head.row >= heightInBlocks - paddingChange) {
+                        //Bottom-left corner
+                        if (this.direction === "down") {
+                            this.nextDirection = "right";
+                        } else if (this.direction === "left") {
+                            this.nextDirection = "up";
+                        }
+                    } else {
+                        //Left Edge
+                        if (this.direction === "left") {
+                            rand = Math.floor(Math.random() * Math.floor(2));
+                            if (rand == 1) {
+                                this.nextDirection = "up";
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                                        this.nextDirection = "down";
+                                        //FORCED
+                                    }
+                                }
+                            } else {
+                                this.nextDirection = "down";
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                                        this.nextDirection = "up";
+                                        //FORCED
+                                    }
+                                }
+                            }
+                        } else {
+                            rand = Math.floor(Math.random() * Math.floor(Chance));
+                            if (rand == 1 || head.row == Snapple.row) {
+                                this.nextDirection = "right";
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                        //stay in-line
+                                        this.nextDirection = this.direction;
+                                    }
+                                }
+                            } else {
+                                if (this.direction == "up") {
+                                    for (var i = 0; i < trial; i++) {
+                                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                                            this.nextDirection = "right";
+                                            //FORCED
+                                        }
+                                    }
+                                } else if (this.direction == "down") {
+                                    for (var i = 0; i < trial; i++) {
+                                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                                            this.nextDirection = "right";
+                                            //FORCED
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (head.row <= padding) {
+                //Top Edge
+                //We know it can't be in the Top-Left Corner (due to head.col not equalling one).
+                if (head.col >= widthInBlocks - paddingChange) {
+                    //Top-right corner
+                    if (this.direction === "right") {
+                        this.nextDirection = "down";
+                    } else if (this.direction === "up") {
+                        this.nextDirection = "left";
+                    }
+                } else {
+                    //Top Edge
+                    if (this.direction == "up") {
+                        rand = Math.floor(Math.random() * Math.floor(2));
+                        if (rand == 1) {
+                            this.nextDirection = "right";
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                    //Going to colide if going right
+                                    this.nextDirection = "left";
+                                }
+                            }
+                        } else {
+                            this.nextDirection = "left";
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                    this.nextDirection = "right";
+                                }
+                            }
+                        }
+                    } else {
+                        rand = Math.floor(Math.random() * Math.floor(Chance));
+                        if (rand == 1 || head.col == Snapple.col) {
+                            this.nextDirection = "down";
+                            //Possibly stay in-line
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                                    //stay in-line
+                                    this.nextDirection = this.direction;
+                                }
+                            }
+                        } else {
+                            //Possible force-move, or staying straight
+                            if (this.direction == "right") {
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                        //Going to colide if going right
+                                        this.nextDirection = "down";
+                                    }
+                                }
+                            } else if (this.direction == "left") {
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                        this.nextDirection = "down";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (head.col >= widthInBlocks - paddingChange) {
+                //Right Edge
+                //We know it can't be in the top-right corner(due to head.row not equalling one).
+                if (head.row >= heightInBlocks - paddingChange) {
+                    //Bottom-right corner
+                    if (this.direction === "down") {
+                        this.nextDirection = "left";
+                    } else if (this.direction === "right") {
+                        this.nextDirection = "up";
+                    }
+                } else {
+                    //Right Edge
+                    if (this.direction == "right") {
+                        rand = Math.floor(Math.random() * Math.floor(2));
+                        if (rand == 1) {
+                            this.nextDirection = "up";
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                                    this.nextDirection = "down";
+                                    //FORCED
+                                }
+                            }
+                        } else {
+                            this.nextDirection = "down";
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                                    this.nextDirection = "up";
+                                    //FORCED
+                                }
+                            }
+                        }
+                    } else {
+                        rand = Math.floor(Math.random() * Math.floor(Chance));
+                        if (rand == 1 || head.row == Snapple.row) {
+                            this.nextDirection = "left";
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                    //stay in-line
+                                    this.nextDirection = this.direction;
+                                }
+                            }
+                        } else {
+                            if (this.direction == "up") {
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                                        this.nextDirection = "left";
+                                        //FORCED
+                                    }
+                                }
+                            } else if (this.direction == "down") {
+                                for (var i = 0; i < trial; i++) {
+                                    if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                                        SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                                        SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                                        SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                                        this.nextDirection = "left";
+                                        //FORCED
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (head.row >= heightInBlocks - paddingChange) {
+                //Bottom Edge
+                //Not on a corner, all corners have been checked!
+                if (this.direction == "down") {
+                    rand = Math.floor(Math.random() * Math.floor(2));
+                    if (rand == 1) {
+                        this.nextDirection = "right";
+                        for (var i = 0; i < trial; i++) {
+                            if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                                SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                //Going to colide if going right
+                                this.nextDirection = "left";
+                            }
+                        }
+                    } else {
+                        this.nextDirection = "left";
+                        for (var i = 0; i < trial; i++) {
+                            if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                                SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                this.nextDirection = "right";
+                            }
+                        }
+                    }
+                } else {
+                    rand = Math.floor(Math.random() * Math.floor(Chance));
+                    if (rand == 1 || head.col == Snapple.col) {
+                        this.nextDirection = "up";
+                        //Possibly stay in-line
+                        for (var i = 0; i < trial; i++) {
+                            if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                                SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                                SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                                SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                                //stay in-line
+                                this.nextDirection = this.direction;
+                            }
+                        }
+                    } else {
+                        //Possible force-move, or staying straight
+                        if (this.direction == "right") {
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                    //FORCED
+                                    this.nextDirection = "up";
+                                }
+                            }
+                        } else if (this.direction == "left") {
+                            for (var i = 0; i < trial; i++) {
+                                if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                                    SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                                    SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                                    SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                                    //FORCED
+                                    this.nextDirection = "up";
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                //Middle of board
+                //Check to see if an opponent is in front of you
+                //col is x-axis
+                //row is y-axis
+                //(0, 0) is top-lef corner
+                if (this.direction == "left" || this.direction == "right") {
+                    if (head.col == Snapple.col) {
+                        if (Snapple.row >= head.row) {
+                            this.nextDirection = "down";
+                            console.log("A");
+                        } else {
+                            this.nextDirection = "up";
+                            console.log("B");
+                        }
+                    }
+                }
+                if (this.direction == "up" || this.direction == "down") {
+                    if (head.row == Snapple.row) {
+                        if (Snapple.col >= head.col) {
+                            this.nextDirection = "right";
+                            console.log("C");
+                        } else {
+                            this.nextDirection = "left";
+                            console.log("D");
+                        }
+                    }
+                }
+                if (this.direction == "up") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                            //Going to colide if going up
+                            rand = Math.floor(Math.random() * Math.floor(2));
+                            if (rand == 1) {
+                                this.nextDirection = "right";
+                            } else {
+                                this.nextDirection = "left";
+                            }
+                        }
+                    }
+                } else if (this.direction == "down") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                            //Going to colide if going down
+                            rand = Math.floor(Math.random() * Math.floor(2));
+                            if (rand == 1) {
+                                this.nextDirection = "right";
+                            } else {
+                                this.nextDirection = "left";
+                            }
+                        }
+                    }
+                } else if (this.direction == "right") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                            //Going to colide if going right
+                            rand = Math.floor(Math.random() * Math.floor(2));
+                            if (rand == 1) {
+                                this.nextDirection = "up";
+                            } else {
+                                this.nextDirection = "down";
+                            }
+                        }
+                    }
+                } else if (this.direction == "left") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                            //Going to colide if going left
+                            rand = Math.floor(Math.random() * Math.floor(2));
+                            if (rand == 1) {
+                                this.nextDirection = "up";
+                            } else {
+                                this.nextDirection = "down";
+                            }
+                        }
+                    }
+                }
+                //Double-check, making sure you are not going to crash with your new move...
+                if (this.nextDirection == "up") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row + paddingPlayer ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row + paddingPlayer ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row + paddingPlayer ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row + paddingPlayer) {
+                            if (this.direction == "left" || this.direction == "right") {
+                                this.nextDirection = "down";
+                            }
+                        }
+                    }
+                } else if (this.nextDirection == "down") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col && head.row == SnakeSeg[i].row - paddingPlayer ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col && head.row == SnakeSeg2[i].row - paddingPlayer ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col && head.row == SnakeSeg3[i].row - paddingPlayer ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col && head.row == SnakeSeg4[i].row - paddingPlayer) {
+                            if (this.direction == "left" || this.direction == "right") {
+                                this.nextDirection = "up";
+                            }
+                        }
+                    }
+                } else if (this.nextDirection == "right") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col - paddingPlayer && head.row == SnakeSeg[i].row ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col - paddingPlayer && head.row == SnakeSeg2[i].row ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col - paddingPlayer && head.row == SnakeSeg3[i].row ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col - paddingPlayer && head.row == SnakeSeg4[i].row) {
+                            if (this.direction == "up" || this.direction == "down") {
+                                this.nextDirection = "left";
+                            }
+                        }
+                    }
+                } else if (this.nextDirection == "left") {
+                    for (var i = 0; i < trial; i++) {
+                        if (SnakeSeg[i] != undefined && head.col == SnakeSeg[i].col + paddingPlayer && head.row == SnakeSeg[i].row ||
+                            SnakeSeg2[i] != undefined && head.col == SnakeSeg2[i].col + paddingPlayer && head.row == SnakeSeg2[i].row ||
+                            SnakeSeg3[i] != undefined && head.col == SnakeSeg3[i].col + paddingPlayer && head.row == SnakeSeg3[i].row ||
+                            SnakeSeg4[i] != undefined && head.col == SnakeSeg4[i].col + paddingPlayer && head.row == SnakeSeg4[i].row) {
+                            if (this.direction == "up" || this.direction == "down") {
+                                this.nextDirection = "right";
+                            }
+                        }
+                    }
+                }
+                //Continue in your direction!
+                //this.nextDirection = this.direction;
+            }
         };
         Snake4.prototype.setDirection = function (head) {
             /* 
