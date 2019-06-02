@@ -935,6 +935,13 @@
             for (var i = 0; i < this.segments.length; i++) {
                 if (head.equal(this.segments[i])) {
                     selfCollision = true;
+                    if(score2 < score3 && score2 < score4){
+                        score2 = score2 + 5;
+                    } else if(score3 < score2 && score3 < score4){
+                        score3 = score3 + 5;
+                    } else {
+                        score4 = score4 + 5;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg2.length; i++) {
@@ -989,7 +996,13 @@
             for (var i = 0; i < this.segments.length; i++) {
                 if (head.equal(this.segments[i])) {
                     selfCollision = true;
-
+                    if(score < score3 && score < score4){
+                        score = score + 5;
+                    } else if(score3 < score && score3 < score4){
+                        score3 = score3 + 5;
+                    } else {
+                        score4 = score4 + 5;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg.length; i++) {
@@ -1042,6 +1055,13 @@
             for (var i = 0; i < this.segments.length; i++) {
                 if (head.equal(this.segments[i])) {
                     selfCollision = true;
+                    if(score2 < score && score2 < score4){
+                        score2 = score2 + 5;
+                    } else if(score < score2 && score < score4){
+                        score = score + 5;
+                    } else {
+                        score4 = score4 + 5;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg.length; i++) {
@@ -1094,6 +1114,13 @@
             for (var i = 0; i < this.segments.length; i++) {
                 if (head4.equal(this.segments[i])) {
                     selfCollision = true;
+                    if(score2 < score3 && score2 < score){
+                        score2 = score2 + 5;
+                    } else if(score3 < score2 && score3 < score){
+                        score3 = score3 + 5;
+                    } else {
+                        score = score + 5;
+                    }
                 }
             }
             for (var i = 0; i < SnakeSeg.length; i++) {
@@ -2652,14 +2679,6 @@
         var timerB = 0;
         var timerC = 0;
         var rewarded = false;
-        score = 100;
-        score2 = 100;
-        score3 = 100;
-        score4 = 100;
-        won = 100;
-        won2= 100;
-        won3 = 100;
-        won4 = 100;
         //TimerC has nothing to do with timers A and B.
         function setSpeed() {
             if (score > 150) {
