@@ -30,6 +30,8 @@ The objective of the game is to score the most points by the time all the snakes
        * _**Player4**_ (Yellow) is a computer, and thus has no keyboard controls.
   * ##### Skins
 One of the best features this game has to offer is that you can enable skins for your characters. Each Snake(Blue, Red, and Green) has their own unique skin that is exclusive only to them, encouraging play with different snakes between game rounds. in order to activate your skin, you must note that before the game begins, there is a 3-ish second countdown. If you press any of your control keys (other than your right key, be it the right arrow, "d", or "l") before the game begins, you can toggle your skin. The skins are different for each player, and do not alter gameplay.
+  * ##### 1 player
+To play with only 1 player and compete against 3 computer snakes, play [1-player Snake Battle Royale](./CompactStandardSnake1Player.html)
 
 Similar games include:
   * #### [Snake Unlimited](./SnakeUnlimited.html)
@@ -89,6 +91,7 @@ This simulation covers the same topics as the [Planental Orbit](./Physics2.html)
 ## Update Log
 
 Ever wonder when a game or simulation was released? The Update Log is always available for quick reference.
+  - **6/1/2019:** 1-player Snake Battle Royale released
   - **5/28/2019:** 1-player Snake Unlimited released
   - **5/25/2019:** Snake Unlimited released
   - **5/22/2019:** 3 Kings game released, began uploading screenshots of games
