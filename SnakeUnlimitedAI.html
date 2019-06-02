@@ -2652,6 +2652,14 @@
         var timerB = 0;
         var timerC = 0;
         var rewarded = false;
+        score = 100;
+        score2 = 100;
+        score3 = 100;
+        score4 = 100;
+        won = 100;
+        won2= 100;
+        won3 = 100;
+        won4 = 100;
         //TimerC has nothing to do with timers A and B.
         function setSpeed() {
             if (score > 150) {
@@ -2700,7 +2708,7 @@
             ctx.font = "30px Courtier";
             ctx.fillText(timerB, width / 2 + 50, height / 2 + 100 + 10);
             ctx.font = "30px Consolas";
-            ctx.fillText("Snake Battle Royale", width / 2, height / 2 - 20);
+            ctx.fillText("Snake Unlimited AI", width / 2, height / 2 - 20);
             ctx.fillText("Welcome to", width / 2, height / 2 - 50);
             //ctx.fillText("Game Starts in:", width / 2, height / 2 + 50);
         }
