@@ -938,23 +938,13 @@
             for (var i = 0; i < this.segments.length; i++) {
                 if (head.equal(this.segments[i])) {
                     selfCollision = true;
-                    if(score2 < score3 && score2 < score4){
-                        score2 = score2 + 5;
-                        won2 = won2 + 5;
-                    } else if(score3 < score2 && score3 < score4){
-                        score3 = score3 + 5;
-                        won3 = won3 + 5;
-                    } else {
-                        score4 = score4 + 5;
-                        won4 = won4 + 5;
-                    }
                 }
             }
             for (var i = 0; i < SnakeSeg2.length; i++) {
                 if (head.equal(SnakeSeg2[i])) {
                     selfCollision = true;
-                    won2 = score + won2;
-                    score2 = score2 + score;
+                    won2 = score + won2 + 3;
+                    score2 = score2 + score + 3;
                     if (score == 0) {
                         won2++;
                         score2++;
@@ -964,8 +954,8 @@
             for (var i = 0; i < SnakeSeg3.length; i++) {
                 if (head.equal(SnakeSeg3[i])) {
                     selfCollision = true;
-                    won3 = score + won3;
-                    score3 = score3 + score;
+                    won3 = score + won3 + 3;
+                    score3 = score3 + score + 3;
                     if (score == 0) {
                         won3++;
                         score3++;
@@ -976,9 +966,9 @@
                 if (head.equal(SnakeSeg4[i])) {
                     selfCollision = true;
                     console.log("Won4 before: " + won4);
-                    won4 = score + won4;
+                    won4 = score + won4 + 3;
                     console.log("Won4 after: " + won4)
-                    score4 = score4 + score;
+                    score4 = score4 + score + 3;
                     console.log("Victim score: " + score)
                     if (score == 0) {
                         won4++;
@@ -1002,23 +992,13 @@
             for (var i = 0; i < this.segments.length; i++) {
                 if (head.equal(this.segments[i])) {
                     selfCollision = true;
-                    if(score < score3 && score < score4){
-                        score = score + 5;
-                        won = won + 5;
-                    } else if(score3 < score && score3 < score4){
-                        score3 = score3 + 5;
-                        won3 = won3 + 5;
-                    } else {
-                        score4 = score4 + 5;
-                        won4 = won4 + 5;
-                    }
                 }
             }
             for (var i = 0; i < SnakeSeg.length; i++) {
                 if (head.equal(SnakeSeg[i])) {
                     selfCollision = true;
-                    won = score2 + won;
-                    score = score + score2;
+                    won = score2 + won + 3;
+                    score = score + score2 + 3;
                     if (score2 == 0) {
                         won++;
                         score++;
@@ -1028,8 +1008,8 @@
             for (var i = 0; i < SnakeSeg3.length; i++) {
                 if (head.equal(SnakeSeg3[i])) {
                     selfCollision = true;
-                    won3 = score2 + won3;
-                    score3 = score3 + score2;
+                    won3 = score2 + won3 + 3;
+                    score3 = score3 + score2 + 3;
                     if (score2 == 0) {
                         won3++;
                         score3++;
@@ -1039,8 +1019,8 @@
             for (var i = 0; i < SnakeSeg4.length; i++) {
                 if (head.equal(SnakeSeg4[i])) {
                     selfCollision = true;
-                    won4 = score2 + won4;
-                    score4 = score4 + score2;
+                    won4 = score2 + won4 + 3;
+                    score4 = score4 + score2 + 3;
                     if (score2 == 0) {
                         won4++;
                         score4++;
@@ -1064,23 +1044,13 @@
             for (var i = 0; i < this.segments.length; i++) {
                 if (head.equal(this.segments[i])) {
                     selfCollision = true;
-                    if(score2 < score && score2 < score4){
-                        score2 = score2 + 5;
-                        won2 = won2 + 5;
-                    } else if(score < score2 && score < score4){
-                        score = score + 5;
-                        won = won + 5;
-                    } else {
-                        score4 = score4 + 5;
-                        won4 = won4 + 5;
-                    }
                 }
             }
             for (var i = 0; i < SnakeSeg.length; i++) {
                 if (head.equal(SnakeSeg[i])) {
                     selfCollision = true;
-                    won = score3;
-                    score = score + score3;
+                    won = won + score3 + 3;
+                    score = score + score3 + 3;
                     if (score3 == 0) {
                         won++;
                         score++;
@@ -1090,8 +1060,8 @@
             for (var i = 0; i < SnakeSeg2.length; i++) {
                 if (head.equal(SnakeSeg2[i])) {
                     selfCollision = true;
-                    won2 = score3;
-                    score2 = score2 + score3;
+                    won2 = won2 + score3 + 3;
+                    score2 = score2 + score3 + 3;
                     if (score3 == 0) {
                         won2++;
                         score2++;
@@ -1101,8 +1071,8 @@
             for (var i = 0; i < SnakeSeg4.length; i++) {
                 if (head.equal(SnakeSeg4[i])) {
                     selfCollision = true;
-                    won4 = score3 + won4;
-                    score4 = score4 + score3;
+                    won4 = score3 + won4 + 3;
+                    score4 = score4 + score3 + 3;
                     if (score3 == 0) {
                         won4++;
                         score4++;
