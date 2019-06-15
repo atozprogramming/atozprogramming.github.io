@@ -376,73 +376,73 @@
                         ctx.fillText("Computing Overload", 1140, 310);
                     }
                     return numberOne / numberTwo;
-                } else if (sign == 5) {
-                    let a = Math.pow(numberTwo, 1 / numberOne);
-                    if (Math.floor(a) == Math.floor(a + 0.00001)) {
-                        return Math.pow(numberTwo, 1 / numberOne);
-                    }
-                    return Math.floor(0.00001 + Math.pow(numberTwo, 1 / numberOne));
-                } else if (sign == 6) {
-                    return Math.pow(numberOne, numberTwo);
-                } else if (sign == 7) {
-
                 }
+            } else if (sign == 5) {
+                let a = Math.pow(numberTwo, 1 / numberOne);
+                if (Math.floor(a) == Math.floor(a + 0.00001)) {
+                    return Math.pow(numberTwo, 1 / numberOne);
+                }
+                return Math.floor(0.00001 + Math.pow(numberTwo, 1 / numberOne));
+            } else if (sign == 6) {
+                return Math.pow(numberOne, numberTwo);
+            } else if (sign == 7) {
+
             }
         }
-            function draw() {
-                ctx.fillStyle = "#eee";
-                ctx.fillRect(180, 190, 960, 170);
-                ctx.fillRect(180, 400, 960, 400);
-                ctx.font = "100px Courtier";
-                ctx.fillStyle = "SeaGreen";
-                ctx.textAlign = "left";
-                ctx.textBaseline = "top";
-                ctx.fillText("Calculator 2.0", 100, 50);
-                ctx.font = "30px Courtier";
-                ctx.fillText("Just start typing. It's that easy.", 150, 150);
-                ctx.fillStyle = "Black";
-                ctx.font = "60px Courtier";
-                let show = "";
-                if (sign == 1) {
-                    show = "+";
-                } else if (sign == 2) {
-                    show = "-";
-                } else if (sign == 3) {
-                    show = "*";
-                } else if (sign == 4) {
-                    show = "/";
-                } else if (sign == 5) {
-                    show = "√";
-                } else if (sign == 6) {
-                    show = "";
-                } else if (sign == 7) {
-                    show = "";
-                }
-                if (sign == 5) {
-                    ctx.font = "30px Courtier";
-                }
-                ctx.fillText(numberOne, 200, 200);
-                if (sign == 6) {
-                    ctx.font = "30px Courtier";
-                } else {
-                    ctx.font = "60px Courtier";
-                }
-                let space;
-                if (sign == 5) {
-                    space = String(numberOne).length * 15;
-                } else {
-                    space = String(numberOne).length * 30;
-                }
-                ctx.fillText(show + " " + numberTwo, 220 + space, 200);
-                ctx.fillStyle = "SeaGreen";
-                ctx.textAlign = "right";
-                ctx.textBaseline = "top";
-                ctx.fillText(answer(), 1140, 260);
+        function draw() {
+            ctx.fillStyle = "#eee";
+            ctx.fillRect(180, 190, 960, 170);
+            ctx.fillRect(180, 400, 960, 400);
+            ctx.font = "100px Courtier";
+            ctx.fillStyle = "SeaGreen";
+            ctx.textAlign = "left";
+            ctx.textBaseline = "top";
+            ctx.fillText("Calculator 2.0", 100, 50);
+            ctx.font = "30px Courtier";
+            ctx.fillText("Just start typing. It's that easy.", 150, 150);
+            ctx.fillStyle = "Black";
+            ctx.font = "60px Courtier";
+            let show = "";
+            if (sign == 1) {
+                show = "+";
+            } else if (sign == 2) {
+                show = "-";
+            } else if (sign == 3) {
+                show = "*";
+            } else if (sign == 4) {
+                show = "/";
+            } else if (sign == 5) {
+                show = "√";
+            } else if (sign == 6) {
+                show = "";
+            } else if (sign == 7) {
+                show = "";
             }
-            var intervalId = setInterval(function () {
-                ctx.clearRect(0, 0, 1200, 700);
-                draw();
-            }, 50);
+            if (sign == 5) {
+                ctx.font = "30px Courtier";
+            }
+            ctx.fillText(numberOne, 200, 200);
+            if (sign == 6) {
+                ctx.font = "30px Courtier";
+            } else {
+                ctx.font = "60px Courtier";
+            }
+            let space;
+            if (sign == 5) {
+                space = String(numberOne).length * 15;
+            } else {
+                space = String(numberOne).length * 30;
+            }
+            ctx.fillText(show + " " + numberTwo, 220 + space, 200);
+            ctx.fillStyle = "SeaGreen";
+            ctx.textAlign = "right";
+            ctx.textBaseline = "top";
+            ctx.fillText(answer(), 1140, 260);
+        }
+        var intervalId = setInterval(function () {
+            ctx.clearRect(0, 0, 1200, 700);
+            draw();
+        }, 50);
     </script>
 </body>
 
