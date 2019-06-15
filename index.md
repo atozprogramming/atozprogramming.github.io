@@ -92,6 +92,7 @@ This simulation covers the same topics as the [Planental Orbit](./Physics2.html)
 ## Update Log
 
 Ever wonder when a game or simulation was released? The Update Log is always available for quick reference.
+  - **6/14/2019:** A fresh break from snake, the Calculator is released
   - **6/2/2019:** Mass transfer glitch patched in Snake Unlimited
   - **6/1/2019:** 1-player Snake Battle Royale released
   - **5/28/2019:** 1-player Snake Unlimited released
