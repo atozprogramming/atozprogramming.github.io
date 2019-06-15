@@ -7,13 +7,13 @@ Your go-to javascript programming outlet
 
 Click on any icon to access its contents. Tools are Green, and Games are Blue.
 
-[![Alt text](CalculatorIcon.png "Calc")](./MathCalculator.html)
+[![Alt text](./CalculatorIcon.png "Calc")](./MathCalculator.html)
 
-[![Alt text](Script.png "Script")](./.html)
+[![Alt text](./Script.png "Script")](./.html)
 
-[![Alt text](Snake.png "Snake")](./CompactStandardSnake.html)
+[![Alt text](./Snake.png "Snake")](./CompactStandardSnake.html)
 
-[![Alt text](3kings.png "3kings")](./3kingsBoardGame.html)
+[![Alt text](./3kings.png "3kings")](./3kingsBoardGame.html)
 
 ## Related Projects
 
