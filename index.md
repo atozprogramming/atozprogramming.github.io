@@ -10,9 +10,11 @@ Testing
 Click on any icon to access its contents. Tools are Green, and Games are Blue.
 
 [![alt text](CalculatorIcon.png "")](./MathCalculator.html)
+
 [![alt text](Script.png "")](./.html)
 
 [![alt text](Snake.png "")](./CompactStandardSnake.html)
+
 [![alt text](3kings.png "")](./3kingsBoardGame.html)
 
 ## Related Projects
