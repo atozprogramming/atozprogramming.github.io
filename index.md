@@ -4,6 +4,7 @@ Your go-to javascript programming outlet
 > This website is a long continuous project that is aiming on featuring extrodinary games that cannot be found elsewhere. This website has currently 3.5 games, and will be increasing its game count periodically. In addition to games, we feature side-projects for academic and entertainment purposes - feel free to check them out!
 
 Quick links: 
+  - **Best tool:** [Calculator](./MathCalculator.html)
   - **Top game:** [Snake Battle Royale](./CompactStandardSnake.html)
   - **Honorable game:** [3 kings](./3kingsBoardGame.html)
   - **Best simulation:** [Planental Orbit](./Physics2.html)
