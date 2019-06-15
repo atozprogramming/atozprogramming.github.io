@@ -9,11 +9,11 @@ Click on any icon to access its contents. Tools are Green, and Games are Blue.
 
 [![Alt text](CalculatorIcon.png "Calc")](./MathCalculator.html)
 
-[![alt text](Script.png "Script")](./.html)
+[![Alt text](Script.png "Script")](./.html)
 
-[![alt text](Snake.png "Snake")](./CompactStandardSnake.html)
+[![Alt text](Snake.png "Snake")](./CompactStandardSnake.html)
 
-[![alt text](3kings.png "3kings")](./3kingsBoardGame.html)
+[![Alt text](3kings.png "3kings")](./3kingsBoardGame.html)
 
 ## Related Projects
 
