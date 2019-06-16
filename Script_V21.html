@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Script</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="1300" height="600"></canvas>
+    <script src="./jquery-2.1.0.js"></script>
+    <script>
+        var Saved = false;
+        var LinesPerRow = 13;
+        var Checked = false;
+        var Caps = false;
+        var font = 6;
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var lastKey = "";
+        var keyNames = function (i) {
+            if (i == 32) {
+                return "space";
+            } else if (i == 17) {
+                return "control";
+            } else if (i == 18) {
+                return "alt";
+            } else if (i == 9) {
+                return "tab";
+            } else if (i == 20) {
+                return "cap";
+            } else if (i == 16) {
+                return "shift";
+            } else if (i == 37) {
+                return "left";
+            } else if (i == 13) {
+                return "enter";
+            } else if (i == 38) {
+                return "up";
+            } else if (i == 40) {
+                return "down";
+            } else if (i == 39) {
+                return "right";
+            } else if (i == 8) {
+                return "back";
+            } else {
+                Saved = false;
+                Checked = false;
+                if (Caps == false) {
+                    //lowercase letters and numbers
+                    if (i == 190) {
+                        return ".";
+                    } else if (i == 191) {
+                        return "/";
+                    } else if (i == 188) {
+                        return ",";
+                    } else if (i == 222) {
+                        return "'";
+                    } else if (i == 186) {
+                        return ";";
+                    } else if (i == 187) {
+                        return "=";
+                    } else if (i == 189) {
+                        return "-";
+                    } else if (i == 219) {
+                        return "[";
+                    } else if (i == 221) {
+                        return "]";
+                    } else if (i == 65) {
+                        //Letters!
+                        return "a";
+                    } else if (i == 66) {
+                        return "b";
+                    } else if (i == 67) {
+                        return "c";
+                    } else if (i == 68) {
+                        return "d";
+                    } else if (i == 69) {
+                        return "e";
+                    } else if (i == 70) {
+                        return "f";
+                    } else if (i == 71) {
+                        return "g";
+                    } else if (i == 72) {
+                        return "h";
+                    } else if (i == 73) {
+                        return "i";
+                    } else if (i == 74) {
+                        return "j";
+                    } else if (i == 75) {
+                        return "k";
+                    } else if (i == 76) {
+                        return "l";
+                    } else if (i == 77) {
+                        return "m";
+                    } else if (i == 78) {
+                        return "n";
+                    } else if (i == 79) {
+                        return "o";
+                    } else if (i == 80) {
+                        return "p";
+                    } else if (i == 81) {
+                        return "q";
+                    } else if (i == 82) {
+                        return "r";
+                    } else if (i == 83) {
+                        return "s";
+                    } else if (i == 84) {
+                        return "t";
+                    } else if (i == 85) {
+                        return "u";
+                    } else if (i == 86) {
+                        return "v";
+                    } else if (i == 87) {
+                        return "w";
+                    } else if (i == 88) {
+                        return "x";
+                    } else if (i == 89) {
+                        return "y";
+                    } else if (i == 90) {
+                        return "z";
+                    } else if (i == 48) {
+                        return "0";
+                    } else if (i == 49) {
+                        return "1";
+                    } else if (i == 50) {
+                        return "2";
+                    } else if (i == 51) {
+                        return "3";
+                    } else if (i == 52) {
+                        return "4";
+                    } else if (i == 53) {
+                        return "5";
+                    } else if (i == 54) {
+                        return "6";
+                    } else if (i == 55) {
+                        return "7";
+                    } else if (i == 56) {
+                        return "8";
+                    } else if (i == 57) {
+                        return "9";
+                    } else {
+                        return ""
+                    }
+                } else {
+                    Caps = false;
+                    Checked = false;
+                    //Capital letters and symbols
+                    if (i == 190) {
+                        return ">";
+                    } else if (i == 191) {
+                        return "?";
+                    } else if (i == 188) {
+                        return "<";
+                    } else if (i == 222) {
+                        return `"`;
+                    } else if (i == 186) {
+                        return ":";
+                    } else if (i == 187) {
+                        return "+";
+                    } else if (i == 189) {
+                        return "_";
+                    } else if (i == 219) {
+                        return "{";
+                    } else if (i == 221) {
+                        return "}";
+                    } else if (i == 65) {
+                        //Letters!
+                        return "A";
+                    } else if (i == 66) {
+                        return "B";
+                    } else if (i == 67) {
+                        return "C";
+                    } else if (i == 68) {
+                        return "D";
+                    } else if (i == 69) {
+                        return "E";
+                    } else if (i == 70) {
+                        return "F";
+                    } else if (i == 71) {
+                        return "G";
+                    } else if (i == 72) {
+                        return "H";
+                    } else if (i == 73) {
+                        return "I";
+                    } else if (i == 74) {
+                        return "J";
+                    } else if (i == 75) {
+                        return "K";
+                    } else if (i == 76) {
+                        return "L";
+                    } else if (i == 77) {
+                        return "M";
+                    } else if (i == 78) {
+                        return "N";
+                    } else if (i == 79) {
+                        return "O";
+                    } else if (i == 80) {
+                        return "P";
+                    } else if (i == 81) {
+                        return "Q";
+                    } else if (i == 82) {
+                        return "R";
+                    } else if (i == 83) {
+                        return "S";
+                    } else if (i == 84) {
+                        return "T";
+                    } else if (i == 85) {
+                        return "U";
+                    } else if (i == 86) {
+                        return "V";
+                    } else if (i == 87) {
+                        return "W";
+                    } else if (i == 88) {
+                        return "X";
+                    } else if (i == 89) {
+                        return "Y";
+                    } else if (i == 90) {
+                        return "Z";
+                    } else if (i == 48) {
+                        return ")";
+                    } else if (i == 49) {
+                        return "!";
+                    } else if (i == 50) {
+                        return "@";
+                    } else if (i == 51) {
+                        return "#";
+                    } else if (i == 52) {
+                        return "$";
+                    } else if (i == 53) {
+                        return "%";
+                    } else if (i == 54) {
+                        return "^";
+                    } else if (i == 55) {
+                        return "&";
+                    } else if (i == 56) {
+                        return "*";
+                    } else if (i == 57) {
+                        return "(";
+                    } else {
+                        return ""
+                    }
+                }
+            }
+        };
+        let backGround = "DeepSkyBlue";
+        let menuText = "Navy";
+        let highlight = "Cyan";
+        let menuBack = "LightSteelBlue";
+        let mainText = "Black";
+        var Theme = 4;
+        var MenuDisplay = false;
+        var MenuPage = 0;
+        var SearchWord = "";
+        /* 
+            Page 0: Feature searcher
+            Page 1: Theme changer
+            Page 2: AutoScroll
+            Page 3: Save Document
+            Page 4: Import Text
+            Page 5: Fonts
+        */
+        var SetTheme = function () {
+            if (Theme == 1) {
+                //BubbleGum
+                backGround = "White";
+                menuText = "DarkSalmon";
+                highlight = "LavenderBlush";
+                menuBack = "Pink";
+                mainText = "Black";
+            } else if (Theme == 2) {
+                //Blue Study
+                backGround = "DeepSkyBlue";
+                menuText = "Navy";
+                highlight = "Cyan";
+                menuBack = "LightSteelBlue";
+                mainText = "Black";
+            } else if (Theme == 3) {
+                //Inferno
+                backGround = "Maroon";
+                menuText = "Black";
+                highlight = "Red";
+                menuBack = "DarkRed";
+                mainText = "Black";
+            } else if (Theme == 4) {
+                //Simple
+                backGround = "White";
+                menuText = "Black";
+                highlight = "White";
+                menuBack = "SlateGrey";
+                mainText = "Black";
+            } else if (Theme == 5) {
+                //Inverted
+                backGround = "Black";
+                menuText = "White";
+                highlight = "Black";
+                menuBack = "Black";
+                mainText = "White";
+            }
+        }
+        $("body").keydown(function (event) {
+            //console.log(event.keyCode);
+            lastKey = keyNames(event.keyCode);
+            //SetTheme();
+        });
+        Caps = false;
+        var currentWord = 0;
+        var Ypos = -50;
+        var AutoScroll = false;
+        var TextScroll = true;
+        var str = 0;
+        var g = 0;
+        var Paper = 0;
+        var SpelledRight = 0;
+        var linesChanged = 1;
+        var SpellingChecked = false;
+        var Words = ["Title.", "Author-Name.", "   Body:", "Press", "shift", "and", "CapsLock", "to", "access", "the", "main", "menu.", "Use", "arrows", "to", "navigate", "and", "have", "fun!"];
+        function Edit() {
+            if (lastKey != "left" && lastKey != "back" && lastKey != "right" && lastKey != "space" && lastKey != "up" && lastKey != "down" && lastKey != "enter" && lastKey != "control" && lastKey != "shift" && lastKey != "cap" && lastKey != "tab" && lastKey != "alt" && lastKey != "up" && lastKey != "down") {
+                if (MenuDisplay == false) {
+                    SpellingChecked = false;
+                    Words[currentWord] = Words[currentWord] + lastKey;
+                } else {
+                    if (MenuPage == 0) {
+                        SearchWord = SearchWord + lastKey;
+                    }
+                }
+                lastKey = 0;
+            } else if (lastKey == "right" || lastKey == "space") {
+                if (lastKey == "right" && MenuDisplay == true && MenuPage == 1) {
+                    Theme = Theme + 1;
+                    if (Theme > 5) {
+                        Theme = 1;
+                    }
+                }
+                if (MenuPage == 7) {
+                    if (slangEnabled == false) {
+                        slangEnabled = true;
+                    } else {
+                        slangEnabled = false;
+                    }
+                }
+                if (lastKey == "space" && MenuDisplay == true) {
+                    if (MenuPage == 2) {
+                        //AutoScroll
+                        if (AutoScroll == true) {
+                            AutoScroll = false;
+                        } else {
+                            AutoScroll = true;
+                        }
+                    } else if (MenuPage == 3) {
+                        //Saving document
+                        Saved = true;
+                        Caps = false;
+                        Paper = 0;
+                        Paper = String(Words[0] + " " + Words[1] + " ");
+                        for (let i = 2; i < Words.length; i++) {
+                            Paper = String(Paper + Words[i] + " ");
+                        }
+                        console.log(Paper);
+                    } else if (MenuPage == 4) {
+                        //Importing text
+                        Paper = prompt("Paste your saved document into here, with one space between each word.");
+                        Paper = String("[Start of imported text] " + Paper + "   [End of imported text.]")
+                        //Words = [""];
+                        let x = 0;
+                        let Start = currentWord;
+                        //Tally up word count
+                        for (let i = 0; i < Paper.length; i++) {
+                            if (Paper.charAt(i) != " ") {
+
+                            } else {
+                                x = x + 1;
+                            }
+                        }
+                        //Make room for words
+                        for (let i = 0; i < x + 1; i++) {
+                            Words.splice(currentWord + 1, 0, "");
+                        }
+                        currentWord = Start + 1;
+                        //currentWord = Words.length;
+                        let g = "";
+                        for (let i = 0; i < Paper.length; i++) {
+                            if (Paper.charAt(i) != " ") {
+                                g = String(g + Paper.charAt(i));
+                            } else {
+                                Words[currentWord] = g;
+                                g = "";
+                                currentWord = currentWord + 1;
+                            }
+                        }
+                        Words[currentWord] = "text.]";
+                    } else if (MenuPage == 5) {
+                        font = font + 1;
+                        if (font > 6) {
+                            font = 1;
+                        }
+                    } else if (MenuPage == 7) {
+                        if (SpellingChecked == false) {
+                            SpellCheckLoop();
+                        }
+                    }
+                }
+                currentWord = currentWord + 1;
+                if (Words[currentWord] == undefined) {
+                    Words[currentWord] = "";
+                }
+            } else if (lastKey == "left") {
+                if (MenuDisplay == true && MenuPage == 1) {
+                    Theme = Theme - 1;
+                    if (Theme < 1) {
+                        Theme = 5;
+                    }
+                }
+                if (currentWord > 0) {
+                    currentWord = currentWord - 1
+                } else {
+                    currentWord = 0;
+                }
+            } else if (lastKey == "tab") {
+                if (Caps == true) {
+                    Caps == false;
+                    for (var x = 0; x < Words.length; x++) {
+                        Words[x] = SpellCheck(Words[x]);
+                    }
+                } else {
+                    Words[currentWord] = String("  " + Words[currentWord]);
+                }
+                Checked = true;
+            } else if (lastKey == "alt") {
+                //Vacant
+                Caps = false;
+            } else if (lastKey == "up" || lastKey == "down") {
+                if (MenuDisplay == true && MenuPage == 6) {
+                    if (lastKey == "up") {
+                        linesChanged = linesChanged + 1;
+                        if (linesChanged > 10) {
+                            linesChanged = 10;
+                        }
+                    } else {
+                        linesChanged = linesChanged - 1;
+                        if (linesChanged < 1) {
+                            linesChanged = 1;
+                        }
+                    }
+                } else {
+                    if (AutoScroll == true) {
+                        if (lastKey == "up") {
+                            currentWord = currentWord - (linesChanged * LinesPerRow);
+                            if (currentWord < 0) {
+                                currentWord = 0;
+                            }
+                        } else {
+                            currentWord = currentWord + (linesChanged * LinesPerRow);
+                        }
+                    } else {
+                        if (lastKey == "up") {
+                            Ypos = Ypos - (linesChanged * 20);
+                            if (Ypos < -50) {
+                                Ypos = -50;
+                            }
+                        } else {
+                            Ypos = Ypos + (linesChanged * 20);
+                            if (Ypos > Words.length * 23 - 50) {
+                                Ypos = Words.length * 23 - 50;
+                            }
+                        }
+                    }
+                }
+            } else if (lastKey == "back") {
+                //str = "";
+                //str = Words[currentWord];
+                if (MenuDisplay == false) {
+                    if (Words[currentWord].length > 1) {
+                        Words[currentWord] = Words[currentWord].slice(0, Words[currentWord].length - 1);
+                    }
+                    if (Words[currentWord].length < 2) {
+                        Words[currentWord] = "";
+                        Words.splice(currentWord, 1);
+                        if (currentWord > 0) {
+                            currentWord = currentWord - 1;
+                        }
+                    }
+                }
+                if (MenuDisplay == true && MenuPage == 0) {
+                    if (SearchWord.length > 1) {
+                        SearchWord = SearchWord.slice(0, SearchWord.length - 1);
+                    } else {
+                        SearchWord = "";
+                    }
+                }
+            } else if (lastKey == "enter") {
+                if (MenuDisplay == false) {
+                    if (Caps == false) {
+                        Words.splice(currentWord + 1, 0, "");
+                        currentWord = currentWord + 1;
+                    } else {
+                        Saved = true;
+                        Caps = false;
+                        Paper = 0;
+                        Paper = String(Words[0] + " " + Words[1] + " ");
+                        for (let i = 2; i < Words.length; i++) {
+                            Paper = String(Paper + Words[i] + " ");
+                        }
+                        console.log(Paper);
+                    }
+                } else {
+                    MenuDisplay = false;
+                }
+            } else if (lastKey == "control") {
+                if (Caps == false) {
+                    //AutoScroll Moved
+                } else {
+                    Caps = false;
+                    //Used to be importing text
+                }
+            } else if (lastKey == "shift") {
+                if (Caps == true) {
+                    Caps = false;
+                } else {
+                    Caps = true;
+                }
+            } else if (lastKey == "cap") {
+                if (Caps == true) {
+                    Caps = false;
+                    if (MenuDisplay == false) {
+                        MenuDisplay = true;
+                    } else {
+                        MenuDisplay = false;
+                    }
+                } else {
+                    //Used to work fonts, moved to new menu
+                }
+            }
+            lastKey = 0;
+        }
+        var lines = [""];
+        var segments = [""];
+        var a = 0;
+        var b = "";
+        var c = true;
+        //The DICTIONARY
+        var Dictionary = new Map();
+        var DictionarySlang = new Map();
+        Dictionary.set('ball', 'fall', 'crawl');
+        DictionarySlang.set('google', 'bing', 'amazon', "peet's", 'duckduckgo', 'safeway', 'petco', 'apple', 'microsoft', 'lenovo', 'iphone', 'ipad',
+            'grammarly', 'squarespace', 'youtube', 'netflix', 'hulu', 'spotify', 'itunes', 'sears', 'starbucks', 'fedex', 'nike', 'adidas', 'coca-cola', 'costco',
+            'nordstrom', "macy's", 'boeing', 'ford', 'chevrolet', 'tesla', 'jeep', 'toyota', 'honda', 'mercedes', 'bmw', 'airbnb', 'disney', "domino's", 'duolingo', 'fortnite',
+            'agar.io', 'diep.io', 'mope.io', 'fortnite', 'gofundme', 'paytm', 'nintendo', 'sony', 'pinterest', 'volvo', 'spacex', 'wework', 'rivian', 'samsung', 'wal-mart', 'wholefoods',
+            'volkswagen', 'nissan', 'shell', 'chevron', "mcdonald's", 'pepsi', 'pepsico', 'verison', 'at&t', 'intel', 'facebook', 'twitter', 'jpmorgan', 'chase',
+            'nestle', 'krave', 'arrowhead', 'uber', 'lyft', 'cvs', 'volvo', '7-11');
+
+
+
+
+
+
+
+
+
+
+
+        var slangEnabled = false;
+        function SpellCheckLoop() {
+            SpellingChecked = true;
+            for (let t = 2; t < Words.length; t++) {
+                Words[t] = SpellCheck(Words[t]);
+            }
+        }
+        function SpellCheck(input) {
+            Checked = true;
+            let Orig = input;
+            let input2;
+            if (typeof input !== 'undefined') {
+                input2 = String(input);
+            } else {
+                input2 = "";
+            }
+            input2 = input2.toLowerCase();
+            let length = input.length;
+            if (Dictionary.has(input2) == true || slangEnabled == true && DictionarySlang.has(input2) || input2.charAt(0) == "#" || input2.charAt(0) == "$" || input2.charAt(0) == "<") {
+                return Orig;
+            } else {
+                if (input2.charAt(0) == "(") {
+                    let stringSub = input.slice(1);
+                    if (Dictionary.has(stringSub) == true || slangEnabled == true && DictionarySlang.has(stringSub)) {
+                        return Orig;
+                    } else {
+                        return String(Orig + "[Error]");
+                    }
+                } else {
+                    return String(Orig + "[Error]");
+                }
+            }
+        }
+        Font = function (size) {
+            if (font == 1) {
+                return String(size + "px Courier");
+            } else if (font == 2) {
+                return String(size + "px Comic Sans");
+            } else if (font == 3) {
+                return String(size + "px Arial");
+            } else if (font == 4) {
+                return String(size + "px Impact");
+            } else if (font == 5) {
+                return String(size + "px Times New Roman");
+            } else if (font == 6) {
+                return String(size + "px Consolas");
+            } else {
+                return String(size + "px Courier");
+            }
+        };
+        var NumVal = 0;
+        var NeedCheck = false;
+        var HelpPageTitle = "";
+
+
+
+
+
+
+
+
+
+
+
+
+
+        var PageItems = ["Themes", "AutoScroll", "SaveDocument", "ImportText", "Fonts", "Scrolling", "SpellCheck"];
+
+
+
+
+
+
+
+
+
+
+
+
+        function MakePageSkeleton() {
+            ctx.fillStyle = "White";
+            ctx.fillRect(0, 0, 1300, 600);
+            ctx.fillStyle = "Black";
+            ctx.font = "50px Consolas";
+            ctx.fillText(HelpPageTitle, 300, 50);
+            ctx.font = "30px Consolas";
+            ctx.fillRect(300, 100, 620, 5);
+            if (MenuPage > 0) {
+                ctx.font = "19px Consolas";
+                ctx.fillStyle = "SeaGreen";
+                ctx.fillText("Press 'enter' to exit page and return to typing.", 700, 580);
+            }
+            ctx.fillStyle = "Black";
+            ctx.font = "35px Consolas";
+        }
+
+
+
+
+
+
+
+
+
+
+        Draw = function () {
+            SetTheme();
+            ctx.clearRect(0, 0, 1300, 600);
+            ctx.fillStyle = backGround;
+            ctx.fillRect(0, 0, 1300, 600);
+            //Write words
+            ctx.fillStyle = mainText;
+            ctx.textBaseline = "top";
+            ctx.font = Font(50);
+            // ctx.fillText(Words[0], 300, 0 - Ypos);         
+            // ctx.font = Font(20);
+            // ctx.fillText(Words[1], 800, 50 - Ypos);
+            if (0 == currentWord) {
+                ctx.fillStyle = highlight;
+                ctx.fillRect(0, 0 - Ypos - 5, 1300, 50);
+                ctx.fillStyle = mainText;
+                ctx.fillText(Words[0], 300, 0 - Ypos);
+            } else {
+                ctx.fillStyle = mainText;
+                ctx.fillText(Words[0], 300, 0 - Ypos);
+            }
+            if (1 == currentWord) {
+                ctx.fillStyle = highlight;
+                ctx.fillRect(0, 50 - Ypos - 5, 1300, 30);
+                ctx.fillStyle = mainText;
+                ctx.font = Font(20);
+                ctx.fillText(Words[1], 800, 50 - Ypos);
+            } else {
+                ctx.fillStyle = mainText;
+                ctx.font = Font(20);
+                ctx.fillText(Words[1], 800, 50 - Ypos);
+            }
+            if (currentWord > 1) {
+                ctx.fillStyle = highlight;
+                let row = (currentWord - 2) / LinesPerRow;
+                row = Math.floor(row);
+                row = row + 1;
+                ctx.fillRect(0, (row * 23 + 100) - Ypos, 1300, 30);
+            }
+
+            //Establish line format
+            lines = ["", ""];
+            for (var i = 2; i < Words.length; i++) {
+                if (Words[i] == "") {
+                    Words[i] = "";
+                    lines[i] = "";
+                }
+                if (Words[i] == undefined) {
+                    Words[i] = "";
+                    lines[i] = " ";
+                }
+                if (Words[currentWord] == undefined) {
+                    Words[currentWord] = "";
+                    lines[currentWord] = "";
+                }
+                if (lines[i + 1] == undefined) {
+                    lines[i + 1] = " ";
+                }
+                if (i == currentWord) {
+                    if (Words[i] == undefined) {
+                        lines[i] = "|";
+                    } else {
+                        lines[i] = String(Words[i] + "|");
+                    }
+                } else {
+                    lines[i] = Words[i];
+                }
+                if (i == Words.length - 1) {
+                    let fiver = LinesPerRow - ((Words.length - 2) % LinesPerRow);
+                    for (let t = 1; t < (LinesPerRow * 20) + fiver; t++) {
+                        lines[i + t] = " ";
+                    }
+                }
+            }
+            //segments
+            segments = ["", ""];
+            NumVal = 2;
+            for (var i = 2; i < lines.length; i = i + LinesPerRow) {
+                for (var x = lines.length + 9; x > lines.length; x = x - 1) {
+                    // if(lines[i + x] == undefined){
+                    //     lines[i + x] = "";
+                    // }
+                }
+                if (segments[i] == undefined) {
+                    segments[i] = "";
+                }
+                if (segments[NumVal + 1] == undefined) {
+                    segments[NumVal + 1] = "";
+                }
+                if (lines[i] == undefined) {
+                    lines[i] = "";
+                }
+                segments[NumVal] = String(lines[i] + " " + lines[i + 1] + " " + lines[i + 2] + " " + lines[i + 3] + " " + lines[i + 4] + " " + lines[i + 5] + " " + lines[i + 6] + " " + lines[i + 7] + " " + lines[i + 8] + " " + lines[i + 9] + " " + lines[i + 10] + " " + lines[i + 11] + " " + lines[i + 12]);
+                NumVal = NumVal + 1;
+            }
+            //Now the writing
+            for (var i = 2; i < segments.length; i++) {
+                ctx.font = Font(20);
+                ctx.fillStyle = mainText;
+                if (segments[currentWord] == undefined) {
+                    segments[currentWord] = "";
+                }
+                if (segments[i] != undefined) {
+                    ctx.fillText(segments[i], 50, (i * 23 + 80) - Ypos);
+                }
+                if (Words[currentWord] == undefined) {
+                    Words[currentWord] = "";
+                }
+                if (Words[i + 1] == "") {
+                    Words[i + 1] = undefined;
+                }
+                if (i == currentWord) {
+                    if (AutoScroll == true) {
+                        let row = (currentWord - 2) / 10;
+                        row = Math.floor(row);
+                        row = row + 1;
+                        //ctx.fillRect(0, (row * 23 + 100) - Ypos, 1300, 30);
+                        Ypos = row * 18 + 80 - 300;
+                        if (Ypos < 0) {
+                            Ypos == 0;
+                        }
+                    }
+                }
+            }
+            //Menu
+            ctx.fillStyle = menuBack;
+            ctx.textBaseline = "top";
+            ctx.font = "15px Consolas";
+            ctx.fillRect(0, 0, 1050, 30);
+            ctx.fillRect(0, 0, 30, 600);
+            ctx.fillRect(1050, 0, 250, 600);
+            ctx.fillRect(0, 570, 1050, 30);
+            ctx.fillStyle = menuText;
+            ctx.fillText("Made with Script, an effortless way to create breathtaking documents.", 225, 575);
+            ctx.fillStyle = menuText;
+            ctx.font = "25px Consolas";
+            ctx.fillText("Settings", 1100, 15);
+            ctx.font = "15px Consolas";
+            if (AutoScroll == true) {
+                ctx.fillText("AutoScroll Enabled", 1075, 60);
+                ctx.fillStyle = "Green";
+                ctx.fillStyle = menuText;
+            } else {
+                ctx.fillText("AutoScroll Disabled", 1075, 60);
+            }
+            if (Caps == true) {
+                ctx.fillText("Shift Toggled", 1075, 75);
+                ctx.fillStyle = "Green";
+                ctx.fillStyle = menuText;
+            } else {
+                ctx.fillText("Shift Detoggled", 1075, 75);
+            }
+            ctx.fillStyle = menuText;
+            ctx.font = "25px Consolas";
+            ctx.fillStyle = menuText;
+            ctx.font = "15px Consolas";
+            ctx.fillText("Shift + CapsLk: Menu", 1080, 100);
+            //Fancy Image Display
+            if (Theme == 1) {
+                ctx.strokeStyle = "LavenderBlush";
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.arc(1100 + 65, 300, 75, 0, 2 * Math.PI);
+                //Eyes
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(1130 + 65, 270, 3, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(1070 + 65, 270, 3, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.beginPath();
+                //Mouth
+                ctx.arc(1100 + 65, 315, 40, 0, 1 * Math.PI);
+                ctx.stroke();
+            } else if (Theme == 2) {
+                ctx.strokeStyle = "Navy";
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.arc(1100 + 65, 300, 75, 0, 2 * Math.PI);
+                //Eyes
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(1130 + 65, 270, 3, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(1070 + 65, 270, 3, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.beginPath();
+                //Mouth
+                ctx.arc(1100 + 65, 315, 40, 0, 1 * Math.PI);
+                ctx.stroke();
+            } else if (Theme == 3) {
+                ctx.strokeStyle = "Red";
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.arc(1165, 300, 75, 0, 2 * Math.PI);
+                //Eyes
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(1195, 270, 3, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(1070 + 65, 270, 3, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.beginPath();
+                //Mouth
+                ctx.arc(1165, 315, 40, 0, 1 * Math.PI);
+                ctx.stroke();
+                //Horns
+                ctx.beginPath();
+                ctx.moveTo(1165 + 55, 250);
+                ctx.lineTo(1165 + 30, 190);
+                ctx.lineTo(1165 + 30, 230);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(1165 - 55, 250);
+                ctx.lineTo(1165 - 30, 190);
+                ctx.lineTo(1165 - 30, 230);
+                ctx.stroke();
+            } else if (Theme == 4) {
+                ctx.strokeStyle = "DarkGray";
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.rect(1100, 200, 80, 80);
+                ctx.rect(1160, 260, 40, 40);
+                ctx.rect(1130, 140, 100, 100);
+                ctx.moveTo(1002, 120);
+                ctx.stroke();
+            } else if (Theme == 5) {
+                ctx.strokeStyle = "Cyan";
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.rect(1100, 200, 80, 80);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.strokeStyle = "Red";
+                ctx.rect(1160, 260, 40, 40);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.strokeStyle = "Chartreuse";
+                ctx.rect(1130, 140, 100, 100);
+                ctx.moveTo(1002, 120);
+                ctx.stroke();
+            }
+            /*
+            ctx.fillText("1. Control:           toggle auto-scroll ", 400, 300);
+            ctx.fillText("2. CapsLk:            toggle font", 400, 320);
+            ctx.fillText("3. Shift:             toggle shift", 400, 340);
+            ctx.fillText("4. Shift + tab:       spell check(Under Construction)", 400, 360);
+            ctx.fillText("5. Shift + CapsLk:   open/close help menu", 400, 380);
+            ctx.fillText("6. Shift + Enter:     print document", 400, 400);
+            ctx.fillText("7. Shift + Cntrl:     Import text", 400, 420);
+            */
+            //Draw scroll bar
+            ctx.fillStyle = highlight;
+            if (Theme != 4 && Theme != 5) {
+                ctx.fillRect(30, 30, Number(((currentWord + 1) / Words.length) * 1020), 10);
+            }
+            if (Number((currentWord + 1) / Words.length) * 100 == 100) {
+                ctx.fillStyle = "Green";
+                ctx.fillText("Word " + (currentWord + 1) + "/" + Words.length, 900, 3);
+            } else {
+                ctx.fillStyle = highlight;
+                ctx.fillText("Word " + (currentWord + 1) + "/" + Words.length, 900, 3);
+            }
+            NumVal = (Number(currentWord + 1) / Words.length) * 100;
+            NumVal = NumVal + 0.5;
+            NumVal = Math.floor(NumVal);
+            ctx.font = "15px Consolas";
+            ctx.fillText(Number(NumVal) + "% of document read", 30, 3);
+
+            //The BIG menu display
+            if (MenuDisplay == true) {
+                if (MenuPage == 0) {
+                    HelpPageTitle = "Settings + Help center";
+                    MakePageSkeleton();
+                    ctx.fillStyle = "PowderBlue";
+                    ctx.fillRect(300, 199, 300, 32);
+                    ctx.fillStyle = "Black";
+                    if (SearchWord == "") {
+                        ctx.fillStyle = "SeaGreen";
+                        ctx.font = "30px Consolas";
+                        ctx.fillText("Search any feature", 300, 200);
+                        ctx.fillText("General Features", 800, 180);
+                        ctx.fillRect(800, 210, 260, 3);
+                        ctx.fillStyle = "Maroon";
+                        ctx.font = "25px Consolas";
+                        ctx.fillText("External Features", 800, 300 - 60);
+                        ctx.fillStyle = "Black";
+                        ctx.font = "20px Consolas";
+                        ctx.fillText("SaveDocument", 800, 330 - 60);
+                        ctx.fillText("ImportText", 800, 350 - 60);
+                        ctx.fillStyle = "Maroon";
+                        ctx.font = "25px Consolas";
+                        ctx.fillText("Preferances", 800, 380 - 60);
+                        ctx.fillStyle = "Black";
+                        ctx.font = "20px Consolas";
+                        ctx.fillText("Themes", 800, 410 - 60);
+                        ctx.fillText("Fonts", 800, 430 - 60);
+                        ctx.fillStyle = "Maroon";
+                        ctx.font = "25px Consolas";
+                        ctx.fillText("Text Add-ons", 800, 460 - 60);
+                        ctx.fillStyle = "Black";
+                        ctx.font = "20px Consolas";
+                        ctx.fillText("Scrolling", 800, 490 - 60);
+                        ctx.fillText("AutoScroll", 800, 510 - 60);
+                        ctx.fillText("SpellCheck", 800, 530 - 60);
+                        ctx.fillText("", 800, 550 - 60);
+                        //var PageItems = ["Themes", "AutoScroll", "SaveDocument", "ImportText", "Fonts", "Scrolling", "SpellCheck"];
+                    } else {
+                        ctx.fillStyle = "Black";
+                        ctx.fillText(SearchWord, 300, 200);
+                    }
+                    ctx.fillStyle = "SeaGreen";
+                    ctx.font = "19px Consolas";
+                    ctx.fillText("Fully type in the title to access the page", 700, 580);
+                    ctx.fillStyle = "Black";
+                    ctx.font = "19px Consolas";
+                    let h3 = 0;
+                    for (let i = 0; i < PageItems.length; i++) {
+                        let h1 = PageItems[i];
+                        h1 = h1.slice(0, SearchWord.length);
+                        h1 = h1.toLowerCase();
+                        let h2 = SearchWord;
+                        h2 = h2.toLowerCase();
+                        let h4 = PageItems[i];
+                        h4 = h4.toLowerCase();
+                        if (h4 == h2) {
+                            MenuPage = i + 1;
+                        } else {
+                            if (h1 == h2 && h1.length > 0) {
+                                h3 = h3 + 1;
+                                ctx.fillText("-" + PageItems[i], 300, 250 + h3 * 20);
+                            }
+                        }
+                    }
+                    if (h3 == 0 && SearchWord != "") {
+                        ctx.fillStyle = "LightSlateGrey";
+                        ctx.font = "20px Consolas";
+                        ctx.fillText("Wrong Turn...backspace some characters?", 300, 250);
+                        ctx.strokeStyle = "LightSlateGrey";
+                        ctx.lineWidth = 5;
+                        ctx.beginPath();
+                        ctx.arc(900, 300, 75, 0, 2 * Math.PI);
+                        //Eyes
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(930, 270, 3, 0, 2 * Math.PI);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(870, 270, 3, 0, 2 * Math.PI);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(950, 300);
+                        ctx.lineTo(850, 330);
+                        ctx.stroke();
+                    } else if (h3 == 1) {
+                        ctx.fillStyle = "SeaGreen";
+                        ctx.font = "20px Consolas";
+                        ctx.fillText("You narrowed your search down!", 300, 290);
+                        ctx.strokeStyle = "SeaGreen";
+                        ctx.lineWidth = 5;
+                        ctx.beginPath();
+                        ctx.arc(900, 300, 75, 0, 2 * Math.PI);
+                        //Eyes
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(930, 270, 3, 0, 2 * Math.PI);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(870, 270, 3, 0, 2 * Math.PI);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        //Mouth
+                        ctx.arc(900, 315, 40, 0, 1 * Math.PI);
+                        ctx.stroke();
+                    }
+                } else if (MenuPage == 1) {
+                    HelpPageTitle = "Theme and text Preferences";
+                    MakePageSkeleton();
+                    ctx.font = "30px Consolas";
+                    ctx.fillText("Current theme:", 400, 150);
+                    if (Theme == 1) {
+                        ctx.fillStyle = "Pink";
+                        ctx.fillText("Bubblegum", 650, 150);
+                    } else if (Theme == 2) {
+                        ctx.fillStyle = "DodgerBlue";
+                        ctx.fillText("Blue Study", 650, 150);
+                    } else if (Theme == 3) {
+                        ctx.fillStyle = "DarkRed";
+                        ctx.fillText("Inferno", 650, 150);
+                    } else if (Theme == 4) {
+                        ctx.fillStyle = "Black";
+                        ctx.fillText("Simple", 650, 150);
+                    } else if (Theme == 5) {
+                        ctx.fillStyle = "Black";
+                        ctx.fillText("Inverted", 650, 150);
+                    }
+                    ctx.font = "15px Consolas";
+                    ctx.fillStyle = "Black";
+                    ctx.fillText("To change textual themes, use the right and left arrow keys.", 330, 190);
+                } else if (MenuPage == 2) {
+                    HelpPageTitle = "      AutoScroll";
+                    MakePageSkeleton();
+                    ctx.font = "35px Consolas";
+                    ctx.fillText("What is AutoScroll?", 200, 150);
+                    ctx.font = "19px Consolas";
+                    ctx.fillText("AutoScroll is a setting that allows your view of the document to change while you type, so the screen tracks you and ", 0, 200);
+                    ctx.fillText("does not allow your cursor to go off-screen. AutoScroll can be toggled on and off at anytime, so you can disable it whenever ", 0, 220);
+                    ctx.fillText("you wish to view your document. When enabled, the cursor will be moved when you scroll using the 'up' and 'down' arrows.", 0, 240);
+                    ctx.font = "40px Consolas";
+                    if (AutoScroll == true) {
+                        ctx.fillStyle = "SeaGreen";
+                        ctx.fillText("AutoScroll enabled", 350, 300);
+                    } else {
+                        ctx.fillStyle = "Maroon";
+                        ctx.fillText("AutoScroll disabled", 350, 300);
+                    }
+                    ctx.font = "20px Consolas";
+                    ctx.fillStyle = "Black";
+                    ctx.fillText("Use the spacebar to toggle AutoScroll.", 350, 370);
+                } else if (MenuPage == 3) {
+                    HelpPageTitle = "  Saving document";
+                    MakePageSkeleton();
+                    ctx.fillStyle = "Black";
+                    ctx.font = "19px Consolas";
+                    ctx.fillText("To save your document, press space. The text will then appear in the developer console.", 0, 200);
+                    if (Saved == true) {
+                        ctx.fillStyle = "SeaGreen";
+                        ctx.font = "30px Consolas";
+                        ctx.fillText("Document Saved.", 200, 250);
+                    } else {
+                        ctx.fillStyle = "Maroon";
+                        ctx.font = "30px Consolas";
+                        ctx.fillText("Document Unsaved!", 200, 250);
+                    }
+                } else if (MenuPage == 4) {
+                    HelpPageTitle = "  Importing text";
+                    MakePageSkeleton();
+                    ctx.fillStyle = "Black";
+                    ctx.font = "25px Consolas";
+                    ctx.fillText("Press Space to import text, and follow the provided instructions.", 200, 200);
+                } else if (MenuPage == 5) {
+                    HelpPageTitle = "      Fonts";
+                    MakePageSkeleton();
+                    ctx.fillStyle = "Black";
+                    ctx.font = "25px Consolas";
+                    ctx.fillText("Press Space to alter the font!", 400, 200);
+                    if (font == 1) {
+                        ctx.font = "40px Courier";
+                        ctx.fillText("Courier", 400, 300);
+                    } else if (font == 2) {
+                        ctx.font = "40px Comic Sans";
+                        ctx.fillText("Comic Sans", 400, 300);
+                    } else if (font == 3) {
+                        ctx.font = "40px Arial";
+                        ctx.fillText("Arial", 400, 300);
+                    } else if (font == 4) {
+                        ctx.font = "40px Impact";
+                        ctx.fillText("Impact", 400, 300);
+                    } else if (font == 5) {
+                        ctx.font = "40px Times New Roman";
+                        ctx.fillText("Times New Roman", 400, 300);
+                    } else if (font == 6) {
+                        ctx.font = "40px Consolas";
+                        ctx.fillText("Consolas", 400, 300);
+                    } else {
+                        ctx.font = "40px Courier";
+                        ctx.fillText("Courier", 400, 300);
+                    }
+                } else if (MenuPage == 6) {
+                    HelpPageTitle = "     Scrolling";
+                    MakePageSkeleton();
+                    ctx.font = "35px Consolas";
+                    ctx.fillText("Scrolling length features", 200, 150);
+                    ctx.font = "19px Consolas";
+                    ctx.fillText("The scrolling feature allows you to select the number of lines you scroll through with a single press of either", 0, 200);
+                    ctx.fillText("arrow key. The higher the number, the quicker you scroll, but the less control you have.", 0, 220);
+                    ctx.fillText("", 0, 240);
+                    ctx.font = "40px Consolas";
+                    ctx.fillStyle = "SeaGreen";
+                    ctx.fillText("Scrolling lines: " + linesChanged, 350, 300);
+                    ctx.font = "20px Consolas";
+                    ctx.fillStyle = "Black";
+                    ctx.fillText("Use the up/down arrows to alter Scroll length.", 300, 370);
+                    //ctx.fillText(linesChanged, 400, 300);
+                } else if (MenuPage == 7) {
+                    HelpPageTitle = "    SpellCheck";
+                    MakePageSkeleton();
+                    ctx.fillStyle = "Black";
+                    ctx.font = "19px Consolas";
+                    ctx.fillText("To identify(Not Correct) Spelling mistakes, press Space! To toggle slang, use the right arrow key.", 0, 200);
+                    if (Checked == true) {
+                        ctx.fillStyle = "SeaGreen";
+                        ctx.font = "30px Consolas";
+                        ctx.fillText("Spelling Mistakes Identified.", 200, 250);
+                    } else {
+                        ctx.fillStyle = "Maroon";
+                        ctx.font = "30px Consolas";
+                        ctx.fillText("Spelling Unchecked!", 200, 250);
+                    }
+                    if (slangEnabled == true) {
+                        ctx.fillStyle = "SeaGreen";
+                        ctx.font = "30px Consolas";
+                        ctx.fillText("Slang Enabled", 200, 400);
+                        ctx.font = "20px Consolas";
+                        ctx.fillText("Company names like Apple will be treated as real words", 150, 430);
+                    } else {
+                        ctx.fillStyle = "Maroon";
+                        ctx.font = "30px Consolas";
+                        ctx.fillText("Slang Disabled", 200, 400);
+                        ctx.font = "20px Consolas";
+                        ctx.fillText(`Company names like Apple will be viewed as misspelled, and "corrected"`, 150, 430);
+                    }
+                } else if (MenuPage == 8) {
+
+                } else if (MenuPage == 9) {
+
+                } else if (MenuPage == 10) {
+
+                } else if (MenuPage == 11) {
+
+                } else if (MenuPage == 12) {
+
+                }
+
+                ctx.font = "30px Consolas";
+            } else {
+                MenuPage = 0;
+                SearchWord = "";
+            }
+        };
+
+        function DrawLoad() {
+            ctx.fillStyle = "SeaGreen";
+            ctx.fillRect(0, 0, 1300, 600);
+            ctx.fillStyle = "DimGrey";
+            ctx.fillRect(450, 300, 3 + 3 * 101, 5);
+            ctx.fillStyle = "White";
+            ctx.fillRect(450, 300, 3 + 3 * timerLoad, 5);
+            ctx.font = "200px Consolas";
+            ctx.fillText("S", 400, 200);
+            ctx.font = "100px Consolas";
+            ctx.fillText("cript", 500, 200);
+            ctx.strokeStyle = "White";
+            ctx.lineWidth = 3;
+            ctx.moveTo(1200, 0);
+            ctx.lineTo(1300, 100);
+            ctx.stroke();
+            ctx.moveTo(1100, 0);
+            ctx.lineTo(1300, 200);
+            ctx.stroke();
+            ctx.moveTo(1000, 0);
+            ctx.lineTo(1300, 300);
+            ctx.stroke();
+            ctx.moveTo(900, 0);
+            ctx.lineTo(1300, 400);
+            ctx.stroke();
+        }
+        var timerLoad = 0;
+
+        var GameLoop = function () {
+            if (timerLoad < 100) {
+                if (timerLoad > 30) {
+                    timerLoad = timerLoad + 5;
+                }
+                timerLoad = timerLoad + 1;
+                DrawLoad();
+            } else {
+                Edit();
+                lastKey = "";
+                Draw();
+            }
+        };
+
+        setInterval(GameLoop, 120);
+    </script>
+</body>
+
+</html>
