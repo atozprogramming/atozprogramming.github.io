@@ -11,7 +11,7 @@ Click on any icon to access its contents. Tools are Green, and Games are Blue.
 [![Alt text](./Script.png "Script")](./Script_V21.html)
 
 [![Alt text](./Snake.png "Snake")](./CompactStandardSnake.html)
-[![Alt text](./3kings.png "3kings")](./3kingsBoardGame.html)
+[![Alt text](./3Kings.png "3kings")](./3kingsBoardGame.html)
 
 ## Related Projects
 
