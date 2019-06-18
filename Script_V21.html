@@ -547,7 +547,7 @@
             'nordstrom', "macy's", 'boeing', 'ford', 'chevrolet', 'tesla', 'jeep', 'toyota', 'honda', 'mercedes', 'bmw', 'airbnb', 'disney', "domino's", 'duolingo', 'fortnite',
             'agar.io', 'diep.io', 'mope.io', 'fortnite', 'gofundme', 'paytm', 'nintendo', 'sony', 'pinterest', 'volvo', 'spacex', 'wework', 'rivian', 'samsung', 'wal-mart', 'wholefoods',
             'volkswagen', 'nissan', 'shell', 'chevron', "mcdonald's", 'pepsi', 'pepsico', 'verison', 'at&t', 'intel', 'facebook', 'twitter', 'jpmorgan', 'chase',
-            'nestle', 'krave', 'arrowhead', 'uber', 'lyft', 'cvs', 'volvo', '7-11');
+            'nestle', 'krave', 'arrowhead', 'uber', 'lyft', 'cvs', 'volvo', '7-11', 'JP', 'Morgan', 'Fargo', 'fiver');
 
 
 
@@ -577,12 +577,12 @@
             }
             input2 = input2.toLowerCase();
             let length = input.length;
-            if (Dictionary.has(input2) == true || slangEnabled == true && DictionarySlang.has(input2) || input2.charAt(0) == "#" || input2.charAt(0) == "$" || input2.charAt(0) == "<") {
+            if (Dictionary.has(input2) == true || DictionarySlang.has(input2) || input2.charAt(0) == "#" || input2.charAt(0) == "$" || input2.charAt(0) == "<") {
                 return Orig;
             } else {
                 if (input2.charAt(0) == "(") {
                     let stringSub = input.slice(1);
-                    if (Dictionary.has(stringSub) == true || slangEnabled == true && DictionarySlang.has(stringSub)) {
+                    if (Dictionary.has(stringSub) == true || DictionarySlang.has(stringSub)) {
                         return Orig;
                     } else {
                         return String(Orig + "[Error]");
@@ -1166,7 +1166,7 @@
                         ctx.font = "30px Consolas";
                         ctx.fillText("Spelling Unchecked!", 200, 250);
                     }
-                    if (slangEnabled == true) {
+                    /* if (slangEnabled == true) {
                         ctx.fillStyle = "SeaGreen";
                         ctx.font = "30px Consolas";
                         ctx.fillText("Slang Enabled", 200, 400);
@@ -1179,6 +1179,7 @@
                         ctx.font = "20px Consolas";
                         ctx.fillText(`Company names like Apple will be viewed as misspelled, and "corrected"`, 150, 430);
                     }
+                    */
                 } else if (MenuPage == 8) {
 
                 } else if (MenuPage == 9) {

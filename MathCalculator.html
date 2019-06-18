@@ -267,6 +267,7 @@
                 numChangeAdd(lastKey);
             } else if (lastKey == "back") {
                 numChangeMin();
+                event.preventDefault();
             } else if (lastKey == "up") {
                 sign = sign + 1;
                 if (sign > 7) {
