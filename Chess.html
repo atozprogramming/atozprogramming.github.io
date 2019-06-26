@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chess Tactics</title>
+    <!-- this is the code that will allow icon to be visible in the title bar of the brower -->
+    <link rel="icon" type="image/ico" href="WebsiteLogo2.png" />
+    <!-- you can also say this:  <link rel="icon" type="image/png" href="location/image.png" /> -->
+</head>
+
+<body>
+    <canvas id="canvas" width="1300" height="720"></canvas>
+    <script src="./jquery-2.1.0.js"></script>
+    <script>
+        var completed = false;
+        var winTimer = 0;
+        const BoardOrgin = [50, 50];
+        const DarkSquareColor = "CadetBlue";
+        const LightSquareColor = "DimGrey";
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var width = canvas.width - 100;
+        var height = canvas.height;
+        var blockSize = 20;
+        var widthInBlocks = width / blockSize;
+        var heightInBlocks = height / blockSize;
+
+        let cursor = [5, 8];
+        let piece = ".";
+        /*Standard setting:
+         board = {
+            //W for White
+            Wking: [4, 8],
+            Wqueen: [5, 8],
+            WbishopA: [3, 8],
+            WbishopB: [6, 8],
+            WknightA: [7, 8],
+            WknightB: [2, 8],
+            WrookA: [1, 8],
+            WrookB: [8, 8],
+            WpawnA: [1, 7],
+            WpawnB: [2, 7],
+            WpawnC: [3, 7],
+            WpawnD: [4, 7],
+            WpawnE: [5, 7],
+            WpawnF: [6, 7],
+            WpawnG: [7, 7],
+            WpawnH: [8, 7],
+            //B for Black
+            Bking: [4, 1],
+            Bqueen: [5, 1],
+            BbishopA: [6, 1],
+            BbishopB: [3, 1],
+            BknightA: [2, 1],
+            BknightB: [7, 1],
+            BrookA: [1, 1],
+            BrookB: [8, 1],
+            BpawnA: [1, 2],
+            BpawnB: [2, 2],
+            BpawnC: [3, 2],
+            BpawnD: [4, 2],
+            BpawnE: [5, 2],
+            BpawnF: [6, 2],
+            BpawnG: [7, 2],
+            BpawnH: [8, 2]
+        }
+        */
+        let board = {};
+        reset();
+        function reset() {
+            board = {
+                //W for White
+                Wking: [9999, 9999],
+                Wqueen: [9999, 9999],
+                WbishopA: [9999, 9999],
+                WbishopB: [9999, 9999],
+                WknightA: [9999, 9999],
+                WknightB: [9999, 9999],
+                WrookA: [9999, 9999],
+                WrookB: [9999, 9999],
+                WpawnA: [9999, 9999],
+                WpawnB: [9999, 9999],
+                WpawnC: [9999, 9999],
+                WpawnD: [9999, 9999],
+                WpawnE: [9999, 9999],
+                WpawnF: [9999, 9999],
+                WpawnG: [9999, 9999],
+                WpawnH: [9999, 9999],
+                //B for Black
+                Bking: [9999, 9999],
+                Bqueen: [9999, 9999],
+                BbishopA: [9999, 9999],
+                BbishopB: [9999, 9999],
+                BknightA: [9999, 9999],
+                BknightB: [9999, 9999],
+                BrookA: [9999, 9999],
+                BrookB: [9999, 9999],
+                BpawnA: [9999, 9999],
+                BpawnB: [9999, 9999],
+                BpawnC: [9999, 9999],
+                BpawnD: [9999, 9999],
+                BpawnE: [9999, 9999],
+                BpawnF: [9999, 9999],
+                BpawnG: [9999, 9999],
+                BpawnH: [9999, 9999]
+            }
+        }
+        /*Board is done in the function "setUpPuzzle". The paramaters for puzzles are:
+        the number of white moves, White's first move, Black's first responce, White's second move, Black's second responce, White's 3rd move, Black's 3rd responce, White's fourth move.
+        All moves are an array that specifies [the piece to be moved, and the position to be moved to (also an array: [x, y])]*/
+        const Puzzles =
+            [/*Puzzle 1*/[1, "rookA", [5, 1]],
+         /*Puzzle 2*/[2, "knightA", [6, 2], "king", [1, 1], "knightA", [8, 1]],
+         /*Puzzle 3*/[3, "bishopA", [7, 4], "rookB", [4, 1], "queen", [5, 6], "queen", [7, 4], "rookB", [7, 4]],
+        /*Puzzle 4*/[2, "queen", [2, 6], "king", [1, 1], "queen", [2, 2]],
+        /*Puzzle 5*/[4, "rookB", [1, 1], "king", [2, 2], "rookA", [1, 2], "king", [3, 3], "rookB", [3, 1], "king", [2, 4], "rookB", [3, 7]],
+        /*Puzzle 6*/[2, "rookA", [5, 2], "king", [4, 1], "bishopA", [3, 2]],
+        /*Puzzle 7*/[2, "rookA", [2, 3], "king", [6, 2], "rookA", [3, 3]],
+        /*Puzzle 8*/[3, "queen", [5, 3], "queen", [5, 3], "rookA", [5, 3], "rookA", [5, 3], "rookB", [4, 1]],
+        /*Puzzle 9*/[2, "pawnA", [6,5], "king", [6,5], "rookA", [2,7]],
+        /*Puzzle 10*/[2, "queen", [7,1], "rookA", [6,1], "queen", [6,1]]
+    ];
+        pastPuzzles = [];
+        let puzzle = Puzzles[Math.floor((Math.random() * Puzzles.length))];
+        console.log(puzzle);
+        let correctPuzzles = [];
+        let wrongPuzzles = [];
+        puzzle = Puzzles[9]; //This is for testing purposes ONLY.
+        console.log(puzzle);
+        //puzzle = Puzzles[0]; //When this is not commented out, the easiest puzzle will be first.
+        pastPuzzles.push(Puzzles.indexOf(puzzle));
+        setUpPuzzle(puzzle, Puzzles.indexOf(puzzle));
+        let turnNumber = 1;
+        function setUpPuzzle(puzzle, puzzleNum) {
+            reset();
+            //puzzleNum is used to set up the puzzle pieces; puzzle reads all of the needed moves
+            if(puzzleNum == 9){
+                board.Bking = [2,1];
+                board.BpawnA = [2,2];
+                board.BpawnB = [1,2];
+                board.BpawnC = [3,2];
+                board.BpawnD = [7,2];
+                board.BpawnE = [8,2];
+                board.BpawnF = [5,5];
+                board.BknightA = [1,4];
+                board.Bqueen = [7,4];
+                board.BrookA = [6,6];
+
+                board.Wking = [2,8];
+                board.Wqueen = [3,5];
+                board.WbishopA = [4,7];
+                board.WrookA = [3,8];
+                board.WpawnA = [1,6];
+                board.WpawnB = [2,7];
+                board.WpawnC = [3,6];
+                board.WpawnD = [4,5];
+                board.WpawnE = [5,6];
+            }else if (puzzleNum == 8) {
+                board.Bking = [5, 4];
+                board.BrookA = [2, 7];
+                board.Wking = [8, 4];
+                board.WrookA = [7, 7];
+                board.WpawnA = [6, 7];
+                board.WpawnB = [5, 6];
+                board.WpawnC = [3, 4];
+                board.WpawnD = [2, 5];
+                board.WpawnE = [1, 5];
+                board.BpawnA = [6, 4];
+                board.BpawnB = [5, 5];
+                board.BpawnC = [3, 3];
+                board.BpawnD = [1, 3];
+                board.BpawnE = [2, 2];
+            } else if (puzzleNum == 7) {
+                board.Bking = [2, 1];
+                board.BrookA = [5, 1];
+                board.BrookB = [5, 3];
+                board.Bqueen = [5, 2];
+                board.Wking = [2, 8];
+                board.Wqueen = [5, 7];
+                board.WrookA = [5, 8];
+                board.WrookB = [4, 4];
+                board.BpawnA = [1, 2];
+                board.BpawnB = [2, 2];
+                board.BpawnC = [3, 2];
+                board.BpawnD = [8, 4];
+                board.WpawnA = [1, 7];
+                board.WpawnB = [2, 7];
+                board.WpawnC = [3, 7];
+                board.WpawnD = [8, 7];
+            } else if (puzzleNum == 6) {
+                board.Bking = [7, 3];
+                board.Bqueen = [3, 3];
+                board.BbishopA = [4, 6];
+                board.Wking = [8, 7];
+                board.WrookA = [2, 2];
+                board.WbishopA = [4, 5];
+                board.WpawnA = [1, 4];
+                board.WpawnB = [5, 6];
+                board.WpawnC = [7, 7];
+                board.WpawnD = [8, 6];
+                board.BpawnA = [5, 5];
+                board.BpawnB = [7, 4];
+                board.BpawnC = [8, 3];
+                board.WpawnE = [5, 2];
+            } else if (puzzleNum == 5) {
+                board.Bking = [5, 1];
+                board.Bqueen = [7, 5];
+                board.BrookA = [1, 1];
+                board.BrookB = [8, 2];
+                board.BknightA = [6, 3];
+                board.BknightB = [2, 3];
+                board.BbishopA = [3, 1];
+                board.BbishopB = [7, 2];
+
+                board.Wking = [7, 8];
+                board.Wqueen = [4, 8];
+                board.WknightA = [7, 3];
+                board.WknightB = [2, 8];
+                board.WrookA = [5, 8];
+                board.WrookB = [1, 8];
+                board.WbishopA = [6, 5];
+
+                //pawns
+                board.WpawnA = [7, 7];
+                board.WpawnB = [8, 7];
+                board.WpawnC = [4, 6];
+                board.WpawnD = [3, 6];
+                board.WpawnE = [2, 7];
+                board.WpawnF = [1, 7];
+                board.BpawnA = [1, 2];
+                board.BpawnB = [2, 2];
+                board.BpawnC = [3, 4];
+                board.BpawnD = [5, 2];
+            } else if (puzzleNum == 4) {
+                board.Bking = [2, 1];
+                board.BrookA = [3, 1];
+                board.BrookB = [6, 4];
+                board.BbishopA = [3, 7];
+                board.Wking = [7, 8];
+                board.WrookA = [1, 8];
+                board.WrookB = [1, 6];
+                board.WpawnA = [3, 3];
+                board.WpawnB = [7, 7];
+                board.WpawnC = [8, 7];
+                board.BpawnA = [2, 3];
+                board.BpawnB = [4, 3];
+                board.BpawnC = [7, 3];
+                board.BpawnD = [8, 2];
+            } else if (puzzleNum == 3) {
+                board.Bking = [2, 1];
+                board.Bqueen = [5, 3];
+                board.BrookA = [4, 1];
+                board.BbishopB = [6, 1];
+                board.BrookB = [8, 1];
+                board.BbishopA = [6, 4];
+                board.BknightA = [5, 5];
+                board.Wking = [5, 8];
+                board.Wqueen = [4, 8];
+                board.WrookA = [1, 8];
+                board.WrookB = [8, 8];
+                board.WknightA = [4, 7];
+                board.WbishopA = [7, 6];
+                board.WbishopB = [1, 3];
+                //Pawns
+                board.BpawnA = [1, 2];
+                board.BpawnB = [3, 2];
+                board.BpawnC = [3, 3];
+                board.BpawnD = [4, 4];
+                board.BpawnE = [5, 2];
+                board.BpawnF = [6, 2];
+                board.BpawnG = [7, 4];
+                board.BpawnH = [8, 3];
+
+                board.WpawnA = [1, 7];
+                board.WpawnB = [2, 7];
+                board.WpawnC = [3, 6];
+                board.WpawnD = [4, 5];
+                board.WpawnE = [5, 6];
+                board.WpawnF = [6, 7];
+                board.WpawnG = [7, 7];
+                board.WpawnH = [8, 7];
+            } else if (puzzleNum == 2) {
+                board.Bking = [8, 1];
+                board.Bqueen = [8, 5];
+                board.BbishopA = [7, 5];
+                board.BrookA = [6, 1];
+                board.BrookB = [1, 1];
+                board.Wking = [7, 8];
+                board.WrookA = [6, 8];
+                board.WrookB = [5, 4];
+                board.WknightA = [7, 6];
+                board.WbishopA = [5, 6];
+                board.Wqueen = [4, 7];
+                //Pawns
+                board.WpawnA = [8, 7];
+                board.WpawnB = [7, 7];
+                board.WpawnC = [6, 7];
+                board.WpawnD = [2, 7];
+                board.WpawnE = [3, 6];
+                board.BpawnA = [1, 2];
+                board.BpawnB = [2, 2];
+                board.BpawnC = [3, 2];
+                board.BpawnD = [8, 2];
+                board.BpawnE = [7, 2];
+                board.BpawnF = [6, 2];
+            } else if (puzzleNum == 0) {
+                board.Bking = [7, 1];
+                board.Bqueen = [7, 4];
+                board.BknightA = [8, 5];
+                board.BpawnA = [8, 2];
+                board.BpawnB = [7, 2];
+                board.BpawnC = [6, 2];
+                board.Wking = [7, 8];
+                board.WrookA = [5, 8];
+                board.WpawnA = [7, 7];
+                board.WpawnB = [8, 7];
+                board.WpawnC = [6, 6];
+                board.WpawnD = [2, 4];
+            } else if (puzzleNum == 1) {
+                board.Bking = [2, 1];
+                board.BrookA = [8, 1];
+                board.BrookB = [6, 1];
+                board.BknightA = [6, 3];
+                board.BbishopA = [7, 5];
+                board.WknightA = [4, 3];
+                board.Wqueen = [6, 5];
+                board.WrookA = [4, 7];
+                board.WrookB = [8, 8];
+                board.Wking = [3, 8];
+                //Pawns
+                board.BpawnA = [8, 2];
+                board.BpawnB = [7, 2];
+                board.BpawnC = [2, 2];
+                board.BpawnD = [1, 3];
+                board.BpawnE = [3, 3];
+                board.WpawnA = [2, 7];
+                board.WpawnB = [3, 6];
+                board.WpawnC = [4, 5];
+                board.WpawnD = [7, 6];
+                board.WpawnE = [8, 7];
+            }
+            cursor = [8, 8];
+        }
+        let request = "";
+        let wrongTimer = 0;
+        function puzzleResponce(requestt) {
+            let moveIndex;
+            console.log("puzzle is Responing")
+            if (turnNumber == 1) {
+                console.log("turn 1");
+                if (piece == puzzle[1] && equals(move, puzzle[2])) {
+                    whiteMoves();
+                    console.log("that was the correct move");
+                    if (puzzle[0] == 1) {
+                        //You Win!
+                        winTimer = 20;
+                        console.log("You Win!");
+                    } else {
+                        wrongTimer = 0;
+                        BlackMove(3, 4);
+                        removePieces("white");
+                    }
+                    turnNumber = 2;
+                    console.log(turnNumber);
+                    return true;
+                } else {
+                    wrongTimer = 20;
+                    wrongPuzzles.push(Puzzles.indexOf(puzzle));
+                }
+            } else if (turnNumber == 2) {
+                if (piece == puzzle[5] && equals(move, puzzle[6])) {
+                    whiteMoves();
+                    console.log("that was the correct move");
+                    if (puzzle[0] == 2) {
+                        //You Win!
+                        winTimer = 20;
+                        console.log("You Win!");
+                    } else {
+                        BlackMove(7, 8);
+                        removePieces("white");
+                        wrongTimer = 0;
+
+                    }
+                    turnNumber = 3;
+                    console.log(turnNumber);
+                    return true;
+                } else {
+                    wrongTimer = 20;
+                }
+            } else if (turnNumber == 3) {
+                if (piece == puzzle[9] && equals(move, puzzle[10])) {
+                    whiteMoves();
+                    console.log("that was the correct move");
+                    if (puzzle[0] == 3) {
+                        //You Win!
+                        winTimer = 20;
+                        console.log("You Win!");
+                    } else {
+                        BlackMove(11, 12);
+                        removePieces("white");
+                        wrongTimer = 0;
+
+                    }
+                    turnNumber = 4;
+                    console.log(turnNumber);
+                    return true;
+                } else {
+                    wrongTimer = 20;
+                }
+            } else if (turnNumber == 4) {
+                if (piece == puzzle[13] && equals(move, puzzle[14])) {
+                    whiteMoves();
+                    console.log("that was the correct move");
+                    //maximum of 4 moves for the puzzles
+                    //You Win!
+                    winTimer = 20;
+                    wrongTimer = 0;
+                    console.log("You Win!");
+                    turnNumber = 4;
+                    return true;
+                } else {
+                    wrongTimer = 20;
+                }
+            }
+        }
+        function BlackMove(pieceIndex, moveIndex) {
+            //moveIndex = 4;
+            //pieceIndex = 3;
+            if (puzzle[pieceIndex] == "king") {
+                board.Bking[0] = puzzle[moveIndex][0];
+                board.Bking[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "queen") {
+                board.Bqueen[0] = puzzle[moveIndex][0];
+                board.Bqueen[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "rookA") {
+                board.BrookA[0] = puzzle[moveIndex][0];
+                board.BrookA[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "rookB") {
+                board.BrookB[0] = puzzle[moveIndex][0];
+                board.BrookB[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "bishopA") {
+                board.BbishopA[0] = puzzle[moveIndex][0];
+                board.BbishopA[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "bishopB") {
+                board.BbishopB[0] = puzzle[moveIndex][0];
+                board.BbishopB[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "knightA") {
+                board.BknightA[0] = puzzle[moveIndex][0];
+                board.BknightA[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "knightB") {
+                board.BknightB[0] = puzzle[moveIndex][0];
+                board.BknightB[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "pawnA") {
+                board.BpawnA[0] = puzzle[moveIndex][0];
+                board.BpawnA[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "pawnB") {
+                board.BpawnB[0] = puzzle[moveIndex][0];
+                board.BpawnB[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "pawnC") {
+                board.BpawnC[0] = puzzle[moveIndex][0];
+                board.BpawnC[1] = puzzle[moveIndex][1];
+            } else if (puzzle[pieceIndex] == "pawnD") {
+                board.BpawnD[0] = puzzle[moveIndex][0];
+                board.BpawnD[1] = puzzle[moveIndex][1];
+            }
+        }
+        // ♔♕♗♘♙♖♚♛♝♞♟♜
+        function DrawChessPieces() {
+            ctx.fillStyle = "White";
+            ctx.font = "60px Consolas"
+            ctx.textline = "left";
+            let subject = board.Wking;
+            ctx.fillText("♔", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.Wqueen;
+            ctx.fillText("♕", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.WbishopA;
+            ctx.fillText("♗", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.WbishopB;
+            ctx.fillText("♗", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.WknightA;
+            ctx.fillText("♘", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.WknightB;
+            ctx.fillText("♘", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.WrookA;
+            ctx.fillText("♖", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.WrookB;
+            ctx.fillText("♖", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            for (let i = 1; i < 9; i++) {
+                if (i == 1) {
+                    subject = board.WpawnA;
+                } else if (i == 2) {
+                    subject = board.WpawnB;
+                } else if (i == 3) {
+                    subject = board.WpawnC;
+                } else if (i == 4) {
+                    subject = board.WpawnD;
+                } else if (i == 5) {
+                    subject = board.WpawnE;
+                } else if (i == 6) {
+                    subject = board.WpawnF;
+                } else if (i == 7) {
+                    subject = board.WpawnG;
+                } else if (i == 8) {
+                    subject = board.WpawnH;
+                }
+                ctx.fillText("♙", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            }
+            ctx.fillStyle = "Black";
+            ctx.font = "60px Consolas"
+            subject = board.Bking;
+            ctx.fillText("♔", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.Bqueen;
+            ctx.fillText("♕", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.BbishopA;
+            ctx.fillText("♗", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.BbishopB;
+            ctx.fillText("♗", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.BknightA;
+            ctx.fillText("♘", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.BknightB;
+            ctx.fillText("♘", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.BrookA;
+            ctx.fillText("♖", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            subject = board.BrookB;
+            ctx.fillText("♖", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            for (let i = 1; i < 9; i++) {
+                if (i == 1) {
+                    subject = board.BpawnA;
+                } else if (i == 2) {
+                    subject = board.BpawnB;
+                } else if (i == 3) {
+                    subject = board.BpawnC;
+                } else if (i == 4) {
+                    subject = board.BpawnD;
+                } else if (i == 5) {
+                    subject = board.BpawnE;
+                } else if (i == 6) {
+                    subject = board.BpawnF;
+                } else if (i == 7) {
+                    subject = board.BpawnG;
+                } else if (i == 8) {
+                    subject = board.BpawnH;
+                }
+                ctx.fillText("♙", (subject[0] - 1) * 80 + BoardOrgin[0], subject[1] * 80 + BoardOrgin[1] - 10);
+            }
+        }
+        function DrawBoard() {
+            ctx.fillStyle = LightSquareColor;
+            ctx.fillRect(BoardOrgin[0], BoardOrgin[1], 640, 640);
+            for (let c = 0; c < 8; c = c + 2) {
+                for (let r = 0; r < 8; r = r + 1) {
+                    ctx.fillStyle = DarkSquareColor;
+                    if (r % 2 == false) {
+                        ctx.fillRect(BoardOrgin[0] + c * 80 + 80, BoardOrgin[1] + r * 80, 80, 80);
+                    } else {
+                        ctx.fillRect(BoardOrgin[0] + c * 80, BoardOrgin[1] + r * 80, 80, 80);
+                    }
+                }
+            }
+            ctx.fillStyle = "Navy";
+            ctx.fillRect(BoardOrgin[0] + cursor[0] * 80 - 80, BoardOrgin[1] + cursor[1] * 80 - 80, 80, 80);
+            DrawChessPieces();
+        }
+        function randomIntFromInterval(min, max) // min and max included
+        {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+        var directions = {
+            37: "left",
+            38: "up",
+            39: "right",
+            40: "down",
+            32: "space",
+        };
+        function equals(array1, array2) {
+            //Just for X, Y arrays
+            if (array1[0] == array2[0] && array1[1] == array2[1]) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function pieceOnSquare(square) {
+            //Because this is soley for moving purposes, I don't need to address black pieces.
+            if (equals(board.Wking, square)) {
+                return "king";
+            } else if (equals(board.Wqueen, square)) {
+                return "queen";
+            } else if (equals(board.WbishopA, square)) {
+                return "bishopA";
+            } else if (equals(board.WbishopB, square)) {
+                return "bishopB";
+            } else if (equals(board.WknightA, square)) {
+                return "knightA";
+            } else if (equals(board.WknightB, square)) {
+                return "knightB";
+            } else if (equals(board.WrookA, square)) {
+                return "rookA";
+            } else if (equals(board.WrookB, square)) {
+                return "rookB";
+            } else if (equals(board.WpawnA, square)) {
+                return "pawnA";
+            } else if (equals(board.WpawnB, square)) {
+                return "pawnB";
+            } else if (equals(board.WpawnC, square)) {
+                return "pawnC";
+            } else if (equals(board.WpawnD, square)) {
+                return "pawnD";
+            } else if (equals(board.WpawnE, square)) {
+                return "pawnE";
+            } else if (equals(board.WpawnF, square)) {
+                return "pawnF";
+            } else if (equals(board.WpawnG, square)) {
+                return "pawnG";
+            } else if (equals(board.WpawnH, square)) {
+                return "pawnH";
+            } else {
+                return null;
+            }
+        }
+        function blackPieceOnSquare(square) {
+            //Because this is soley for moving purposes, I don't need to address black pieces.
+            if (equals(board.Bking, square)) {
+                return "king";
+            } else if (equals(board.Bqueen, square)) {
+                return "queen";
+            } else if (equals(board.BbishopA, square)) {
+                return "bishopA";
+            } else if (equals(board.BbishopB, square)) {
+                return "bishopB";
+            } else if (equals(board.BknightA, square)) {
+                return "knightA";
+            } else if (equals(board.BknightB, square)) {
+                return "knightB";
+            } else if (equals(board.BrookA, square)) {
+                return "rookA";
+            } else if (equals(board.BrookB, square)) {
+                return "rookB";
+            } else if (equals(board.BpawnA, square)) {
+                return "pawnA";
+            } else if (equals(board.BpawnB, square)) {
+                return "pawnB";
+            } else if (equals(board.BpawnC, square)) {
+                return "pawnC";
+            } else if (equals(board.BpawnD, square)) {
+                return "pawnD";
+            } else if (equals(board.BpawnE, square)) {
+                return "pawnE";
+            } else if (equals(board.BpawnF, square)) {
+                return "pawnF";
+            } else if (equals(board.BpawnG, square)) {
+                return "pawnG";
+            } else if (equals(board.BpawnH, square)) {
+                return "pawnH";
+            } else {
+                return null;
+            }
+        }
+        function removePieces(color) {
+            console.log("Began removePieces function, with color " + color)
+            for (let c = 1; c < 9; c++) {
+                for (let r = 1; r < 9; r++) {
+                    if (blackPieceOnSquare([c, r]) != null && pieceOnSquare([c, r]) != null) {
+                        console.log("Found overlapping pieces at [" + c + ", " + r + "]");
+                        console.log(blackPieceOnSquare([c, r]));
+                        console.log(pieceOnSquare([c, r]));
+                        if (color == "white" || color == "white") {
+                            console.log("removing white pieces.")
+                            //Remove the white piece!
+                            //There is no need to remove the king, then it would be checkmate!
+                            if (pieceOnSquare([c, r]) == "queen") {
+                                board.Wqueen[0] = 9999;
+                                board.Wqueen[1] = 9999;
+                                console.log("removed queen");
+                            } else if (pieceOnSquare([c, r]) == "rookA") {
+                                board.WrookA[0] = 9999;
+                                board.WrookA[1] = 9999;
+                                console.log("removed rookA");
+                            } else if (pieceOnSquare([c, r]) == "rookB") {
+                                board.WrookB[0] = 9999;
+                                board.WrookB[1] = 9999;
+                                console.log("removed rookB");
+                            } else if (pieceOnSquare([c, r]) == "bishopA") {
+                                board.WbishopA[0] = 9999;
+                                board.WbishopA[1] = 9999;
+                                console.log("removed bishop A");
+                            } else if (pieceOnSquare([c, r]) == "bishopB") {
+                                board.WbishopB[0] = 9999;
+                                board.WbishopB[1] = 9999;
+                                console.log("removed bishopB");
+                            } else if (pieceOnSquare([c, r]) == "knightA") {
+                                board.WknightA[0] = 9999;
+                                board.WknightA[1] = 9999;
+                                console.log("removed knightA");
+                            } else if (pieceOnSquare([c, r]) == "knightB") {
+                                board.WknightB[0] = 9999;
+                                board.WknightB[1] = 9999;
+                                console.log("removed knightB");
+                            } else if (pieceOnSquare([c, r]) == "pawnA") {
+                                board.WpawnA[0] = 9999;
+                                board.WpawnA[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (pieceOnSquare([c, r]) == "pawnB") {
+                                board.WpawnB[0] = 9999;
+                                board.WpawnB[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (pieceOnSquare([c, r]) == "pawnC") {
+                                board.WpawnC[0] = 9999;
+                                board.WpawnC[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (pieceOnSquare([c, r]) == "pawnD") {
+                                board.WpawnD[0] = 9999;
+                                board.WpawnD[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (pieceOnSquare([c, r]) == "pawnE") {
+                                board.WpawnE[0] = 9999;
+                                board.WpawnE[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (pieceOnSquare([c, r]) == "pawnF") {
+                                board.WpawnF[0] = 9999;
+                                board.WpawnF[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (pieceOnSquare([c, r]) == "pawnG") {
+                                board.WpawnG[0] = 9999;
+                                board.WpawnG[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (pieceOnSquare([c, r]) == "pawnH") {
+                                board.WpawnH[0] = 9999;
+                                board.WpawnH[1] = 9999;
+                                console.log("removed a pawn");
+                            }
+                        } else {
+                            console.log("removing black piece")
+                            if (blackPieceOnSquare([c, r]) == "queen") {
+                                board.Bqueen[0] = 9999;
+                                board.Bqueen[1] = 9999;
+                                console.log("removed queen");
+                            } else if (blackPieceOnSquare([c, r]) == "rookA") {
+                                board.BrookA[0] = 9999;
+                                board.BrookA[1] = 9999;
+                                console.log("removed rookA");
+                            } else if (blackPieceOnSquare([c, r]) == "rookB") {
+                                board.BrookB[0] = 9999;
+                                board.BrookB[1] = 9999;
+                                console.log("removed rookB");
+                            } else if (blackPieceOnSquare([c, r]) == "bishopA") {
+                                board.BbishopA[0] = 9999;
+                                board.BbishopA[1] = 9999;
+                                console.log("removed bishop A");
+                            } else if (blackPieceOnSquare([c, r]) == "bishopB") {
+                                board.BbishopB[0] = 9999;
+                                board.BbishopB[1] = 9999;
+                                console.log("removed bishopB");
+                            } else if (blackPieceOnSquare([c, r]) == "knightA") {
+                                board.BknightA[0] = 9999;
+                                board.BknightA[1] = 9999;
+                                console.log("removed knightA");
+                            } else if (blackPieceOnSquare([c, r]) == "knightB") {
+                                board.BknightB[0] = 9999;
+                                board.BknightB[1] = 9999;
+                                console.log("removed knightB");
+                            } else if (blackPieceOnSquare([c, r]) == "pawnA") {
+                                board.BpawnA[0] = 9999;
+                                board.BpawnA[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (blackPieceOnSquare([c, r]) == "pawnB") {
+                                board.BpawnB[0] = 9999;
+                                board.BpawnB[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (blackPieceOnSquare([c, r]) == "pawnC") {
+                                board.BpawnC[0] = 9999;
+                                board.BpawnC[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (blackPieceOnSquare([c, r]) == "pawnD") {
+                                board.BpawnD[0] = 9999;
+                                board.BpawnD[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (blackPieceOnSquare([c, r]) == "pawnE") {
+                                board.BpawnE[0] = 9999;
+                                board.BpawnE[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (blackPieceOnSquare([c, r]) == "pawnF") {
+                                board.BpawnF[0] = 9999;
+                                board.BpawnF[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (blackPieceOnSquare([c, r]) == "pawnG") {
+                                board.BpawnG[0] = 9999;
+                                board.BpawnG[1] = 9999;
+                                console.log("removed a pawn");
+                            } else if (blackPieceOnSquare([c, r]) == "pawnH") {
+                                board.BpawnH[0] = 9999;
+                                board.BpawnH[1] = 9999;
+                                console.log("removed a pawn");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        function whiteMoves() {
+            if (piece == "king") {
+                board.Wking[0] = move[0];
+                board.Wking[1] = move[1];
+            } else if (piece == "queen") {
+                board.Wqueen[0] = move[0];
+                board.Wqueen[1] = move[1];
+            } else if (piece == "rookA") {
+                board.WrookA[0] = move[0];
+                board.WrookA[1] = move[1];
+            } else if (piece == "rookB") {
+                board.WrookB[0] = move[0];
+                board.WrookB[1] = move[1];
+            } else if (piece == "knightA") {
+                board.WknightA[0] = move[0];
+                board.WknightA[1] = move[1];
+            } else if (piece == "knightB") {
+                board.WknightB[0] = move[0];
+                board.WknightB[1] = move[1];
+            } else if (piece == "bishopA") {
+                board.WbishopA[0] = move[0];
+                board.WbishopA[1] = move[1];
+            } else if (piece == "bishopB") {
+                board.WbishopB[0] = move[0];
+                board.WbishopB[1] = move[1];
+            } else if (piece == "pawnA") {
+                board.WpawnA[0] = move[0];
+                board.WpawnA[1] = move[1];
+            } else if (piece == "pawnB") {
+                board.WpawnB[0] = move[0];
+                board.WpawnB[1] = move[1];
+            } else if (piece == "pawnC") {
+                board.WpawnC[0] = move[0];
+                board.WpawnC[1] = move[1];
+            } else if (piece == "pawnD") {
+                board.WpawnD[0] = move[0];
+                board.WpawnD[1] = move[1];
+            } else if (piece == "pawnE") {
+                board.WpawnE[0] = move[0];
+                board.WpawnE[1] = move[1];
+            } else if (piece == "pawnF") {
+                board.WpawnF[0] = move[0];
+                board.WpawnF[1] = move[1];
+            } else if (piece == "pawnG") {
+                board.WpawnG[0] = move[0];
+                board.WpawnG[1] = move[1];
+            } else if (piece == "pawnH") {
+                board.WpawnH[0] = move[0];
+                board.WpawnH[1] = move[1];
+            }
+            piece = ".";
+            console.log("Moved");
+            //Remove all Black Pieces
+            removePieces("black");
+        }
+        let move = [];
+        let canMove = false;
+        $("body").keydown(function (event) {
+            var newDirection = directions[event.keyCode];
+            if (newDirection !== undefined) {
+                if (newDirection == "left") {
+                    if (cursor[0] > 1) {
+                        cursor[0] = cursor[0] - 1;
+                    }
+                } else if (newDirection == "right") {
+                    if (cursor[0] < 8) {
+                        cursor[0] = cursor[0] + 1;
+                    }
+                } else if (newDirection == "up") {
+                    if (cursor[1] > 1) {
+                        cursor[1] = cursor[1] - 1;
+                    }
+                } else if (newDirection == "down") {
+                    if (cursor[1] < 8) {
+                        cursor[1] = cursor[1] + 1;
+                    }
+                } else if (newDirection == "space") {
+                    if (piece != ".") {
+                        if (piece == pieceOnSquare(cursor)) {
+                            piece = ".";
+                            pieceCursor = [999, 999];
+                        } else {
+                            if (pieceOnSquare(cursor) != null) {
+                                piece = pieceOnSquare(cursor);
+                            } else {
+                                move[0] = cursor[0];
+                                move[1] = cursor[1];
+                                canMove = puzzleResponce();
+                                if (canMove == true) {
+                                    canMove == false;
+                                    //Used to be the code for function "WhiteMoves" here
+                                }
+                            }
+                        }
+                    } else {
+                        if (pieceOnSquare(cursor) != null) {
+                            piece = pieceOnSquare(cursor);
+                        }
+                    }
+                }
+            }
+        });
+        //completed = true;
+        var intervalId = setInterval(function () {
+            ctx.clearRect(0, 0, 1300, 800);
+            ctx.fillStyle = "DarkGrey";
+            ctx.fillRect(0, 0, 1300, 800);
+            DrawBoard();
+            if (completed == true) {
+                ctx.fillStyle = "LightSlateGrey";
+                ctx.fillRect(150, 150, 1000, 500);
+                ctx.font = "80px Consolas";
+                ctx.fillStyle = "Green";
+                ctx.fillText("Puzzles Completed", 200, 240);
+                ctx.font = "40px Consolas";
+                if (wrongPuzzles.length == 0 && correctPuzzles.length == 0) {
+                    ctx.fillText("You got 0 out of 0 puzzles correct.", 200, 340);
+                } else {
+                    ctx.fillText("You just completed " + Puzzles.length + " puzzles!", 200, 340);
+                    ctx.fillText("You can now feel better about your brain!", 200, 380);
+                }
+                ctx.fillStyle = "Black";
+                ctx.font = "20px Consolas";
+                ctx.fillText("If you would like to play again, refresh the page!", 500, 640);
+            } else {
+                ctx.fillStyle = "White";
+                ctx.font = "20px Consolas";
+                if (winTimer > 0.1) {
+                    wrongTimer = 0;
+                    ctx.fillStyle = "Green";
+                    ctx.font = "60px Consolas";
+                    winTimer = winTimer - 0.2;
+                    ctx.fillText("Congratulations!", 725, 300);
+                    if (wrongPuzzles.indexOf(Puzzles.indexOf(puzzle)) == -1) {
+                        correctPuzzles.push(Puzzles.indexOf(puzzle));
+                    }
+                    ctx.font = "20px Consolas";
+                    ctx.fillText(`New Puzzle in ${Math.floor(winTimer)}`, 900, 400);
+                    if (winTimer < 0.2) {
+                        winTimer = 0;
+                        piece = ".";
+                        move = [];
+                        puzzle = Puzzles[Math.floor((Math.random() * Puzzles.length))];
+                        if (pastPuzzles.length < Puzzles.length) {
+                            while (pastPuzzles.indexOf(Puzzles.indexOf(puzzle)) != -1) {
+                                puzzle = Puzzles[Math.floor((Math.random() * Puzzles.length))];
+                            }
+                            pastPuzzles.push(Puzzles.indexOf(puzzle));
+                        } else {
+                            completed = true;
+                        }
+                        reset();
+                        setUpPuzzle(puzzle, Puzzles.indexOf(puzzle));
+                        turnNumber = 1;
+                    }
+                } else {
+                    ctx.fillStyle = "DimGrey";
+                    ctx.font = "20px Consolas";
+                    if (piece == ".") {
+                        ctx.fillText("No piece selected.", 700, 30);
+                    } else {
+                        ctx.fillText("Piece selected: " + piece, 700, 30);
+                    }
+                    ctx.fillText("Welcome to atozChessPrep! We hope you enjoy this", 700, 600);
+                    ctx.fillText("assortment of puzzles. To select pieces and squares", 700, 620);
+                    ctx.fillText("for them to move to, press space. You can move your", 700, 640);
+                    ctx.fillText("cursor around with the arrow keys. You are always ", 700, 660);
+                    ctx.fillText("playing as white, and the computer moves instantly,", 700, 680);
+                    ctx.fillText("so it is always your turn. GoodLuck!", 700, 700);
+                    if (wrongTimer > 0.1) {
+                        wrongTimer = wrongTimer - 0.2;
+                        ctx.fillStyle = "Maroon";
+                        ctx.font = "60px Consolas";
+                        ctx.fillText("Incorrect", 725, 300);
+                        ctx.font = "20px Consolas";
+                        ctx.fillText(`Keep trying - you can do this!`, 900, 400);
+                    }
+                }
+            }
+        }, 60);
+
+    </script>
+</body>
+
+</html>

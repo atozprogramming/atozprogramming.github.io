@@ -10,6 +10,7 @@ Click on any icon to access its contents. Tools are Green, and Games are Blue.
 [![Alt text](./CalculatorIcon.png "Calc")](./MathCalculator.html)
 [![Alt text](./Script.png "Script")](./Script_V21.html)
 
+[![Alt text](./Chess.png "ChessPuzzles")](./Chess.html)
 [![Alt text](./Snake.png "Snake")](./CompactStandardSnake.html)
 [![Alt text](./3Kings.png "3kings")](./3kingsBoardGame.html)
 
