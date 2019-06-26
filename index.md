@@ -5,12 +5,16 @@ Your go-to javascript programming outlet
 
 ### **Games + Tools**
 
-Click on any icon to access its contents. Tools are Green, and Games are Blue.
+Click on any icon to access its contents. 
+
+####Tools
 
 [![Alt text](./CalculatorIcon.png "Calc")](./MathCalculator.html)
+[![Alt text](./Chess.png "ChessPuzzles")](./Chess.html)
 [![Alt text](./Script.png "Script")](./Script_V21.html)
 
-[![Alt text](./Chess.png "ChessPuzzles")](./Chess.html)
+####Games
+
 [![Alt text](./Snake.png "Snake")](./CompactStandardSnake.html)
 [![Alt text](./3Kings.png "3kings")](./3kingsBoardGame.html)
 
