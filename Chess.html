@@ -117,145 +117,147 @@
         /*Puzzle 6*/[2, "rookA", [5, 2], "king", [4, 1], "bishopA", [3, 2]],
         /*Puzzle 7*/[2, "rookA", [2, 3], "king", [6, 2], "rookA", [3, 3]],
         /*Puzzle 8*/[3, "queen", [5, 3], "queen", [5, 3], "rookA", [5, 3], "rookA", [5, 3], "rookB", [4, 1]],
-        /*Puzzle 9*/[2, "pawnA", [6,5], "king", [4,4], "rookA", [2,7]],
-        /*Puzzle 10*/[2, "queen", [7,1], "rookA", [6,1], "queen", [6,1]],
-        /*Puzzle 11*/[2, "queen", [3,2], "king", [1,3], "queen", [2,3]],
-        /*Puzzle 12*/[3, "queen", [3,2], "king", [1,1], "queen", [4,1], "bishopA", [3,1], "queen", [3,1]],
-        /*Puzzle 13*/[2, "queen", [3,1], "king", [2,4], "queen", [3,5]],
-        /*Puzzle 14*/[2, "bishopA", [3,4], "rookB", [1,2], "bishopA", [1,2]],
-        /*Puzzle 15*/[2, "knightA", [5,2], "king", [6,1], "knightA", [6,4]]
-    ];
+        /*Puzzle 9*/[2, "pawnA", [6, 5], "king", [4, 4], "rookA", [2, 7]],
+        /*Puzzle 10*/[2, "queen", [7, 1], "rookA", [6, 1], "queen", [6, 1]],
+        /*Puzzle 11*/[2, "queen", [3, 2], "king", [1, 3], "queen", [2, 3]],
+        /*Puzzle 12*/[3, "queen", [3, 2], "king", [1, 1], "queen", [4, 1], "bishopA", [3, 1], "queen", [3, 1]],
+        /*Puzzle 13*/[2, "queen", [3, 1], "king", [2, 4], "queen", [3, 5]],
+        /*Puzzle 14*/[2, "bishopA", [3, 4], "rookB", [1, 2], "bishopA", [1, 2]],
+        /*Puzzle 15*/[2, "knightA", [5, 2], "king", [6, 1], "knightA", [6, 4]]
+            ];
+        let count = 0;
         pastPuzzles = [];
         let puzzle = Puzzles[Math.floor((Math.random() * Puzzles.length))];
         console.log(puzzle);
         let correctPuzzles = [];
         let wrongPuzzles = [];
-        puzzle = Puzzles[14]; //This is for testing purposes ONLY.
+        puzzle = Puzzles[8]; //This is for testing purposes ONLY.
         console.log(puzzle);
-        puzzle = Puzzles[0]; //When this is not commented out, the easiest puzzle will be first.
+        //puzzle = Puzzles[0]; //When this is not commented out, the easiest puzzle will be first.
         pastPuzzles.push(Puzzles.indexOf(puzzle));
         setUpPuzzle(puzzle, Puzzles.indexOf(puzzle));
         let turnNumber = 1;
         function setUpPuzzle(puzzle, puzzleNum) {
+            count = count + 1;
             reset();
             //puzzleNum is used to set up the puzzle pieces; puzzle reads all of the needed moves
-            if(puzzleNum == 14){
-                board.Wking = [7,8];
-                board.Wqueen = [5,4];
-                board.WknightA = [4,4];
-                board.WrookA = [6,8];
-                board.WrookB = [1,8];
-                board.WpawnA = [1,7];
-                board.WpawnB = [2,7];
-                board.WpawnC = [5,6];
-                board.WpawnD = [6,7];
-                board.WpawnE = [7,7];
-                board.WpawnF = [8,7];
-                board.Bking = [7,1];
-                board.Bqueen = [6,2];
-                board.BrookA = [6,4];
-                board.BbishopA = [3,1];
-                board.BrookB = [1,1];
-                board.BpawnA = [1,2];
-                board.BpawnB = [2,2];
-                board.BpawnC = [5,5];
-                board.BpawnD = [7,2];
-                board.BpawnE = [8,3];
-            }else if(puzzleNum == 13){
-                board.Wking = [7,8];
-                board.WrookA = [1,2];
-                board.WrookB = [4,8];
-                board.WbishopA = [5,2];
-                board.WpawnA = [1,7];
-                board.WpawnB = [3,6];
-                board.WpawnC = [5,5];
-                board.WpawnD = [6,7];
-                board.WpawnE = [7,6];
-                board.WpawnF = [8,7];
-                board.Bking = [8,1];
-                board.BrookA = [5,1];
-                board.BrookB = [6,2];
-                board.BknightA = [3,4];
-                board.BpawnA = [5,4];
-                board.BpawnB = [6,3];
-                board.BpawnC = [7,4];
-                board.BpawnD = [8,3];
-            } else if(puzzleNum == 12){
-                board.Wking = [2,8];
-                board.Wqueen = [2,1];
-                board.WbishopA = [8,7];
-                board.WpawnA = [1,7];
-                board.WpawnB = [2,6];
-                board.WpawnC = [3,7];
-                board.WpawnD = [7,5];
-                board.WpawnE = [8,6];
-                board.Bking = [1,3];
-                board.Bqueen = [1,4];
-                board.BrookA = [4,4];
-                board.BpawnA = [1,2];
-                board.BpawnB = [2,3];
-                board.BpawnC = [5,3];
-                board.BpawnD = [8,3];
-            }else if(puzzleNum == 11){
-                board.Bking = [2,1];
-                board.BrookA = [4,1];
-                board.BbishopA = [4,2];
-                board.Bqueen = [7,7];
-                board.BrookB = [2,7];
-                board.BknightA = [4,5];
-                board.BpawnA = [1,2];
-                board.BpawnB = [2,2];
-                board.BpawnC = [3,2];
-                board.BpawnD = [5,4];
-                board.BpawnE = [7,2];
-                board.BpawnF = [8,3];
+            if (puzzleNum == 14) {
+                board.Wking = [7, 8];
+                board.Wqueen = [5, 4];
+                board.WknightA = [4, 4];
+                board.WrookA = [6, 8];
+                board.WrookB = [1, 8];
+                board.WpawnA = [1, 7];
+                board.WpawnB = [2, 7];
+                board.WpawnC = [5, 6];
+                board.WpawnD = [6, 7];
+                board.WpawnE = [7, 7];
+                board.WpawnF = [8, 7];
+                board.Bking = [7, 1];
+                board.Bqueen = [6, 2];
+                board.BrookA = [6, 4];
+                board.BbishopA = [3, 1];
+                board.BrookB = [1, 1];
+                board.BpawnA = [1, 2];
+                board.BpawnB = [2, 2];
+                board.BpawnC = [5, 5];
+                board.BpawnD = [7, 2];
+                board.BpawnE = [8, 3];
+            } else if (puzzleNum == 13) {
+                board.Wking = [7, 8];
+                board.WrookA = [1, 2];
+                board.WrookB = [4, 8];
+                board.WbishopA = [5, 2];
+                board.WpawnA = [1, 7];
+                board.WpawnB = [3, 6];
+                board.WpawnC = [5, 5];
+                board.WpawnD = [6, 7];
+                board.WpawnE = [7, 6];
+                board.WpawnF = [8, 7];
+                board.Bking = [8, 1];
+                board.BrookA = [5, 1];
+                board.BrookB = [6, 2];
+                board.BknightA = [3, 4];
+                board.BpawnA = [5, 4];
+                board.BpawnB = [6, 3];
+                board.BpawnC = [7, 4];
+                board.BpawnD = [8, 3];
+            } else if (puzzleNum == 12) {
+                board.Wking = [2, 8];
+                board.Wqueen = [2, 1];
+                board.WbishopA = [8, 7];
+                board.WpawnA = [1, 7];
+                board.WpawnB = [2, 6];
+                board.WpawnC = [3, 7];
+                board.WpawnD = [7, 5];
+                board.WpawnE = [8, 6];
+                board.Bking = [1, 3];
+                board.Bqueen = [1, 4];
+                board.BrookA = [4, 4];
+                board.BpawnA = [1, 2];
+                board.BpawnB = [2, 3];
+                board.BpawnC = [5, 3];
+                board.BpawnD = [8, 3];
+            } else if (puzzleNum == 11) {
+                board.Bking = [2, 1];
+                board.BrookA = [4, 1];
+                board.BbishopA = [4, 2];
+                board.Bqueen = [7, 7];
+                board.BrookB = [2, 7];
+                board.BknightA = [4, 5];
+                board.BpawnA = [1, 2];
+                board.BpawnB = [2, 2];
+                board.BpawnC = [3, 2];
+                board.BpawnD = [5, 4];
+                board.BpawnE = [7, 2];
+                board.BpawnF = [8, 3];
 
-                board.Wking = [1,8];
-                board.WrookA = [3,8];
-                board.WrookB = [8,8];
-                board.Wqueen = [3,5];
-                board.WknightA = [2,4];
-                board.WpawnA = [1,7];
-                board.WpawnB = [3,6];
-                board.WpawnC = [5,6];
-                board.WpawnD = [7,6];
-                board.WpawnE = [8,7];
-            }else if(puzzleNum == 10){
-                board.Bking = [1,2];
-                board.BrookA = [1,8];
-                board.BrookB = [6,6];
-                board.BknightA = [8,6];
-                board.BpawnA = [1,4];
-                board.BpawnB = [3,2];
-                board.BpawnC = [6,4];
-                board.BpawnD = [7,5];
-                board.BpawnE = [8,2];
-                board.WpawnA = [3,6];
-                board.Wking = [8,5];
-                board.Wqueen = [3,3];
-                board.WknightA = [3,5]; 
-            } else if(puzzleNum == 9){
-                board.Bking = [2,1];
-                board.BpawnA = [2,2];
-                board.BpawnB = [1,2];
-                board.BpawnC = [3,2];
-                board.BpawnD = [7,2];
-                board.BpawnE = [8,2];
-                board.BpawnF = [5,5];
-                board.BknightA = [1,4];
-                board.Bqueen = [7,4];
-                board.BrookA = [6,6];
+                board.Wking = [1, 8];
+                board.WrookA = [3, 8];
+                board.WrookB = [8, 8];
+                board.Wqueen = [3, 5];
+                board.WknightA = [2, 4];
+                board.WpawnA = [1, 7];
+                board.WpawnB = [3, 6];
+                board.WpawnC = [5, 6];
+                board.WpawnD = [7, 6];
+                board.WpawnE = [8, 7];
+            } else if (puzzleNum == 10) {
+                board.Bking = [1, 2];
+                board.BrookA = [1, 8];
+                board.BrookB = [6, 6];
+                board.BknightA = [8, 6];
+                board.BpawnA = [1, 4];
+                board.BpawnB = [3, 2];
+                board.BpawnC = [6, 4];
+                board.BpawnD = [7, 5];
+                board.BpawnE = [8, 2];
+                board.WpawnA = [3, 6];
+                board.Wking = [8, 5];
+                board.Wqueen = [3, 3];
+                board.WknightA = [3, 5];
+            } else if (puzzleNum == 9) {
+                board.Bking = [2, 1];
+                board.BpawnA = [2, 2];
+                board.BpawnB = [1, 2];
+                board.BpawnC = [3, 2];
+                board.BpawnD = [7, 2];
+                board.BpawnE = [8, 2];
+                board.BpawnF = [5, 5];
+                board.BknightA = [1, 4];
+                board.Bqueen = [7, 4];
+                board.BrookA = [6, 6];
 
-                board.Wking = [2,8];
-                board.Wqueen = [3,5];
-                board.WbishopA = [4,7];
-                board.WrookA = [3,8];
-                board.WpawnA = [1,6];
-                board.WpawnB = [2,7];
-                board.WpawnC = [3,6];
-                board.WpawnD = [4,5];
-                board.WpawnE = [5,6];
-            }else if (puzzleNum == 8) {
+                board.Wking = [2, 8];
+                board.Wqueen = [3, 5];
+                board.WbishopA = [4, 7];
+                board.WrookA = [3, 8];
+                board.WpawnA = [1, 6];
+                board.WpawnB = [2, 7];
+                board.WpawnC = [3, 6];
+                board.WpawnD = [4, 5];
+                board.WpawnE = [5, 6];
+            } else if (puzzleNum == 8) {
                 board.Bking = [5, 4];
                 board.BrookA = [2, 7];
                 board.Wking = [8, 4];
@@ -1022,8 +1024,9 @@
                 ctx.font = "20px Consolas";
                 ctx.fillText("If you would like to play again, refresh the page!", 500, 640);
             } else {
-                ctx.fillStyle = "White";
-                ctx.font = "20px Consolas";
+                ctx.fillStyle = "DimGrey";
+                ctx.font = "100px Consolas";
+                ctx.fillText("Puzzle " + count, 770, 130);
                 if (winTimer > 0.1) {
                     wrongTimer = 0;
                     ctx.fillStyle = "Green";
@@ -1056,16 +1059,25 @@
                     ctx.fillStyle = "DimGrey";
                     ctx.font = "20px Consolas";
                     if (piece == ".") {
-                        ctx.fillText("No piece selected.", 700, 30);
+                        ctx.fillText("No piece selected.", 900, 240);
                     } else {
-                        ctx.fillText("Piece selected: " + piece, 700, 30);
+                        ctx.fillText("Piece selected: " + piece, 900, 240);
                     }
+                    ctx.font = "40px Consolas";
+                    ctx.fillText("White to Move", 850, 200);
+                    ctx.font = "20px Consolas";
                     ctx.fillText("Welcome to atozChessPrep! We hope you enjoy this", 700, 600);
                     ctx.fillText("assortment of puzzles. To select pieces and squares", 700, 620);
                     ctx.fillText("for them to move to, press space. You can move your", 700, 640);
                     ctx.fillText("cursor around with the arrow keys. You are always ", 700, 660);
                     ctx.fillText("playing as white, and the computer moves instantly,", 700, 680);
                     ctx.fillText("so it is always your turn. GoodLuck!", 700, 700);
+                    ctx.fillRect(900, 260, 200, 200);
+                    ctx.fillRect(850, 460, 300, 20);
+                    ctx.fillRect(830, 480, 340, 20);
+                    ctx.fillRect(780, 20, 60, 40);
+                    ctx.fillRect(955, 20, 60, 40);
+                    ctx.fillRect(1140, 20, 60, 40);
                     if (wrongTimer > 0.1) {
                         wrongTimer = wrongTimer - 0.2;
                         ctx.fillStyle = "Maroon";
