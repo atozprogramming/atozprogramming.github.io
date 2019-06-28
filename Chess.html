@@ -123,7 +123,10 @@
         /*Puzzle 12*/[3, "queen", [3, 2], "king", [1, 1], "queen", [4, 1], "bishopA", [3, 1], "queen", [3, 1]],
         /*Puzzle 13*/[2, "queen", [3, 1], "king", [2, 4], "queen", [3, 5]],
         /*Puzzle 14*/[2, "bishopA", [3, 4], "rookB", [1, 2], "bishopA", [1, 2]],
-        /*Puzzle 15*/[2, "knightA", [5, 2], "king", [6, 1], "knightA", [6, 4]]
+        /*Puzzle 15*/[2, "knightA", [5, 2], "king", [6, 1], "knightA", [6, 4]],
+        /*Puzzle 16*/[3, "bishopA", [8,3], "king", [8,1], "bishopA", [7,2], "king", [7,2], "rookA", [7,8]],
+        /*Puzzle 17*/[3, "knightA", [6,2], "king", [4,2], "bishopA", [6,4], "rookA", [5,3], "queen", [5,3]],
+        /*Puzzle 18*/[3, "rookA", [6,5], "bishopA", [5,5], "rookA", [5,5], "rookA", [5,5], "pawnC", [3,6]]
             ];
         let count = 0;
         pastPuzzles = [];
@@ -131,9 +134,9 @@
         console.log(puzzle);
         let correctPuzzles = [];
         let wrongPuzzles = [];
-        puzzle = Puzzles[8]; //This is for testing purposes ONLY.
+        puzzle = Puzzles[17]; //This is for testing purposes ONLY. (Remember puzzle #1 is 0)
         console.log(puzzle);
-        //puzzle = Puzzles[0]; //When this is not commented out, the easiest puzzle will be first.
+        puzzle = Puzzles[0]; //When this is not commented out, the easiest puzzle will be first.
         pastPuzzles.push(Puzzles.indexOf(puzzle));
         setUpPuzzle(puzzle, Puzzles.indexOf(puzzle));
         let turnNumber = 1;
@@ -141,7 +144,70 @@
             count = count + 1;
             reset();
             //puzzleNum is used to set up the puzzle pieces; puzzle reads all of the needed moves
-            if (puzzleNum == 14) {
+            if (puzzleNum == 18) {
+
+            } else if (puzzleNum == 17) {
+                board.Wking = [2,7];
+                board.WrookA = [6,3];
+                board.WbishopA = [2,3];
+                board.WpawnA = [1,5];
+                board.WpawnB = [2,6];
+                board.WpawnC = [3,7];
+                board.Bking = [2,5];
+                board.BrookA = [5,7];
+                board.BbishopA = [4,4];
+                board.BpawnA = [1,3];
+                board.BpawnB = [2,2];
+                board.BpawnC = [8,4]
+            } else if (puzzleNum == 16) {
+                board.Wking = [5,8];
+                board.WrookA = [1,8];
+                board.WrookB = [8,8];
+                board.Wqueen = [5,7];
+                board.WbishopA = [4,6];
+                board.WknightA = [5,4];
+                board.WknightB = [4,7];
+                board.WpawnA = [1,7];
+                board.WpawnB = [2,7];
+                board.WpawnC = [3,7];
+                board.WpawnD = [4,4];
+                board.WpawnE = [6,7];
+                board.WpawnF = [7,7];
+                board.WpawnG = [8,7];
+
+                board.Bking = [4,1];
+                board.Bqueen = [2,5];
+                board.BrookA = [5,1];
+                board.BknightA = [6,3];
+                board.BbishopA = [3,1];
+                board.BknightA = [2,1];
+                board.BrookB = [1,1];
+                board.BpawnA = [1,2];
+                board.BpawnB = [2,2];
+                board.BpawnC = [3,2];
+                board.BpawnD = [6,2];
+                board.BpawnE = [7,2];
+                board.BpawnF = [8,2];
+            } else if (puzzleNum == 15) {
+                board.Wking = [8,7];
+                board.WbishopA = [7,4];
+                board.WknightA = [6,3];
+                board.WrookA = [1,8];
+                board.WpawnA = [8,2];
+                board.WpawnB = [8,5];
+                board.WpawnC = [1,7];
+                board.WpawnD = [2,7];
+                board.WpawnE = [3,6];
+
+                board.Bking = [7,2];
+                board.Bqueen = [5,3];
+                board.BbishopA = [1,3];
+                board.BpawnA = [1,2];
+                board.BpawnB = [3,2];
+                board.BpawnC = [3,3];
+                board.BpawnD = [4,4];
+                board.BpawnE = [5,4];
+            } else if (puzzleNum == 14) {
                 board.Wking = [7, 8];
                 board.Wqueen = [5, 4];
                 board.WknightA = [4, 4];
