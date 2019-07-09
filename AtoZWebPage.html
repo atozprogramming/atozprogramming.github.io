@@ -154,6 +154,7 @@
         education();
     });
     function tools() {
+        info();
         clearLinks();
         //Calculator
         document.getElementById('image1').src = "CalculatorIcon.png";
@@ -168,6 +169,7 @@
     }
     function games() {
         clearLinks();
+        info();
         //Snake
         document.getElementById('image1').src = "Snake.png";
         document.getElementById('link1').href = "CompactStandardSnake.html";
@@ -177,6 +179,16 @@
     }
     function education() {
         clearLinks();
+        info();
+        //Solar System
+        document.getElementById('image1').src = "Solar.png";
+        document.getElementById('link1').href = "Physics2.html";
+        //Earth Cannon
+        document.getElementById('image2').src = "Cannon.png";
+        document.getElementById('link2').href = "Physics.html";
+    }
+    function info(){
+        document.getElementById('instructions').textContent = "Click on any Icon above to access its content!"
     }
     function clearLinks() {
         document.getElementById('image1').src = "";
