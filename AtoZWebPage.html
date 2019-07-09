@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    div.advertisement {
+        text-align: right;
+        font-family: 'Consolas';
+        font-size: 20px;
+        color: grey;
+        position: sticky;
+        top: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    body {
+        background-color: #E5E4E2;
+    }
+
+    h2 {
+        background-color: #2B1B17;
+    }
+
+    div.top {
+        text-align: center;
+        font-family: 'Consolas';
+        font-size: 40px;
+    }
+
+    div.updateHeader {
+        text-align: center;
+        font-family: 'Consolas';
+        font-size: 30px;
+    }
+
+    div.update {
+        text-align: left;
+        font-family: 'Consolas';
+        font-size: 20px;
+    }
+    div.updateDate {
+        font-weight: bold;
+        color: #cc9900;
+    }
+
+    div.buttons {
+        text-align: center;
+        /* position: -webkit-sticky; */
+        position: sticky;
+        top: 0;
+        padding-top: 10px;
+        padding-bottom: 20px;
+    }
+
+    div.links {
+        text-align: center;
+        padding: 20px;
+    }
+    button {
+        background-color: #bbb;
+        padding: .2em;
+        margin-left: 1em;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 10px;
+        color: #fff;
+        font-family: 'Consolas';
+        /*Oswald is a great font*/
+        font-size: 20px;
+        text-decoration: none;
+        border: none;
+    }
+
+    button:hover {
+        background-color: rgb(172, 122, 15);
+    }
+
+    a {
+        color: #2c87f0;
+    }
+
+    a:visited {
+        color: #636;
+    }
+
+    a:hover,
+    a:active,
+    a:focus {
+        color: #636;
+    }
+</style>
+<div class="top">
+    <h1 id="title">A to Z Programming</h1>
+    <img src="WebsiteLogo.png" id="icon" style="position: relative">
+</div>
+<div class="buttons">
+    <button id="tools">Tools</button>
+    <button id="games">Games</button>
+    <button id="education">Education</button>
+</div>
+<div class="links">
+    <a href="" id="link1"> <img src="" id="image1"> </a>
+    <a href="" id="link2"> <img src="" id="image2"> </a>
+    <a href="" id="link3"> <img src="" id="image3"> </a>
+    <a href="" id="link4"> <img src="" id="image4"> </a>
+    <a href="" id="link5"> <img src="" id="image5"> </a>
+    <a href="" id="link6"> <img src="" id="image6"> </a>
+    <a href="" id="link7"> <img src="" id="image7"> </a>
+    <a href="" id="link8"> <img src="" id="image8"> </a>
+    <a href="" id="link9"> <img src="" id="image9"> </a>
+</div>
+<div class="links">
+    <p id="instructions">Click on any button above to access website content!</p>
+</div>
+<p></p>
+<p></p>
+<p></p>
+<div class="updateHeader">
+    <h1>Update Log</h1>
+</div>
+<div class="update">
+    <p></p>
+    <p><div class="updateDate">7/8/2019: Website</div> Same content, new look! The website layout was completely changed, as home page language is now HTML, instead of Markdown.</p>
+    <p><div class="updateDate">6/26/2019: Chess</div> Prepare to rev up your chess skills, as an assortment of chess puzzles has now been released! Use tactics to bring the enemy king down, and 
+        play ONLY the best moves! The Chess Puzzles application is located in the Tools category.</p>
+    <p><div class="updateDate">6/14/2019: Calculator</div> A fresh break from snake, the Calculator is released, featuring the 4 basic operations, with exponents and roots.</p>
+    <p><div class="updateDate">6/2/2019: Snake Patch</div> Mass-transfer glitch patched in Snake Unlimited</p>
+    <p><div class="updateDate">6/1/2019: Snake Addition</div> 1-player Snake Battle Royale released</p>
+    <p><div class="updateDate">5/28/2019: Snake Addition</div> 1-player Snake Unlimited released</p>
+    <p><div class="updateDate">5/25/2019: Snake Addition</div> Snake Unlimited released</p>
+    <p><div class="updateDate">5/22/2019: 3 kings</div> 3 Kings game released, began uploading screenshots of games</p>
+    <p><div class="updateDate">5/20/2019: Simulations</div> Planental Orbit(s) and Earth Cannon simulations released</p>
+    <p><div class="updateDate">5/19/2019: Snake</div> Snake Battle Royale released</p>
+    <p><div class="updateDate">5/18/2019</div> Website created</p>
+        </div>
+      
+</div>
+<script>
+    //Registering the buttons
+    let toolsButton = document.getElementById("tools");
+    let gamesButton = document.getElementById("games");
+    let educationButton = document.getElementById("education");
+    //Button event listeners
+    toolsButton.addEventListener("click", () => {
+        console.log("Tools clicked.");
+        tools();
+    });
+    gamesButton.addEventListener("click", () => {
+        console.log("Games clicked.");
+        games();
+    });
+    educationButton.addEventListener("click", () => {
+        console.log("Education clicked.");
+        education();
+    });
+    function tools() {
+        clearLinks();
+        //Calculator
+        document.getElementById('image1').src = "CalculatorIcon.png";
+        document.getElementById('link1').href = "MathCalculator.html";
+        //Chess
+        document.getElementById('image2').src = "Chess.png";
+        document.getElementById('link2').href = "Chess.html";
+        //Script
+        document.getElementById('image3').src = "Script.png";
+        document.getElementById('link3').href = "Script_V21.html";
+
+    }
+    function games() {
+        clearLinks();
+        //Snake
+        document.getElementById('image1').src = "Snake.png";
+        document.getElementById('link1').href = "CompactStandardSnake.html";
+        //3 kings
+        document.getElementById('image2').src = "3Kings.png";
+        document.getElementById('link2').href = "3kingsBoardGame.html";
+    }
+    function education() {
+        clearLinks();
+    }
+    function clearLinks() {
+        document.getElementById('image1').src = "";
+        document.getElementById('link1').href = "";
+        document.getElementById('image2').src = "";
+        document.getElementById('link2').href = "";
+        document.getElementById('image3').src = "";
+        document.getElementById('link3').href = "";
+        document.getElementById('image4').src = "";
+        document.getElementById('link4').href = "";
+        document.getElementById('image5').src = "";
+        document.getElementById('link5').href = "";
+        document.getElementById('image6').src = "";
+        document.getElementById('link6').href = "";
+        document.getElementById('image7').src = "";
+        document.getElementById('link7').href = "";
+        document.getElementById('image8').src = "";
+        document.getElementById('link8').href = "";
+        document.getElementById('image9').src = "";
+        document.getElementById('link9').href = "";
+    }
+</script>
+
+</html>
