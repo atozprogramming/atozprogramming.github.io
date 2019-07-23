@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<!-- this is the code that will allow icon to be visible in the title bar of the brower -->
+<link rel="icon" type="image/ico" href="WebsiteLogo2.png" />
+<!-- you can also say this:  <link rel="icon" type="image/png" href="location/image.png" /> -->
+<style>
+    div.advertisement {
+        text-align: right;
+        font-family: 'Consolas';
+        font-size: 20px;
+        color: grey;
+        position: sticky;
+        top: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    body {
+        background-color: #E5E4E2;
+    }
+
+    h2 {
+        background-color: #2B1B17;
+    }
+
+    div.top {
+        text-align: center;
+        font-family: 'Consolas';
+        font-size: 40px;
+    }
+
+    div.updateHeader {
+        text-align: center;
+        font-family: 'Consolas';
+        font-size: 30px;
+    }
+
+    div.update {
+        text-align: left;
+        font-family: 'Consolas';
+        font-size: 20px;
+    }
+
+    div.updateDate {
+        font-weight: bold;
+        color: #cc9900;
+    }
+
+    div.buttons {
+        text-align: center;
+        /* position: -webkit-sticky; */
+        position: sticky;
+        top: 0;
+        padding-top: 10px;
+        padding-bottom: 20px;
+    }
+
+    div.links {
+        text-align: center;
+        padding: 20px;
+    }
+
+    button {
+        background-color: #bbb;
+        padding: .2em;
+        margin-left: 1em;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 10px;
+        color: #fff;
+        font-family: 'Consolas';
+        /*Oswald is a great font*/
+        font-size: 20px;
+        text-decoration: none;
+        border: none;
+    }
+
+    button:hover {
+        background-color: rgb(172, 122, 15);
+    }
+
+    a {
+        color: #2c87f0;
+    }
+
+    a:visited {
+        color: #636;
+    }
+
+    a:hover,
+    a:active,
+    a:focus {
+        color: #636;
+    }
+</style>
+<div class="top">
+    <h1 id="title">Snake Collection</h1>
+</div>
+<div class="buttons">
+    <button id="1pNormal">1 player</button>
+    <button id="3pNormal">3 players</button>
+    <button id="4pOnline">Online (Coming soon)</button>
+</div>
+<script>
+    let Normal1 = document.getElementById("1pNormal");
+    let Normal3 = document.getElementById("3pNormal");
+    let Online = document.getElementById("4pOnline");
+    //Button event listeners
+    Normal1.addEventListener("click", () => {
+        console.log("1 clicked.");
+    });
+    Normal3.addEventListener("click", () => {
+        console.log("3 clicked.");
+    });
+    Online.addEventListener("click", () => {
+        console.log("O clicked.");
+    });
+</script>
+
+</html>

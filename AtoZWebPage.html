@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- this is the code that will allow icon to be visible in the title bar of the brower -->
+<link rel="icon" type="image/ico" href="WebsiteLogo2.png" />
+<!-- you can also say this:  <link rel="icon" type="image/png" href="location/image.png" /> -->
 <style>
     div.advertisement {
         text-align: right;
@@ -15,10 +18,6 @@
 
     body {
         background-color: #E5E4E2;
-    }
-
-    h2 {
-        background-color: #2B1B17;
     }
 
     div.top {
@@ -38,6 +37,7 @@
         font-family: 'Consolas';
         font-size: 20px;
     }
+
     div.updateDate {
         font-weight: bold;
         color: #cc9900;
@@ -50,12 +50,15 @@
         top: 0;
         padding-top: 10px;
         padding-bottom: 20px;
+        background-color: #E5E4E2;
+        /* padding: 20px; */
     }
 
     div.links {
         text-align: center;
         padding: 20px;
     }
+
     button {
         background-color: #bbb;
         padding: .2em;
@@ -120,20 +123,45 @@
 </div>
 <div class="update">
     <p></p>
-    <p><div class="updateDate">7/8/2019: Website</div> Same content, new look! The website layout was completely changed, as home page language is now HTML, instead of Markdown.</p>
-    <p><div class="updateDate">6/26/2019: Chess</div> Prepare to rev up your chess skills, as an assortment of chess puzzles has now been released! Use tactics to bring the enemy king down, and 
-        play ONLY the best moves! The Chess Puzzles application is located in the Tools category.</p>
-    <p><div class="updateDate">6/14/2019: Calculator</div> A fresh break from snake, the Calculator is released, featuring the 4 basic operations, with exponents and roots.</p>
-    <p><div class="updateDate">6/2/2019: Snake Patch</div> Mass-transfer glitch patched in Snake Unlimited</p>
-    <p><div class="updateDate">6/1/2019: Snake Addition</div> 1-player Snake Battle Royale released</p>
-    <p><div class="updateDate">5/28/2019: Snake Addition</div> 1-player Snake Unlimited released</p>
-    <p><div class="updateDate">5/25/2019: Snake Addition</div> Snake Unlimited released</p>
-    <p><div class="updateDate">5/22/2019: 3 kings</div> 3 Kings game released, began uploading screenshots of games</p>
-    <p><div class="updateDate">5/20/2019: Simulations</div> Planental Orbit(s) and Earth Cannon simulations released</p>
-    <p><div class="updateDate">5/19/2019: Snake</div> Snake Battle Royale released</p>
-    <p><div class="updateDate">5/18/2019</div> Website created</p>
-        </div>
-      
+    <p>
+        <div class="updateDate">7/8/2019: Website</div> Same content, new look! The website layout was completely
+        changed, as home page language is now HTML, instead of Markdown.
+    </p>
+    <p>
+        <div class="updateDate">6/26/2019: Chess</div> Prepare to rev up your chess skills, as an assortment of chess
+        puzzles has now been released! Use tactics to bring the enemy king down, and
+        play ONLY the best moves! The Chess Puzzles application is located in the Tools category.
+    </p>
+    <p>
+        <div class="updateDate">6/14/2019: Calculator</div> A fresh break from snake, the Calculator is released,
+        featuring the 4 basic operations, with exponents and roots.
+    </p>
+    <p>
+        <div class="updateDate">6/2/2019: Snake Patch</div> Mass-transfer glitch patched in Snake Unlimited
+    </p>
+    <p>
+        <div class="updateDate">6/1/2019: Snake Addition</div> 1-player Snake Battle Royale released
+    </p>
+    <p>
+        <div class="updateDate">5/28/2019: Snake Addition</div> 1-player Snake Unlimited released
+    </p>
+    <p>
+        <div class="updateDate">5/25/2019: Snake Addition</div> Snake Unlimited released
+    </p>
+    <p>
+        <div class="updateDate">5/22/2019: 3 kings</div> 3 Kings game released, began uploading screenshots of games
+    </p>
+    <p>
+        <div class="updateDate">5/20/2019: Simulations</div> Planental Orbit(s) and Earth Cannon simulations released
+    </p>
+    <p>
+        <div class="updateDate">5/19/2019: Snake</div> Snake Battle Royale released
+    </p>
+    <p>
+        <div class="updateDate">5/18/2019</div> Website created
+    </p>
+</div>
+
 </div>
 <script>
     //Registering the buttons
@@ -187,7 +215,7 @@
         document.getElementById('image2').src = "Cannon.png";
         document.getElementById('link2').href = "Physics.html";
     }
-    function info(){
+    function info() {
         document.getElementById('instructions').textContent = "Click on any Icon above to access its content!"
     }
     function clearLinks() {
@@ -210,6 +238,7 @@
         document.getElementById('image9').src = "";
         document.getElementById('link9').href = "";
     }
+    
 </script>
 
 </html>

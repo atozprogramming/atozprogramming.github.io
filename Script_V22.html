@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- this is the code that will allow icon to be visible in the title bar of the brower -->
+<link rel="icon" type="image/ico" href="WebsiteLogo2.png" />
+<!-- you can also say this:  <link rel="icon" type="image/png" href="location/image.png" /> -->
+
+<head>
+    <title>Script</title>
+    <style>
+        textarea {
+            font-family: 'Consolas';
+            background-image: url("WebsiteLogo.png");
+            font-size: 20px;
+            color: black;
+            width: 1000px;
+            height: 650px;
+            border: 3px solid #cccccc;
+            padding: 10px;
+            resize: none;
+        }
+
+        div.field {
+            font-family: 'Consolas';
+            font-size: 20px;
+            color: black;
+            width: 1000px;
+            height: 650px;
+            border: 3px solid #cccccc;
+            background-color: white;
+            padding: 10px;
+            resize: none;
+        }
+
+        textarea:focus {
+            background-image: none;
+        }
+
+        ::selection {
+            background: #eeb005da;
+            /* WebKit/Blink Browsers */
+        }
+
+        ::-moz-selection {
+            background: #eeb005da;
+            /* Gecko Browsers */
+        }
+
+        body {
+            background-color: #E5E4E2;
+        }
+
+        div.buttons {
+            padding-bottom: 20px;
+        }
+
+        button {
+            background-color: #bbb;
+            padding: .2em;
+            margin-left: 1em;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Consolas';
+            /*Oswald is a great font*/
+            font-size: 20px;
+            text-decoration: none;
+            border: none;
+        }
+
+        button:hover {
+            background-color: rgb(172, 122, 15);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="buttons"><img src="ScriptIcon.png" />
+        <button id="Spelling">Spell Check</button>
+    </div>
+    <!-- <textarea id="a" spellcheck="true" cols="30" autofocus="false" placeholder=""></textarea> -->
+    <div class="field" contentEditable="true">
+        <img src="ScriptDOM2.png" />
+    </div>
+    <script>
+        //Registering the buttons
+        let spelling = document.getElementById("Spelling");
+        //button events
+        //Key events
+        document.addEventListener("keyDown", function (event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+
+</html>
