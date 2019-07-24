@@ -16,6 +16,16 @@
         padding-bottom: 10px;
     }
 
+    ::selection {
+        background: #eeb005da;
+        /* WebKit/Blink Browsers */
+    }
+
+    ::-moz-selection {
+        background: #eeb005da;
+        /* Gecko Browsers */
+    }
+
     body {
         background-color: #E5E4E2;
     }
@@ -24,6 +34,7 @@
         text-align: center;
         font-family: 'Consolas';
         font-size: 40px;
+        padding-top: 0px;
     }
 
     div.updateHeader {
@@ -124,6 +135,9 @@
 <div class="update">
     <p></p>
     <p>
+        <div class="updateDate">7/23/2019: Script</div> Script has been completely redone! You can now Copy and Paste
+    </p>
+    <p>
         <div class="updateDate">7/8/2019: Website</div> Same content, new look! The website layout was completely
         changed, as home page language is now HTML, instead of Markdown.
     </p>
@@ -164,6 +178,29 @@
 
 </div>
 <script>
+    //Getting the date
+    n = new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    //document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+    console.log('Month: ' + m + ' Day: ' + d);
+    if ((d == 25 || d == 24) && m == 12) {
+        //Christmas
+        document.getElementById("icon").src = "WebsiteLogoChristmas.png";
+    } else if (d == 4 && m == 7) {
+        //4th of July
+        document.getElementById("icon").src = "WebsiteLogoJuly4th.png";
+    } else if ((d == 1 && m == 1) || (d == 31 && m == 12)) {
+        //New Year
+        document.getElementById("icon").src = "WebsiteLogoNewYear.png";
+    } else if (d = 17 && m == 3) {
+        //St. Patrick's
+        document.getElementById("icon").src = "WebsiteLogoPatrick.png";
+    } else if (d = 31 && m == 10) {
+        //Halloween
+        document.getElementById("icon").src = "WebsiteLogo.png";
+    }
     //Registering the buttons
     let toolsButton = document.getElementById("tools");
     let gamesButton = document.getElementById("games");
@@ -192,7 +229,7 @@
         document.getElementById('link2').href = "Chess.html";
         //Script
         document.getElementById('image3').src = "Script.png";
-        document.getElementById('link3').href = "Script_V21.html";
+        document.getElementById('link3').href = "Script_V22.html";
 
     }
     function games() {
@@ -238,7 +275,7 @@
         document.getElementById('image9').src = "";
         document.getElementById('link9').href = "";
     }
-    
+
 </script>
 
 </html>

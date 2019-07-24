@@ -8,24 +8,12 @@
 <head>
     <title>Script</title>
     <style>
-        textarea {
-            font-family: 'Consolas';
-            background-image: url("WebsiteLogo.png");
-            font-size: 20px;
-            color: black;
-            width: 1000px;
-            height: 650px;
-            border: 3px solid #cccccc;
-            padding: 10px;
-            resize: none;
-        }
-
         div.field {
             font-family: 'Consolas';
             font-size: 20px;
             color: black;
             width: 1000px;
-            height: 650px;
+            height: 1000px;
             border: 3px solid #cccccc;
             background-color: white;
             padding: 10px;
@@ -52,6 +40,11 @@
 
         div.buttons {
             padding-bottom: 20px;
+            position: sticky;
+            top: 0;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        background-color:#E5E4E2
         }
 
         button {
@@ -80,7 +73,7 @@
         <button id="Spelling">Spell Check</button>
     </div>
     <!-- <textarea id="a" spellcheck="true" cols="30" autofocus="false" placeholder=""></textarea> -->
-    <div class="field" contentEditable="true">
+    <div id="textZone" class="field" contentEditable="true">
         <img src="ScriptDOM2.png" />
     </div>
     <script>
