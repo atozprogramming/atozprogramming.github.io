@@ -42,9 +42,37 @@
             padding-bottom: 20px;
             position: sticky;
             top: 0;
-        padding-top: 10px;
-        padding-bottom: 20px;
-        background-color:#E5E4E2
+            padding-top: 10px;
+            padding-bottom: 20px;
+            background-color: #E5E4E2
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 2px solid #bbb;
+            background-color: white;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            padding: .2em;
+            table-layout: fixed;
+            font-family: 'Consolas';
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #eeb005da;
+            color: white;
+            font-family: 'Consolas';
+            padding: 5px;
+        }
+
+        td {
+            font-family: 'Consolas';
+            padding: 5px;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
         }
 
         button {
@@ -67,23 +95,173 @@
         }
     </style>
 </head>
+<script src="./jquery-2.1.0.js"></script>
 
 <body>
     <div class="buttons"><img src="ScriptIcon.png" />
+        <button id="Control">Change Buttons</button>
         <button id="Spelling">Spell Check</button>
+        <button id="Table">Insert Table</button>
+        <button id="TableR">Remove Table</button>
+        <button id="TableRow">Add Table Row</button>
+        <button id="TableCol">Add Table Column</button>
     </div>
     <!-- <textarea id="a" spellcheck="true" cols="30" autofocus="false" placeholder=""></textarea> -->
     <div id="textZone" class="field" contentEditable="true">
-        <img src="ScriptDOM2.png" />
+        <div id="top">
+            <img src="ScriptDOM2.png" />
+        </div>
+        <div>Welcome to the Second Edition of Script! This Edition contains many useful standardized features, such as
+            inserting images by copying them
+            to the document from an external source, common shortcuts (control-z, control-c, control-v), and expansive tables,
+            that can reach unlimited sizes.</div>
+        <div>Script II also has tables, which can be used for multiple purposes, such as this one right here, showing a
+            game of tic-tac-toe:</div>
+        <div>
+            <table id="Table1">
+                <tr>
+                    <td>X</td>
+                    <td>O</td>
+                    <td>X</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>X</td>
+                    <td>O</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>O</td>
+                </tr>
+            </table>
+        </div>
+        <div>Go to the above menu, and thumb through the buttons, testing their functions and properties. Don't forget the all-important button labelled 
+            'Change Buttons,' as it gives you a different set of buttons on the menu, as if you are on a new tab. Once you begin to get comfortable with
+            Script II, you may delete this text(and table too!) and begin your document!</div>
+        <div id="body"></div>
     </div>
     <script>
         //Registering the buttons
+        let control = document.getElementById("Control");
         let spelling = document.getElementById("Spelling");
+        let table = document.getElementById("Table");
+        let tableR = document.getElementById("TableR");
+        let tableRow = document.getElementById("TableRow");
+        let tableCol = document.getElementById("TableCol");
         //button events
+        let tablecount = 1;
+        table.addEventListener("click", () => {
+            console.log("table clicked." + tablecount);
+            tablecount++;
+            InsertTable(2, 2, `Table${tablecount}`);
+            //The first table is table1, but that is already taken in the example
+        });
+        tableR.addEventListener("click", () => {
+            removeTable();
+            //The last table inserted is removed
+            console.log("TableR clicked " + tablecount)
+        });
+        tableRow.addEventListener("click", () => {
+            addRow();
+            console.log("TableRow clicked " + tablecount)
+        });
+        tableCol.addEventListener("click", () => {
+            addCol();
+            console.log("TableCol clicked " + tablecount)
+        });
+        control.addEventListener("click", () => {
+            changeButtons();
+            //The last table inserted is removed
+            console.log("Changed " + tablecount)
+        });
         //Key events
         document.addEventListener("keyDown", function (event) {
             event.preventDefault();
         });
+        var displayNum = -1;
+        changeButtons();
+        function changeButtons() {
+            if (displayNum == -1) {
+                //For starting purposes
+                displayNum++;
+                changeButtons();
+            } else if (displayNum == 0) {
+                displayNum++;
+                //Main file stuff
+                clearButtons();
+                document.getElementById("Spelling").style.display = "inline";
+            } else if (displayNum == 1) {
+                displayNum++;
+                //TableStuff
+                clearButtons();
+                document.getElementById("Table").style.display = "inline";
+                document.getElementById("TableR").style.display = "inline";
+                document.getElementById("TableRow").style.display = "inline";
+                document.getElementById("TableCol").style.display = "inline";
+            } else {
+                displayNum = 0;
+                changeButtons();
+            }
+        }
+        function clearButtons() {
+            document.getElementById("Spelling").style.display = "none";
+            document.getElementById("Table").style.display = "none";
+            document.getElementById("TableR").style.display = "none";
+            document.getElementById("TableRow").style.display = "none";
+            document.getElementById("TableCol").style.display = "none";
+        }
+        function InsertTable(x, y, identif) {
+            // $('#body').append(`<table id="${identif}" width="320" border="1"><tr><td colspan="${x}" rowspan="${y}">` + " Title" +
+            //     '</td></tr><tr><td width="118">' + "sxs" + '</td><td width="186">' + "xs" + '</td></tr></table>');
+            $('#textZone').append(`<div style="overflow-x:auto;"><div style="overflow-y:auto;"><table id="${identif}" border="1" colspan="${x}" rowspan="${y}" padding="10px">
+                    <tr>
+                        <th>Column A</th>
+                        <th>Column B</th>    
+                    </tr>
+                    <tr>
+                        <td>Data A</td>
+                        <td>Data B</td>
+                    </tr>
+                </table></div>
+                <div>text+</div>`);
+        }
+        function addRow() {
+            var table = document.getElementById(`Table${tablecount}`);
+            var count = parseInt(table.rows[0].cells.length);
+            var rowCount = 1;
+            for (var k = 0; k < rowCount; k++) {
+                var row = table.insertRow(-1);
+                for (var i = 0; i < count; i++) {
+                    row.insertCell(i).innerHTML = ".";
+                }
+            }
+        }
+        function addCol() {
+            var table = document.getElementById(`Table${tablecount}`);
+            var row = table.getElementsByTagName("tr");
+            for (i = 0; i < row.length; i++) {
+                if (i == 0) {
+                    var td = document.createElement('th');
+                } else {
+                    var td = document.createElement('td');
+                }
+                //td.innerHTML = "<input type='text' />";
+                row[i].appendChild(td);
+                if (i == 0) {
+                    td.innerHTML = "Data+"
+                } else {
+                    td.innerHTML = "."
+                }
+            }
+        }
+        function removeTable() {
+            if (tablecount > 0) {
+                var elem = document.getElementById(`Table${tablecount}`);
+                elem.parentNode.removeChild(elem);
+                tablecount = tablecount - 1;
+            }
+        }
     </script>
 </body>
 
