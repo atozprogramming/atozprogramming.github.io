@@ -44,7 +44,8 @@
             top: 0;
             padding-top: 10px;
             padding-bottom: 20px;
-            background-color: #E5E4E2
+            background-color: #E5E4E2;
+            font-size: 20px;
         }
 
         table {
@@ -85,11 +86,10 @@
             color: #fff;
             font-family: 'Consolas';
             /*Oswald is a great font*/
-            font-size: 20px;
             text-decoration: none;
             border: none;
+            font-size: 20px;
         }
-
         button:hover {
             background-color: rgb(172, 122, 15);
         }
@@ -102,9 +102,6 @@
         <button id="Control">Change Buttons</button>
         <button id="Spelling">Spell Check</button>
         <button id="Table">Insert Table</button>
-        <button id="TableR">Remove Table</button>
-        <button id="TableRow">Add Table Row</button>
-        <button id="TableCol">Add Table Column</button>
         <button id="EmojiA">Game Symbols</button>
         <button id="EmojiB">Emotion emojis</button>
         <button id="EmojiC">Legal Symbols</button>
@@ -154,9 +151,6 @@
         let emojiC = document.getElementById("EmojiC")
         let emojiD = document.getElementById("EmojiD")
         let table = document.getElementById("Table");
-        let tableR = document.getElementById("TableR");
-        let tableRow = document.getElementById("TableRow");
-        let tableCol = document.getElementById("TableCol");
         //button events
         let tablecount = 1;
         table.addEventListener("click", () => {
@@ -164,19 +158,6 @@
             tablecount++;
             InsertTable(2, 2, `Table${tablecount}`);
             //The first table is table1, but that is already taken in the example
-        });
-        tableR.addEventListener("click", () => {
-            removeTable();
-            //The last table inserted is removed
-            console.log("TableR clicked " + tablecount)
-        });
-        tableRow.addEventListener("click", () => {
-            addRow();
-            console.log("TableRow clicked " + tablecount)
-        });
-        tableCol.addEventListener("click", () => {
-            addCol();
-            console.log("TableCol clicked " + tablecount)
         });
         control.addEventListener("click", () => {
             changeButtons();
@@ -215,9 +196,6 @@
                 //TableStuff
                 clearButtons();
                 document.getElementById("Table").style.display = "inline";
-                document.getElementById("TableR").style.display = "inline";
-                document.getElementById("TableRow").style.display = "inline";
-                document.getElementById("TableCol").style.display = "inline";
                 displayNum++;
             } else if(displayNum == 2){
                 //Emojis
@@ -235,9 +213,6 @@
         function clearButtons() {
             document.getElementById("Spelling").style.display = "none";
             document.getElementById("Table").style.display = "none";
-            document.getElementById("TableR").style.display = "none";
-            document.getElementById("TableRow").style.display = "none";
-            document.getElementById("TableCol").style.display = "none";
                 document.getElementById("EmojiA").style.display = "none";
                 document.getElementById("EmojiB").style.display = "none";
                 document.getElementById("EmojiC").style.display = "none";
@@ -246,7 +221,12 @@
         function InsertTable(x, y, identif) {
             // $('#body').append(`<table id="${identif}" width="320" border="1"><tr><td colspan="${x}" rowspan="${y}">` + " Title" +
             //     '</td></tr><tr><td width="118">' + "sxs" + '</td><td width="186">' + "xs" + '</td></tr></table>');
-            $('#textZone').append(`<div style="overflow-x:auto;"><div style="overflow-y:auto;"><table id="${identif}" border="1" colspan="${x}" rowspan="${y}" padding="10px">
+            console.log(identif);
+            $('#textZone').append(`
+            
+            <button onclick="addRow(${identif})">add Row</button>
+                <button onclick="addCol(${identif})" display="inline">add Column</button>
+            <div style="overflow-x:auto;"><div style="overflow-y:auto;"><table id="${identif}" border="1" colspan="${x}" rowspan="${y}" padding="10px">
                     <tr>
                         <th>Column A</th>
                         <th>Column B</th>    
@@ -255,11 +235,15 @@
                         <td>Data A</td>
                         <td>Data B</td>
                     </tr>
-                </table></div>
+                </table>
+                </div>
+                
                 <div>text+</div>`);
+                console.log(identif)
         }
-        function addRow() {
-            var table = document.getElementById(`Table${tablecount}`);
+        function addRow(count) {
+            var table = count;
+            console.log(table)
             var count = parseInt(table.rows[0].cells.length);
             var rowCount = 1;
             for (var k = 0; k < rowCount; k++) {
@@ -269,8 +253,8 @@
                 }
             }
         }
-        function addCol() {
-            var table = document.getElementById(`Table${tablecount}`);
+        function addCol(count) {
+            var table = count;
             var row = table.getElementsByTagName("tr");
             for (i = 0; i < row.length; i++) {
                 if (i == 0) {
