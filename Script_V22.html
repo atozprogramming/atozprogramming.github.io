@@ -105,6 +105,10 @@
         <button id="TableR">Remove Table</button>
         <button id="TableRow">Add Table Row</button>
         <button id="TableCol">Add Table Column</button>
+        <button id="EmojiA">Game Symbols</button>
+        <button id="EmojiB">Emotion emojis</button>
+        <button id="EmojiC">Legal Symbols</button>
+        <button id="EmojiD">Signs</button>
     </div>
     <!-- <textarea id="a" spellcheck="true" cols="30" autofocus="false" placeholder=""></textarea> -->
     <div id="textZone" class="field" contentEditable="true">
@@ -145,6 +149,10 @@
         //Registering the buttons
         let control = document.getElementById("Control");
         let spelling = document.getElementById("Spelling");
+        let emojiA = document.getElementById("EmojiA")
+        let emojiB = document.getElementById("EmojiB")
+        let emojiC = document.getElementById("EmojiC")
+        let emojiD = document.getElementById("EmojiD")
         let table = document.getElementById("Table");
         let tableR = document.getElementById("TableR");
         let tableRow = document.getElementById("TableRow");
@@ -175,6 +183,18 @@
             //The last table inserted is removed
             console.log("Changed " + tablecount)
         });
+        emojiA.addEventListener("click", () => {
+            $('#textZone').append(`<div>🎰🎳🎱🎲🎮🀄♔🏓🃏⚾♠</div>`);
+        });
+        emojiB.addEventListener("click", () => {
+            $('#textZone').append(`<div>😋😏😇😃😄😒😞😕😐😮😠😈😱😓</div>`);
+        });
+        emojiC.addEventListener("click", () => {
+            $('#textZone').append(`<div>💱💵💲€¢£¥©®℗™℠§</div>`);
+        });
+        emojiD.addEventListener("click", () => {
+            $('#textZone').append(`<div>📵🚱🚯🚭🚫🚳🚷⛔♲⛽🌐ℹ🚰🛃🛅♿🅿⚠</div>`);
+        });
         //Key events
         document.addEventListener("keyDown", function (event) {
             event.preventDefault();
@@ -187,19 +207,27 @@
                 displayNum++;
                 changeButtons();
             } else if (displayNum == 0) {
-                displayNum++;
                 //Main file stuff
                 clearButtons();
                 document.getElementById("Spelling").style.display = "inline";
-            } else if (displayNum == 1) {
                 displayNum++;
+            } else if (displayNum == 1) {
                 //TableStuff
                 clearButtons();
                 document.getElementById("Table").style.display = "inline";
                 document.getElementById("TableR").style.display = "inline";
                 document.getElementById("TableRow").style.display = "inline";
                 document.getElementById("TableCol").style.display = "inline";
-            } else {
+                displayNum++;
+            } else if(displayNum == 2){
+                //Emojis
+                clearButtons();
+                document.getElementById("EmojiA").style.display = "inline";
+                document.getElementById("EmojiB").style.display = "inline";
+                document.getElementById("EmojiC").style.display = "inline";
+                document.getElementById("EmojiD").style.display = "inline";
+                displayNum++;
+            }else{
                 displayNum = 0;
                 changeButtons();
             }
@@ -210,6 +238,10 @@
             document.getElementById("TableR").style.display = "none";
             document.getElementById("TableRow").style.display = "none";
             document.getElementById("TableCol").style.display = "none";
+                document.getElementById("EmojiA").style.display = "none";
+                document.getElementById("EmojiB").style.display = "none";
+                document.getElementById("EmojiC").style.display = "none";
+                document.getElementById("EmojiD").style.display = "none";
         }
         function InsertTable(x, y, identif) {
             // $('#body').append(`<table id="${identif}" width="320" border="1"><tr><td colspan="${x}" rowspan="${y}">` + " Title" +
