@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TankDomination</title>
+    <!-- this is the code that will allow icon to be visible in the title bar of the brower -->
+    <link rel="icon" type="image/ico" href="WebsiteLogo2.png" />
+    <!-- you can also say this:  <link rel="icon" type="image/png" href="location/image.png" /> -->
+</head>
+
+<body>
+    <canvas id="canvas" width="1200" height="700"></canvas>
+    <script src="./jquery-2.1.0.js"></script>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        const ArenaHeight = 10000;
+        const ArenaWidth = 10000;
+        const WindowHeight = 700;
+        const WindowWidth = 1200;
+        const centerX = WindowWidth / 2;
+        const centerY = WindowHeight / 2;
+        const arenaSizes = 1000;
+        const DomPadding = 599;
+        //Window is 1200 x 800
+        //Player(Speed should be 10 for gameplay)
+        var PlayerHP = 100;
+        var PlayerX = arenaSizes / 2;
+        var PlayerY = arenaSizes / 2;
+        var PlayerSpeed = 0;
+        var PlayerSpeedMax = 10;
+        //Dominator
+        var DominatorCannonDegree = 0;
+        var DominatorX = ArenaHeight / 2;
+        var DominatorY = ArenaWidth / 2;
+        var DominatorHP = 10000;
+        var DominatorState = "Yellow";
+
+        var directions = {
+            37: "left",
+            38: "up",
+            39: "right",
+            40: "down"
+        };
+        var keys = {
+            up: false,
+            down: false,
+            left: false,
+            right: false
+        };
+
+        $(document.body).keydown(function (event) {
+            // save status of the button 'pressed' == 'true'
+            if (event.keyCode == 38) {
+                keys["up"] = true;
+            } else if (event.keyCode == 40) {
+                keys["down"] = true;
+            } else if (event.keyCode == 37) {
+                keys["left"] = true;
+            } else if (event.keyCode == 39) {
+                keys["right"] = true;
+            }
+            if (keys["left"]) {
+                //Moving the player
+                PlayerX = PlayerX - PlayerSpeed;
+                if (PlayerX < 1) {
+                    PlayerX = 1;
+                }
+                if(PlayerSpeed < PlayerSpeedMax){
+                    PlayerSpeed = PlayerSpeed + 0.5;
+                }
+            }
+            if (keys["right"]) {
+                //Moving the player
+                PlayerX = PlayerX + PlayerSpeed;
+                if (PlayerX > ArenaWidth) {
+                    PlayerX = ArenaWidth;
+                }
+                if(PlayerSpeed < PlayerSpeedMax){
+                    PlayerSpeed = PlayerSpeed + 0.5;
+                }
+            }
+            if (keys["up"]) {
+                //Moving the player
+                PlayerY = PlayerY - PlayerSpeed;
+                if (PlayerY < 1) {
+                    PlayerY = 1;
+                }
+                if(PlayerSpeed < PlayerSpeedMax){
+                    PlayerSpeed = PlayerSpeed + 0.5;
+                }
+            }
+            if (keys["down"]) {
+                //Moving the player
+                PlayerY = PlayerY + PlayerSpeed;
+                if (PlayerY > ArenaHeight) {
+                    PlayerY = ArenaHeight;
+                }
+                if(PlayerSpeed < PlayerSpeedMax){
+                    PlayerSpeed = PlayerSpeed + 0.5;
+                }
+            }
+        });
+
+        $(document.body).keyup(function (event) {
+            // reset status of the button 'released' == 'false'
+            if (event.keyCode == 38) {
+                keys["up"] = false;
+            } else if (event.keyCode == 40) {
+                keys["down"] = false;
+            } else if (event.keyCode == 37) {
+                keys["left"] = false;
+            } else if (event.keyCode == 39) {
+                keys["right"] = false;
+            }
+            if(keys["left"] == false && keys["right"] == false && keys["up"] == false && keys["down"] == false){
+                PlayerSpeed = 0;
+            }
+        });
+        function moveCPUs() {
+
+        }
+        function drawMiniMap() {
+            ctx.fillStyle = "LightSlateGrey";
+            ctx.fillRect(1090, 10, 100, 100);
+            ctx.fillStyle = "LightGrey";
+            ctx.fillRect(1091, 11, 98, 98);
+            ctx.fillStyle = "DeepSkyBlue";
+            ctx.fillRect(1091, 11, arenaSizes / 100, arenaSizes / 100);
+            ctx.fillStyle = "FireBrick";
+            ctx.fillRect(1189 - (arenaSizes / 100), 109 - (arenaSizes / 100), arenaSizes / 100, arenaSizes / 100);
+            ctx.fillStyle = "Khaki";
+            ctx.fillRect(1091 + (ArenaWidth / 2 - DomPadding / 2) / 100, 11 + (ArenaHeight / 2 - DomPadding / 2) / 100, DomPadding / 100, DomPadding / 100);
+            ctx.fillStyle = "Black";
+            ctx.fillRect(1091 + (PlayerX) / 100, 11 + (PlayerY) / 100, 1, 1);
+        }
+        function fireDominator() {
+            w.move();
+        }
+        class DominatorBullet {
+            constructor(angle, type) {
+                this.type = type
+                this.angle = angle;
+                this.state = "bullet"
+                this.x = ArenaWidth / 2;
+                this.y = ArenaHeight / 2;
+                let radians = (angle * (2 * Math.PI)) / 360;
+                let initialSpeed = 10;
+                this.dx = initialSpeed * Math.cos(radians);
+                this.dy = -(initialSpeed * Math.sin(radians));
+                this.step = 0;
+            }
+        }
+        DominatorBullet.prototype.move = function () {
+            this.x = this.x + this.dx;
+            this.y = this.y + this.dy;
+            this.step++;
+            this.dx = this.dx * 0.95;
+            this.dy = this.dy * 0.95;
+            if (this.step > 100) {
+                this.state = "bullet"
+                this.x = ArenaWidth / 2;
+                this.y = ArenaHeight / 2;
+                let radians = (DominatorCannonDegree * (2 * Math.PI)) / 360;
+                let initialSpeed = 10;
+                this.dx = initialSpeed * Math.cos(radians);
+                this.dy = -(initialSpeed * Math.sin(radians));
+                this.step = 0;
+                //It keeps the same type
+            }
+        }
+        Object.prototype.removeClass = function (class_name) {
+            if (this.length) {
+                for (i = 0; i < this.length; i++) {
+                    this[i].classList.remove(class_name);
+                }
+            }
+        }
+        //Example: document.getElementsByClassName("test").removeClass("test");
+
+        function drawSprites() {
+            ctx.fillStyle = "LightSlateGrey";
+            //Gridlines
+            for (let i = 19; i < ArenaWidth; i = i + 40) {
+                //horizontal
+                ctx.fillRect(centerX - PlayerX, centerY - PlayerY + i, ArenaWidth, 1);
+                //vertical
+                ctx.fillRect(centerX - PlayerX + i, centerY - PlayerY, 1, ArenaHeight);
+            }
+            //BlueBase
+            ctx.fillStyle = "DeepSkyBlue";
+            ctx.fillRect(centerX - PlayerX, centerY - PlayerY, arenaSizes, arenaSizes);
+            //RedBase
+            ctx.fillStyle = "FireBrick";
+            ctx.fillRect(centerX + ArenaWidth - PlayerX - arenaSizes, centerY + ArenaHeight - PlayerY - arenaSizes, arenaSizes, arenaSizes);
+            //Borders
+            ctx.fillStyle = "LightSlateGrey";
+            //TopBorder
+            ctx.fillRect(centerX - PlayerX, centerY - PlayerY, ArenaWidth, 10);
+            //Bottom Border
+            ctx.fillRect(centerX - PlayerX, centerY + ArenaHeight - PlayerY, ArenaWidth, 10);
+            //Left Border
+            ctx.fillRect(centerX - PlayerX, centerY - PlayerY, 10, ArenaHeight);
+            //Right Border
+            ctx.fillRect(centerX + ArenaWidth - PlayerX, centerY - PlayerY, 10, ArenaHeight);
+            
+            //Dominator box
+            ctx.fillStyle = "Khaki";
+            ctx.fillRect(ArenaWidth / 2 - DomPadding / 2 - PlayerX + centerX, ArenaHeight / 2 - DomPadding / 2 - PlayerY + centerY, DomPadding, DomPadding);
+
+            //Dominator Bullet
+            /*
+            ctx.strokeStyle = "Gold";
+            ctx.fillStyle = "Yellow";
+            ctx.beginPath();
+            ctx.arc(w.x - PlayerX + centerX, w.x - PlayerY + centerY, 25, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            */
+
+            //Dominator Cannon(s)
+            ctx.save();
+            ctx.fillStyle = "LightSlateGrey";
+            ctx.translate(DominatorX - PlayerX + centerX, DominatorY - PlayerY + centerY);
+            ctx.rotate(DominatorCannonDegree * Math.PI / 180);
+            ctx.fillRect(0, -25, 100, 50);
+            ctx.restore();
+
+            //Dominator Body
+            ctx.strokeStyle = "Gold";
+            ctx.fillStyle = "Yellow";
+            ctx.beginPath();
+            ctx.arc(ArenaWidth / 2 - PlayerX + centerX, ArenaHeight / 2 - PlayerY + centerY, 75, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+
+
+            //Player
+            ctx.strokeStyle = "Blue";
+            ctx.fillStyle = "CornflowerBlue";
+            ctx.beginPath();
+            ctx.arc(WindowWidth / 2, WindowHeight / 2, 25, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            //MiniMap
+            drawMiniMap();
+        }
+        w = new DominatorBullet(0, "dunno");
+        var intervalId = setInterval(function () {
+            DominatorCannonDegree = DominatorCannonDegree + 0.25;
+            ctx.clearRect(0, 0, 1400, 900);
+            ctx.fillStyle = "LightGrey";
+            ctx.fillRect(0, 0, WindowWidth, WindowHeight);
+            moveCPUs();
+            fireDominator();
+            drawSprites();
+            ctx.font = "20px Georgia";
+            ctx.fillStyle = "Black";
+            ctx.fillText("PlayerX:" + PlayerX, 0, 20);
+            ctx.fillText("PlayerY:" + PlayerY, 0, 40);
+        }, 10);
+    </script>
+</body>
+
+</html>

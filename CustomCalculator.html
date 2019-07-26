@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- this is the code that will allow icon to be visible in the title bar of the brower -->
+<link rel="icon" type="image/ico" href="WebsiteLogo2.png" />
+<!-- you can also say this:  <link rel="icon" type="image/png" href="location/image.png" /> -->
+
+<title>Custom Calculator</title>
+<style>
+    body {
+        background-color: #E5E4E2;
+    }
+
+    input[type=text] {
+        background-color: rgb(224, 235, 78);
+        color: white;
+        border: 2px solid #cccccc;
+        width: 30px
+    }
+
+    input[type=text]:focus {
+        background-color: rgb(241, 241, 204);
+    }
+
+    button {
+        background-color: #bbb;
+        padding: .2em;
+        margin-left: 1em;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 10px;
+        color: #fff;
+        font-family: 'Consolas';
+        /*Oswald is a great font*/
+        text-decoration: none;
+        border: none;
+        font-size: 20px;
+    }
+
+    button:hover {
+        background-color: rgb(172, 122, 15);
+    }
+</style>
+
+<body>
+    <input type="text" id="QuadA" value="0">x^2 + <input type="text" id="QuadB" value="0">x + <input type="text"
+        id="QuadC" value="0">c = 0
+    <p id="answer"></p>
+    <button id="calc" onclick="solve();">Calculate X</button>
+    <script>
+        function solve(){
+            solveQuad();
+        }
+        function solveQuad(){
+            let a = 1;
+            let b = 4;
+            let c = 3;
+            console.log(a);
+            let answer1 = 0;
+            let answer2 = 0;
+            let placeHolder = 0;
+            if(a != (undefined || NaN) &&  b != (undefined || NaN) && c != (undefined || NaN)){
+                answer1 = Number( (-b + Math.sqrt((b * b) - (4 * a * c))) / (2 * a) );
+                answer2 = Number( (-b - Math.sqrt((b * b) - (4 * a * c))) / (2 * a) );
+                document.getElementById("answer").textContent = `x is equal to ${answer1} and/or ${answer2}`;
+            } else {
+                let answer1 = "Type real numbers!";
+            }
+        }
+    </script>
+</body>
+
+</html>
