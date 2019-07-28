@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <title>TankDomination</title>
+    <meta charset="utf-8">
+    <title>TankDomination - Online</title>
     <!-- this is the code that will allow icon to be visible in the title bar of the brower -->
     <link rel="icon" type="image/ico" href="WebsiteLogo2.png" />
     <!-- you can also say this:  <link rel="icon" type="image/png" href="location/image.png" /> -->
@@ -20,13 +21,15 @@
         const WindowWidth = 1200;
         const centerX = WindowWidth / 2;
         const centerY = WindowHeight / 2;
-        const arenaSizes = 1000;
+        const arenaSizes = 1020;
         const DomPadding = 599;
         //Window is 1200 x 800
         //Player(Speed should be 10 for gameplay)
         var PlayerHP = 100;
-        var PlayerX = arenaSizes / 2;
-        var PlayerY = arenaSizes / 2;
+        var PlayerX = 5000;
+        var PlayerY = 5000;
+        //var PlayerX = arenaSizes / 2;
+        //var PlayerY = arenaSizes / 2;
         var PlayerSpeed = 0;
         var PlayerSpeedMax = 10;
         //Dominator
@@ -66,7 +69,7 @@
                 if (PlayerX < 1) {
                     PlayerX = 1;
                 }
-                if(PlayerSpeed < PlayerSpeedMax){
+                if (PlayerSpeed < PlayerSpeedMax) {
                     PlayerSpeed = PlayerSpeed + 0.5;
                 }
             }
@@ -76,7 +79,7 @@
                 if (PlayerX > ArenaWidth) {
                     PlayerX = ArenaWidth;
                 }
-                if(PlayerSpeed < PlayerSpeedMax){
+                if (PlayerSpeed < PlayerSpeedMax) {
                     PlayerSpeed = PlayerSpeed + 0.5;
                 }
             }
@@ -86,7 +89,7 @@
                 if (PlayerY < 1) {
                     PlayerY = 1;
                 }
-                if(PlayerSpeed < PlayerSpeedMax){
+                if (PlayerSpeed < PlayerSpeedMax) {
                     PlayerSpeed = PlayerSpeed + 0.5;
                 }
             }
@@ -96,7 +99,7 @@
                 if (PlayerY > ArenaHeight) {
                     PlayerY = ArenaHeight;
                 }
-                if(PlayerSpeed < PlayerSpeedMax){
+                if (PlayerSpeed < PlayerSpeedMax) {
                     PlayerSpeed = PlayerSpeed + 0.5;
                 }
             }
@@ -113,8 +116,8 @@
             } else if (event.keyCode == 39) {
                 keys["right"] = false;
             }
-            if(keys["left"] == false && keys["right"] == false && keys["up"] == false && keys["down"] == false){
-                PlayerSpeed = 0;
+            if (keys["left"] == false && keys["right"] == false && keys["up"] == false && keys["down"] == false) {
+                PlayerSpeed = 5;
             }
         });
         function moveCPUs() {
@@ -135,64 +138,89 @@
             ctx.fillRect(1091 + (PlayerX) / 100, 11 + (PlayerY) / 100, 1, 1);
         }
         function fireDominator() {
-            w.move();
+            mainDominatorBullet.move();
+            DominatorGunnerBullet1.move();
+            DominatorGunnerBullet2.move();
+            DominatorGunnerBullet3.move();
+            DominatorGunnerBullet4.move();
+        }
+        function aimDominator() {
+            let TargetX = 40000;
+            let TargetY = 40000;
+            let Domx = ArenaWidth / 2;
+            let Domy = ArenaHeight / 2;
+            let Targets = [];
+            if((PlayerX + 700 > Domx || PlayerX - 700 < Domx) && (PlayerY + 500 > Domy || PlayerY - 500 < Domy)){
+                Targets.push("Player");
+            }
+            DominatorCannonDegree = DominatorCannonDegree;
         }
         class DominatorBullet {
-            constructor(angle, type) {
-                this.type = type
+            constructor(angle, type, offset, delay) {
+                this.offset = offset;
+                this.type = type;
                 this.angle = angle;
-                this.state = "bullet"
+                this.state = "bullet";
                 this.x = ArenaWidth / 2;
                 this.y = ArenaHeight / 2;
                 let radians = (angle * (2 * Math.PI)) / 360;
-                let initialSpeed = 10;
+                let initialSpeed = 100;
                 this.dx = initialSpeed * Math.cos(radians);
                 this.dy = -(initialSpeed * Math.sin(radians));
-                this.step = 0;
+                this.step = 0 - delay;
             }
         }
         DominatorBullet.prototype.move = function () {
             this.x = this.x + this.dx;
             this.y = this.y + this.dy;
             this.step++;
-            this.dx = this.dx * 0.95;
-            this.dy = this.dy * 0.95;
-            if (this.step > 100) {
+            //this.dx = this.dx * 0.95;
+            //this.dy = this.dy * 0.95;
+            if (this.step == 1) {
+                if (this.type == "gunner") {
+                    this.dx = this.dx * 0.3 //Speed of 30
+                    this.dy = this.dy * 0.3 //Speed of 30
+                } else {
+                    this.dx = this.dx * 0.2 //Speed of 20s
+                    this.dy = this.dy * 0.2 //Speed of 20
+                }
+            }
+            if (this.type == "gunner" && this.step > 30) {
+                this.x = ArenaWidth / 2;
+                this.y = ArenaHeight / 2;
+            }
+            if (this.step > 60) {
+                console.log("DominatorCannonDegree:", DominatorCannonDegree % 360);
+
                 this.state = "bullet"
                 this.x = ArenaWidth / 2;
                 this.y = ArenaHeight / 2;
-                let radians = (DominatorCannonDegree * (2 * Math.PI)) / 360;
-                let initialSpeed = 10;
+                let radians = ((DominatorCannonDegree + this.offset) * (2 * Math.PI)) / 360;
+                console.log("radians:", radians);
+                // console.log("w radians:", radians);
+                let initialSpeed = 100;
                 this.dx = initialSpeed * Math.cos(radians);
                 this.dy = -(initialSpeed * Math.sin(radians));
                 this.step = 0;
                 //It keeps the same type
             }
         }
-        Object.prototype.removeClass = function (class_name) {
-            if (this.length) {
-                for (i = 0; i < this.length; i++) {
-                    this[i].classList.remove(class_name);
-                }
-            }
-        }
-        //Example: document.getElementsByClassName("test").removeClass("test");
 
         function drawSprites() {
-            ctx.fillStyle = "LightSlateGrey";
-            //Gridlines
-            for (let i = 19; i < ArenaWidth; i = i + 40) {
-                //horizontal
-                ctx.fillRect(centerX - PlayerX, centerY - PlayerY + i, ArenaWidth, 1);
-                //vertical
-                ctx.fillRect(centerX - PlayerX + i, centerY - PlayerY, 1, ArenaHeight);
-            }
             //BlueBase
             ctx.fillStyle = "DeepSkyBlue";
             ctx.fillRect(centerX - PlayerX, centerY - PlayerY, arenaSizes, arenaSizes);
             //RedBase
             ctx.fillStyle = "FireBrick";
             ctx.fillRect(centerX + ArenaWidth - PlayerX - arenaSizes, centerY + ArenaHeight - PlayerY - arenaSizes, arenaSizes, arenaSizes);
+            //Gridlines
+            for (let i = 19; i < ArenaWidth; i = i + 40) {
+                ctx.fillStyle = "Gainsboro";
+                //horizontal
+                ctx.fillRect(centerX - PlayerX, centerY - PlayerY + i, ArenaWidth, 1);
+                //vertical
+                ctx.fillRect(centerX - PlayerX + i, centerY - PlayerY, 1, ArenaHeight);
+            }
             //Borders
             ctx.fillStyle = "LightSlateGrey";
             //TopBorder
@@ -203,27 +231,64 @@
             ctx.fillRect(centerX - PlayerX, centerY - PlayerY, 10, ArenaHeight);
             //Right Border
             ctx.fillRect(centerX + ArenaWidth - PlayerX, centerY - PlayerY, 10, ArenaHeight);
-            
+
             //Dominator box
             ctx.fillStyle = "Khaki";
             ctx.fillRect(ArenaWidth / 2 - DomPadding / 2 - PlayerX + centerX, ArenaHeight / 2 - DomPadding / 2 - PlayerY + centerY, DomPadding, DomPadding);
 
             //Dominator Bullet
-            /*
+
             ctx.strokeStyle = "Gold";
             ctx.fillStyle = "Yellow";
             ctx.beginPath();
-            ctx.arc(w.x - PlayerX + centerX, w.x - PlayerY + centerY, 25, 0, 2 * Math.PI);
+            ctx.arc(mainDominatorBullet.x - PlayerX + centerX, mainDominatorBullet.y - PlayerY + centerY, 25, 0, 2 * Math.PI);
             ctx.fill();
             ctx.stroke();
-            */
+
+            //Dominator Side-Bullets
+            ctx.strokeStyle = "Gold";
+            ctx.fillStyle = "Yellow";
+            ctx.beginPath();
+            ctx.arc(DominatorGunnerBullet1.x - PlayerX + centerX, DominatorGunnerBullet1.y - PlayerY + centerY, 10, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(DominatorGunnerBullet2.x - PlayerX + centerX, DominatorGunnerBullet2.y - PlayerY + centerY, 10, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(DominatorGunnerBullet3.x - PlayerX + centerX, DominatorGunnerBullet3.y - PlayerY + centerY, 10, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(DominatorGunnerBullet4.x - PlayerX + centerX, DominatorGunnerBullet4.y - PlayerY + centerY, 10, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+
 
             //Dominator Cannon(s)
+
             ctx.save();
             ctx.fillStyle = "LightSlateGrey";
             ctx.translate(DominatorX - PlayerX + centerX, DominatorY - PlayerY + centerY);
-            ctx.rotate(DominatorCannonDegree * Math.PI / 180);
+            ctx.rotate((-DominatorCannonDegree - 10) * Math.PI / 180);
+            ctx.fillRect(0, -25, 90, 25);
+            ctx.restore();
+            
+            ctx.save();
+            ctx.fillStyle = "LightSlateGrey";
+            ctx.translate(DominatorX - PlayerX + centerX, DominatorY - PlayerY + centerY);
+            ctx.rotate((-DominatorCannonDegree + 30) * Math.PI / 180);
+            ctx.fillRect(0, -25, 90, 25);
+            ctx.restore();
+            //Main Cannon
+            ctx.save();
+            ctx.translate(DominatorX - PlayerX + centerX, DominatorY - PlayerY + centerY);
+            ctx.rotate(-DominatorCannonDegree * Math.PI / 180);
+            ctx.fillStyle = "SlateGrey";
             ctx.fillRect(0, -25, 100, 50);
+            ctx.fillStyle = "LightSlateGrey";
+            ctx.fillRect(0, -23, 98, 46);
             ctx.restore();
 
             //Dominator Body
@@ -245,9 +310,15 @@
             //MiniMap
             drawMiniMap();
         }
-        w = new DominatorBullet(0, "dunno");
+        let mainDominatorBullet = new DominatorBullet(0, "Destroyer", 0, 0);
+        let DominatorGunnerBullet1 = new DominatorBullet(0, "Gunner", 20, 5);
+        let DominatorGunnerBullet2 = new DominatorBullet(0, "Gunner", 20, 10);
+        let DominatorGunnerBullet3 = new DominatorBullet(0, "Gunner", -10, 5);
+        let DominatorGunnerBullet4 = new DominatorBullet(0, "Gunner", -20, 10);
         var intervalId = setInterval(function () {
-            DominatorCannonDegree = DominatorCannonDegree + 0.25;
+            DominatorCannonDegree = DominatorCannonDegree + 2;
+            // console.log("DominatorCannonDegree", DominatorCannonDegree);
+            //DominatorCannonDegree = 180;
             ctx.clearRect(0, 0, 1400, 900);
             ctx.fillStyle = "LightGrey";
             ctx.fillRect(0, 0, WindowWidth, WindowHeight);
@@ -258,7 +329,8 @@
             ctx.fillStyle = "Black";
             ctx.fillText("PlayerX:" + PlayerX, 0, 20);
             ctx.fillText("PlayerY:" + PlayerY, 0, 40);
-        }, 10);
+            ctx.fillText("PlayerHP:" + PlayerHP, 0, 60);
+        }, 100);
     </script>
 </body>
 

@@ -135,7 +135,13 @@
 <div class="update">
     <p></p>
     <p>
-        <div class="updateDate">7/23/2019: Script</div> Script has been completely redone! You can now copy and paste, undo, and insert images!
+        <div class="updateDate">7/27/2019: TankBattle</div> Prepare your tank for battle! This sandbox 1v1 arena features a 2-player split-screen
+        gameplay, with a computer tank in the middle, known as a dominator. If you defeat the dominator, you get to control it, and destroy your virtual enemies! 
+        Well, what are you waiting for? Play TankBattle, located in the game section!
+    </p>
+    <p>
+        <div class="updateDate">7/23/2019: Script</div> Script has been completely redone! You can now copy and paste,
+        undo, and insert images! Tables are also being developed.
     </p>
     <p>
         <div class="updateDate">7/8/2019: Website</div> Same content, new look! The website layout was completely
@@ -235,12 +241,15 @@
     function games() {
         clearLinks();
         info();
+        //Tanks
+        document.getElementById('image1').src = "Tank.png";
+        document.getElementById('link1').href = "TankBattle2Player.html";
         //Snake
-        document.getElementById('image1').src = "Snake.png";
-        document.getElementById('link1').href = "CompactStandardSnake.html";
+        document.getElementById('image2').src = "Snake.png";
+        document.getElementById('link2').href = "CompactStandardSnake.html";
         //3 kings
-        document.getElementById('image2').src = "3Kings.png";
-        document.getElementById('link2').href = "3kingsBoardGame.html";
+        document.getElementById('image3').src = "3Kings.png";
+        document.getElementById('link3').href = "3kingsBoardGame.html";
     }
     function education() {
         clearLinks();
