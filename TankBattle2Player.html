@@ -102,7 +102,7 @@
                 Player.dom = true;
                 Player.HP = 10000;
                 console.log("DomControl")
-            } 
+            }
             if (keys["select2"] && DominatorState == "red" && Player2.dom == false) {
                 setting = 1;
                 Player2.X = DominatorX;
@@ -261,14 +261,14 @@
                 keys["left"] = false;
             } else if (event.keyCode == 68) {
                 keys["right"] = false;
-            }else if (event.keyCode == 13) {
+            } else if (event.keyCode == 13) {
                 keys["select2"] = false;
-                if(Player2.dom == true){
+                if (Player2.dom == true) {
                     setting = 2;
                 }
-            }else if (event.keyCode == 89) {
+            } else if (event.keyCode == 89) {
                 keys["select"] = false;
-                if(Player.dom == true){
+                if (Player.dom == true) {
                     setting = 2;
                 }
             }
@@ -375,11 +375,11 @@
                 this.y = this.y + this.dy;
             }
             this.step++;
-            if(this.side == "blue" && this.x > ArenaWidth - arenaSizes && this.y > ArenaWidth - arenaSizes){
+            if (this.side == "blue" && this.x > ArenaWidth - arenaSizes && this.y > ArenaWidth - arenaSizes) {
                 this.x = 999999;
                 this.y = 999999;
             }
-            if(this.side == "red" && this.x < arenaSizes && this.y < arenaSizes){
+            if (this.side == "red" && this.x < arenaSizes && this.y < arenaSizes) {
                 this.x = 99999999;
                 this.y = 999999999;
             }
@@ -477,12 +477,10 @@
             //this.dy = this.dy * 0.95;
             if (this.x + 50 > Player.X && this.y + 50 > Player.Y && this.x - 50 < Player.X && this.y - 50 < Player.Y && DominatorState != "blue") {
                 //Touching Player1
-                Player.X = arenaSizes / 2;
-                Player.Y = arenaSizes / 2;
+                Player.HP = 0;
             } else if (this.x + 50 > Player2.X && this.y + 50 > Player2.Y && this.x - 50 < Player2.X && this.y - 50 < Player2.Y && DominatorState != "red") {
                 //Touching Player2
-                Player2.X = ArenaWidth - (arenaSizes / 2);
-                Player2.Y = ArenaHeight - (arenaSizes / 2);
+                Player2.HP = 0;
             }
             if (this.step == 1) {
                 if (this.type == "gunner") {
@@ -523,11 +521,13 @@
                 Player.X = arenaSizes / 2;
                 Player.Y = arenaSizes / 2;
                 Player.HP = 100;
+                Player.Level = 1;
             }
             if (Player2.HP < 1) {
                 Player2.X = ArenaWidth - (arenaSizes / 2);
                 Player2.Y = ArenaHeight - (arenaSizes / 2);
                 Player2.HP = 100;
+                Player2.Level = 1;
             }
         }
         function drawPlayer1Screen() {
@@ -695,7 +695,6 @@
             ctx.arc(PlayerBullet6.x - Player.X + centerX, PlayerBullet6.y - Player.Y + centerY, 10, 0, 2 * Math.PI);
             ctx.fill();
             ctx.stroke();
-
             //Player1
             if (Player.dom == false) {
                 ctx.save();
@@ -988,7 +987,7 @@
                     ctx.fillStyle = "DeepSkyBlue";
                     ctx.fillRect(190, 11, 348, 22);
                     ctx.fillStyle = "White";
-                    ctx.textBaseline = "top"; 
+                    ctx.textBaseline = "top";
                     ctx.fillText("Press E to take control of the Dominator", 201, 11);
                 }
                 if (DominatorState == "red") {
@@ -998,9 +997,9 @@
                     ctx2.fillStyle = "FireBrick";
                     ctx2.fillRect(190 - 100, 11, 348, 22);
                     ctx2.fillStyle = "White";
-                    ctx2.textBaseline = "top"; 
+                    ctx2.textBaseline = "top";
                     ctx2.fillText("Press Enter to take control of the Dominator", 190 - 100, 11);
-                
+
                 }
             }
             //ctx.fillText("Player.X:" + Player.X, 0, 20);
