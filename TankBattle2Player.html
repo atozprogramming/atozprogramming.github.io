@@ -30,6 +30,7 @@
         const centerY2 = WindowHeight2 / 2;
         const arenaSizes = 1020;
         const DomPadding = 599;
+        const SpeedLimit = 3;
         //Window is 1200 x 800
         //Player1(Speed should be 10 for gameplay)
         var Player = {
@@ -37,7 +38,7 @@
             X: arenaSizes / 2,
             Y: arenaSizes / 2,
             Speed: 0,
-            SpeedMax: 10,
+            SpeedMax: SpeedLimit,
             Angle: 0,
             Level: 1,
             dom: false
@@ -47,7 +48,7 @@
             X: ArenaWidth - (arenaSizes / 2),
             Y: ArenaHeight - (arenaSizes / 2),
             Speed: 0,
-            SpeedMax: 10,
+            SpeedMax: SpeedLimit,
             Angle: 0,
             Level: 1,
             dom: false
@@ -60,10 +61,10 @@
         var DominatorState = "yellow";
 
         var keys = {
-            up: false,
-            down: false,
-            left: false,
-            right: false,
+            "up": false,
+            "down": false,
+            "left": false,
+            "right": false,
             up2: false,
             down2: false,
             left2: false,
@@ -95,151 +96,6 @@
                 keys["select"] = true;
             } else if (event.keyCode == 13) {
                 keys["select2"] = true;
-            }
-            if (keys["select"] == true && DominatorState == "blue" && Player.dom == false) {
-                Player.X = DominatorX;
-                Player.Y = DominatorY;
-                Player.dom = true;
-                Player.HP = 10000;
-                console.log("DomControl")
-            }
-            if (keys["select2"] && DominatorState == "red" && Player2.dom == false) {
-                setting = 1;
-                Player2.X = DominatorX;
-                Player2.Y = DominatorY;
-                Player2.dom = true;
-                Player2.HP = 10000;
-                console.log("DomControl")
-            }
-            let angles = [];
-            if (keys["left"]) {
-                if (Player.dom == false) {
-                    //Moving the player
-                    Player.X = Player.X - Player.Speed;
-                    if (Player.X < 1) {
-                        Player.X = 1;
-                    }
-                    if (Player.Speed < Player.SpeedMax) {
-                        Player.Speed = Player.Speed + 0.5;
-                    }
-                    angles.push(180);
-                } else {
-                    DominatorCannonDegree = DominatorCannonDegree + 2;
-                }
-            }
-            if (keys["right"]) {
-                if (Player.dom == false) {
-                    //Moving the player
-                    Player.X = Player.X + Player.Speed;
-                    if (Player.X > ArenaWidth) {
-                        Player.X = ArenaWidth;
-                    }
-                    if (Player.Speed < Player.SpeedMax) {
-                        Player.Speed = Player.Speed + 0.5;
-                    }
-                    angles.push(0);
-                } else {
-                    DominatorCannonDegree = DominatorCannonDegree - 2;
-                }
-            }
-            if (keys["up"]) {
-                if (Player.dom == false) {
-                    //Moving the player
-                    Player.Y = Player.Y - Player.Speed;
-                    if (Player.Y < 1) {
-                        Player.Y = 1;
-                    }
-                    if (Player.Speed < Player.SpeedMax) {
-                        Player.Speed = Player.Speed + 0.5;
-                    }
-                    angles.push(90);
-                }
-            }
-            if (keys["down"]) {
-                if (Player.dom == false) {
-                    //Moving the player
-                    Player.Y = Player.Y + Player.Speed;
-                    if (Player.Y > ArenaHeight) {
-                        Player.Y = ArenaHeight;
-                    }
-                    if (Player.Speed < Player.SpeedMax) {
-                        Player.Speed = Player.Speed + 0.5;
-                    }
-                    angles.push(270);
-                }
-            }
-            if (angles.length == 1) {
-                Player.Angle = angles[0];
-            } else if (angles.length == 2) {
-                Player.Angle = 0.5 * (angles[0] + angles[1]);
-                if (keys["down"] && keys["right"]) {
-                    Player.Angle = 270 + 45;
-                }
-            }
-            angles = [];
-            if (keys["left2"]) {
-                if (Player2.dom == false) {
-                    //Moving the player
-                    Player2.X = Player2.X - Player2.Speed;
-                    if (Player2.X < 1) {
-                        Player2.X = 1;
-                    }
-                    if (Player2.Speed < Player2.SpeedMax) {
-                        Player2.Speed = Player2.Speed + 0.5;
-                    }
-                    angles.push(180);
-                } else {
-                    DominatorCannonDegree = DominatorCannonDegree + 2;
-                }
-            }
-            if (keys["right2"]) {
-                if (Player2.dom == false) {
-                    //Moving the player
-                    Player2.X = Player2.X + Player2.Speed;
-                    if (Player2.X > ArenaWidth) {
-                        Player2.X = ArenaWidth;
-                    }
-                    if (Player2.Speed < Player2.SpeedMax) {
-                        Player2.Speed = Player2.Speed + 0.5;
-                    }
-                    angles.push(0);
-                } else {
-                    DominatorCannonDegree = DominatorCannonDegree - 2;
-                }
-            }
-            if (keys["up2"]) {
-                if (Player2.dom == false) {
-                    //Moving the player
-                    Player2.Y = Player2.Y - Player2.Speed;
-                    if (Player2.Y < 1) {
-                        Player2.Y = 1;
-                    }
-                    if (Player2.Speed < Player2.SpeedMax) {
-                        Player2.Speed = Player2.Speed + 0.5;
-                    }
-                    angles.push(90);
-                }
-            }
-            if (keys["down2"]) {
-                if (Player2.dom == false) {
-                    //Moving the player
-                    Player2.Y = Player2.Y + Player2.Speed;
-                    if (Player2.Y > ArenaHeight) {
-                        Player2.Y = ArenaHeight;
-                    }
-                    if (Player2.Speed < Player2.SpeedMax) {
-                        Player2.Speed = Player2.Speed + 0.5;
-                    }
-                    angles.push(270);
-                }
-            }
-            if (angles.length == 1) {
-                Player2.Angle = angles[0];
-            } else if (angles.length == 2) {
-                Player2.Angle = 0.5 * (angles[0] + angles[1]);
-                if (keys["down2"] && keys["right2"]) {
-                    Player2.Angle = 270 + 45;
-                }
             }
         });
 
@@ -943,6 +799,153 @@
             //Player Health Bars
             drawHPs();
         }
+        function movePlayers() {
+            if (keys["select"] == true && DominatorState == "blue" && Player.dom == false) {
+                Player.X = DominatorX;
+                Player.Y = DominatorY;
+                Player.dom = true;
+                Player.HP = 10000;
+                console.log("DomControl")
+            }
+            if (keys["select2"] && DominatorState == "red" && Player2.dom == false) {
+                setting = 1;
+                Player2.X = DominatorX;
+                Player2.Y = DominatorY;
+                Player2.dom = true;
+                Player2.HP = 10000;
+                console.log("DomControl")
+            }
+            let angles = [];
+            if (keys["left"]) {
+                if (Player.dom == false) {
+                    //Moving the player
+                    Player.X = Player.X - Player.Speed;
+                    if (Player.X < 1) {
+                        Player.X = 1;
+                    }
+                    if (Player.Speed < Player.SpeedMax) {
+                        Player.Speed = Player.Speed + 0.5;
+                    }
+                    angles.push(180);
+                } else {
+                    DominatorCannonDegree = DominatorCannonDegree + 2;
+                }
+            }
+            if (keys["right"]) {
+                if (Player.dom == false) {
+                    //Moving the player
+                    Player.X = Player.X + Player.Speed;
+                    if (Player.X > ArenaWidth) {
+                        Player.X = ArenaWidth;
+                    }
+                    if (Player.Speed < Player.SpeedMax) {
+                        Player.Speed = Player.Speed + 0.5;
+                    }
+                    angles.push(0);
+                } else {
+                    DominatorCannonDegree = DominatorCannonDegree - 2;
+                }
+            }
+            if (keys["up"]) {
+                if (Player.dom == false) {
+                    //Moving the player
+                    Player.Y = Player.Y - Player.Speed;
+                    if (Player.Y < 1) {
+                        Player.Y = 1;
+                    }
+                    if (Player.Speed < Player.SpeedMax) {
+                        Player.Speed = Player.Speed + 0.5;
+                    }
+                    angles.push(90);
+                }
+            }
+            if (keys["down"]) {
+                if (Player.dom == false) {
+                    //Moving the player
+                    Player.Y = Player.Y + Player.Speed;
+                    if (Player.Y > ArenaHeight) {
+                        Player.Y = ArenaHeight;
+                    }
+                    if (Player.Speed < Player.SpeedMax) {
+                        Player.Speed = Player.Speed + 0.5;
+                    }
+                    angles.push(270);
+                }
+            }
+            if (angles.length == 1) {
+                Player.Angle = angles[0];
+            } else if (angles.length == 2) {
+                Player.Angle = 0.5 * (angles[0] + angles[1]);
+                if (keys["down"] && keys["right"]) {
+                    Player.Angle = 270 + 45;
+                }
+            }
+            angles = [];
+            if (keys["left2"]) {
+                if (Player2.dom == false) {
+                    //Moving the player
+                    Player2.X = Player2.X - Player2.Speed;
+                    if (Player2.X < 1) {
+                        Player2.X = 1;
+                    }
+                    if (Player2.Speed < Player2.SpeedMax) {
+                        Player2.Speed = Player2.Speed + 0.5;
+                    }
+                    angles.push(180);
+                } else {
+                    DominatorCannonDegree = DominatorCannonDegree + 2;
+                }
+            }
+            if (keys["right2"]) {
+                if (Player2.dom == false) {
+                    //Moving the player
+                    Player2.X = Player2.X + Player2.Speed;
+                    if (Player2.X > ArenaWidth) {
+                        Player2.X = ArenaWidth;
+                    }
+                    if (Player2.Speed < Player2.SpeedMax) {
+                        Player2.Speed = Player2.Speed + 0.5;
+                    }
+                    angles.push(0);
+                } else {
+                    DominatorCannonDegree = DominatorCannonDegree - 2;
+                }
+            }
+            if (keys["up2"]) {
+                if (Player2.dom == false) {
+                    //Moving the player
+                    Player2.Y = Player2.Y - Player2.Speed;
+                    if (Player2.Y < 1) {
+                        Player2.Y = 1;
+                    }
+                    if (Player2.Speed < Player2.SpeedMax) {
+                        Player2.Speed = Player2.Speed + 0.5;
+                    }
+                    angles.push(90);
+                }
+            }
+            if (keys["down2"]) {
+                if (Player2.dom == false) {
+                    //Moving the player
+                    Player2.Y = Player2.Y + Player2.Speed;
+                    if (Player2.Y > ArenaHeight) {
+                        Player2.Y = ArenaHeight;
+                    }
+                    if (Player2.Speed < Player2.SpeedMax) {
+                        Player2.Speed = Player2.Speed + 0.5;
+                    }
+                    angles.push(270);
+                }
+            }
+            if (angles.length == 1) {
+                Player2.Angle = angles[0];
+            } else if (angles.length == 2) {
+                Player2.Angle = 0.5 * (angles[0] + angles[1]);
+                if (keys["down2"] && keys["right2"]) {
+                    Player2.Angle = 270 + 45;
+                }
+            }
+        }
         let mainDominatorBullet = new DominatorBullet(0, "Destroyer", 0, 0);
         let DominatorGunnerBullet1 = new DominatorBullet(0, "Gunner", 20, 5);
         let DominatorGunnerBullet2 = new DominatorBullet(0, "Gunner", 20, 10);
@@ -975,6 +978,7 @@
             ctx.fillRect(0, 0, WindowWidth, WindowHeight);
             ctx2.fillStyle = "LightGrey";
             ctx2.fillRect(0, 0, WindowWidth, WindowHeight);
+            movePlayers();
             fireDominator();
             firePlayers();
             checkPlayerDeath();
@@ -1002,6 +1006,7 @@
 
                 }
             }
+            console.log("Keys for P1: " + keys["up"], keys["down"], keys["left"], keys["right"] + " Keys for P2: " + keys["up2"], keys["down2"], keys["left2"], keys["right2"]);
             //ctx.fillText("Player.X:" + Player.X, 0, 20);
             //ctx.fillText("Player.Y:" + Player.Y, 0, 40);
             //ctx.fillText("Player.HP:" + Player.HP, 0, 60);
